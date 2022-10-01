@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="fxga_sys.css">
   <title>FXGA_SYS</title>
 </head>
 
@@ -18,6 +19,7 @@
     <div class="credits">Nov 10, 1995</div>
     <div class="credits">Translated by Sean Aoki</div>
   </div>
+  <a href="./">Return</a>
   <div class="contents">
     <h2>Contents</h2>
     <div class="contents-chapter">
@@ -79,6 +81,8 @@
 
   </div>
 
+  <hr>
+
   <div class="chapter" id="ch2">
     <h2>Chapter 2 Source Processing</h2>
     <div class="section" id="ch2-1">
@@ -88,37 +92,75 @@
       </h3>
       <div class="flowchart1">
         <div class="flowchart1-left">
-          <div class="block" id="block11">Assembly<br>Source</div>
-          <div class="block" id="block12">FXAS<br>Assembler</div>
-          <div class="block" id="block13">Object File<br>_startup.o<br>Library</div>
-          <div class="block" id="block14">FXLK<br>Linker</div>
-          <div class="block" id="block15">Executable<br>Program</div>
-          <div class="block" id="block16">FXDB<br>Source Code<br>Debugger</div>
+          <div class="block" id="block11">
+            Assembly<br>Source
+            <div class="arrow-down flowchart-arrow"></div>
+          </div>
+          <div class="block" id="block12">
+            FXAS<br>Assembler
+            <div class="arrow-down flowchart-arrow"></div>
+          </div>
+          <div class="block" id="block13">
+            Object File<br>_startup.o<br>Library
+            <div class="arrow-down flowchart-arrow"></div>
+          </div>
+          <div class="block" id="block14">
+            FXLK<br>Linker
+            <div class="arrow-down flowchart-arrow"></div>
+          </div>
+          <div class="block" id="block15">
+            Executable<br>Program
+            <div class="arrow-down flowchart-arrow"></div>
+          </div>
+          <div class="block" id="block16">
+            FXDB<br>Source Code<br>debugger
+          </div>
         </div>
         <div class="flowchart1-right">
-          <div class="block" id="block14a">EX File<br>Standard Executable Format</div>
+          <div class="block" id="block14a">
+            <div class="arrow-right flowchart-arrow-right"></div>
+            EX File<br>Standard Executable Format
+          </div>
           <div class="wrapper">
-            <div class="block" id="block14b">MX File<br>Motorola Format</div>
+            <div class="block" id="block14b">
+              <div class="arrow-right flowchart-arrow-right"></div>
+              MX File<br>Motorola Format
+            </div>
             <div class="block-switch">-M [File Name]<br>-P [Address]</div>
           </div>
           <div class="wrapper">
-            <div class="block" id="block14c">BX File<br>Binary Format</div>
+            <div class="block" id="block14c">
+              <div class="arrow-right flowchart-arrow-right"></div>
+              BX File<br>Binary Format
+            </div>
             <div class="block-switch">-b [File Name]</div>
           </div>
           <div class="wrapper">
-            <div class="block" id="block14d">BIN File<br>Binary Format</div>
+            <div class="block" id="block14d">
+              <div class="arrow-right flowchart-arrow-right"></div>
+              BIN File<br>Binary Format
+            </div>
             <div class="block-switch">-B [File Name]</div>
           </div>
           <div class="wrapper">
-            <div class="block" id="block14e">HEX File<br>Intel Format</div>
+            <div class="block" id="block14e">
+              <div class="arrow-right flowchart-arrow-right"></div>
+              HEX File<br>Intel Format
+            </div>
             <div class="block-switch">-H [File Name]</div>
           </div>
           <div class="wrapper">
-            <div class="block" id="block14f">Map File</div>
+            <div class="block" id="block14f">
+              <div class="arrow-right flowchart-arrow-right"></div>
+              Map File
+            </div>
             <div class="block-switch">-m [File Name]</div>
           </div>
           <div class="wrapper">
-            <div class="block" id="block14g">Symbol File</div>
+            <div class="block" id="block14g">
+              <div class="arrow-right flowchart-arrow-right"></div>
+              Symbol File
+            </div>
             <div class="block-switch">-y [File Name]</div>
           </div>
         </div>
@@ -131,35 +173,292 @@
     </div>
 
     <div class="section" id="ch2-2">
-      <h2>Development with C and Assembly<span
+      <h3>2.2 Development with C and Assembly<span
           title="Requires an assembler. Note GMAKER Starter Kit does not support an assembler."
-          class="underline">*</span> Language</h2>
+          class="underline">*</span> Language</h3>
       <div class="flowchart2">
         <div class="flowchart2-left">
-          <div class="block" id="block21">Assembly<br>Source</div>
-          <div class="block" id="block22">FXAS<br>Assembler</div>
-          <div class="block" id="block23">Object File<br>_startup.o<br>Library</div>
-          <div class="block" id="block24">FXLK<br>Linker</div>
-          <div class="block" id="block25">Executable<br>Program</div>
+          <div class="block" id="block21">
+            Assembly<br>Source
+            <div class="arrow-down flowchart-arrow"></div>
+          </div>
+          <div class="block" id="block22">
+            FXAS<br>Assembler
+            <div class="arrow-down flowchart-arrow"></div>
+          </div>
+          <div class="block" id="block23">
+            Object File<br>_startup.o<br>Library
+            <div class="arrow-down flowchart-arrow"></div>
+          </div>
+          <div class="block" id="block24">
+            FXLK<br>Linker
+            <div class="arrow-down flowchart-arrow"></div>
+          </div>
+          <div class="block" id="block25">
+            Executable<br>Program
+            <div class="arrow-down flowchart-arrow"></div>
+          </div>
           <div class="block" id="block26">FXDB<br>Source Code<br>Debugger</div>
         </div>
         <div class="flowchart2-right">
-          <div class="block" id="block27">C Language<br>Source Program</div>
-          <div class="block" id="block28">FXCC<br>C Compiler</div>
+          <div class="block" id="block27">
+            C Language<br>Source Program
+            <div class="arrow-down flowchart-arrow"></div>
+          </div>
+          <div class="block" id="block28">
+            FXCC<br>C Compiler
+            <div class="arrow-down flowchart-arrow"></div>
+          </div>
           <div class="block" id="block29">FXAS<br>Assembler</div>
-          <div class="block" id="block24a">EX File<br>Standard Executable Format</div>
-          <div class="block" id="block24b">MX File<br>Motorola Format</div>
-          <div class="block" id="block24c">BX File<br>Binary Format</div>
-          <div class="block" id="block24d">BIN File<br>Binary Format</div>
-          <div class="block" id="block24e">HEX File<br>Intel Format</div>
-          <div class="block" id="block24f">Map File</div>
-          <div class="block" id="block24g">Symbol File</div>
+          <div class="block" id="block24a">
+            <div class="arrow-right flowchart-arrow-right"></div>
+            EX File<br>Standard Executable Format
+          </div>
+          <div class="block" id="block24b">
+            <div class="arrow-right flowchart-arrow-right"></div>
+            MX File<br>Motorola Format
+          </div>
+          <div class="block" id="block24c">
+            <div class="arrow-right flowchart-arrow-right"></div>
+            BX File<br>Binary Format
+          </div>
+          <div class="block" id="block24d">
+            <div class="arrow-right flowchart-arrow-right"></div>
+            BIN File<br>Binary Format
+          </div>
+          <div class="block" id="block24e">
+            <div class="arrow-right flowchart-arrow-right"></div>
+            HEX File<br>Intel Format
+          </div>
         </div>
       </div>
+      <ul>
+        <li>BX Files, MX Files, BIN Files, and HEX Files do not get outputted unless specified.</li>
+        <li>See <a href="./bin/fxlk.html">Explanation of "FXLK.EXE"</a> for descriptions of the switches, etc.</li>
+      </ul>
+    </div>
+
+    <div class="section" id="ch2-3">
+      <h3>2.3 Development with C</h3>
+      <div class="flowchart3">
+        <div class="flowchart3-left">
+          <div class="block" id="block31">
+            <div class="arrow-down flowchart-arrow"></div>
+            C Language<br>Source Program
+          </div>
+          <div class="block" id="block31a">
+            <div class="arrow-down flowchart-arrow"></div>
+            FXCC<br>C Compiler
+          </div>
+          <div class="block" id="block32">
+            <div class="arrow-down flowchart-arrow"></div>
+            FXAS<br>Assembler
+          </div>
+          <div class="block" id="block33">
+            <div class="arrow-down flowchart-arrow"></div>
+            Object File<br>_startup.o<br>Library
+          </div>
+          <div class="block" id="block34">
+            <div class="arrow-down flowchart-arrow"></div>
+            FXLK<br>Linker
+          </div>
+          <div class="block" id="block35">
+            <div class="arrow-down flowchart-arrow"></div>
+            Executable<br>Program
+          </div>
+          <div class="block" id="block36">FXDB<br>Source Code<br>Debugger</div>
+        </div>
+        <div class="flowchart3-right">
+          <div class="block" id="block34a">
+            <div class="arrow-right flowchart-arrow-right"></div>
+            EX File<br>Standard Executable Format
+          </div>
+          <div class="block" id="block34b">
+            <div class="arrow-right flowchart-arrow-right"></div>
+            MX File<br>Motorola Format
+          </div>
+          <div class="block" id="block34c">
+            <div class="arrow-right flowchart-arrow-right"></div>
+            BX File<br>Binary Format
+          </div>
+          <div class="block" id="block34d">
+            <div class="arrow-right flowchart-arrow-right"></div>
+            BIN File<br>Binary Format
+          </div>
+          <div class="block" id="block34e">
+            <div class="arrow-right flowchart-arrow-right"></div>
+            HEX File<br>Intel Format
+          </div>
+        </div>
+      </div>
+      <ul>
+        <li>BX Files, MX Files, BIN Files, and HEX Files do not get outputted unless specified.</li>
+        <li>See <a href="./bin/fxlk.html">Explanation of "FXLK.EXE"</a> for descriptions of the switches, etc.</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="chapter" id="ch3">
+    <h2>Chapter 3 Actual Development Process</h2>
+    <p>
+      Here, we create model data with DoGAGENIE-1 in the "アマチュア提供 CD-ROM" disk
+      included with the PC-FXGA, and show the steps to show it on the display.
+    </p>
+    <img src="images/148001099.jpg" alt="Image of the CD-ROM">
+
+    <div class="section" id="ch3-1">
+      <h3>3.1 Example of Model Data Creation</h3>
+      <div id="modelchart">
+        <div id="dogabox">
+          <div class="dogabox-title">DoGAGENIE-1</div>
+          <div class="dogabox-subbox1">Create Model with Parts Assembler</div>
+          <div class="arrow-down"></div>
+          <div class="dogabox-subbox2">Create AGD File with AGD Converter</div>
+        </div>
+        <div id="modelchart2">
+          <div class="arrow-down"></div>
+          <div class="dogabox-subbox3">Optimize AGD File with AGDL2s</div>
+        </div>
+        <div id="modelchart3">
+          <div class="arrow-down"></div>
+          <div class="dogabox-subbox4">Create a AGC File with AGD2AGC</div>
+        </div>
+        <p>The model data can be displayed by the library by taking the model created using
+          the DoGAGENIE-1’s Part Assembler and converting it to an AGD file with the AGD
+          converter, then using <a href="./bin/agdl2s.html">AGDL2S.EXE</a> and <a
+            href="./bin/agd2agc.html">AGD2AGC.EXE</a> stored in \FXGA\BIN\ (by
+          default)
+          to convert it to an AGC file.</p>
+      </div>
+
 
     </div>
 
-  </div>
+    <div class="section" id="ch3-2">
+      <h3>3.2 Program Example</h3>
+      <p>Here is an example of using the AGC File created in <a href="#ch3-1">3.1</a>, which we call MODEL.AGC</p>
+<div class="codeblock">- main.c -
+#include <system.h>
+#include <v93.h>
+#include <nt.h>
+#include <farl.h>
+#include <agl.h>
+
+#define PALDATSIZ (512)
+
+#asm
+      seg dseg
+palette_data::
+;;; DoGAGENIE-1-specific pallet data
+      binload "genie.acd",104
+      align 4
+model_data_length::
+      binload "model.agc",0,4
+      align 4
+model_data::
+      binload "model.agc",4
+#endasm
+extern unsigned short palette_data[];
+extern long model_data_length;
+extern int model_data[];
+
+void
+main(void)
+{
+  object obj;
+  Material material;
+  int angle = 0;
+
+  /* Hu6261 Screen Mode Settings */
+  init_nt();
+  set_nt_mode(line263);
+  {
+    struct NT_PLO plo;
+
+    plo.cpo0 = 0x8000; /* Fixed */
+    plo.cpo1 = plo.cpo2 = plo.cpo3 = 0x0000;
+    set_pallet_offset(&plo);
+  }
+  /* Transferring Color Pallet */
+  write_pallet_datas(0, palette_data, PALDATSIZ);
+
+  /* HuC6273 Settings. Please don’t change this normally. */
+  AGLInit();
+  FarlSetWindowScaleReg(128 * 2, 128, -128 * 2, 128);
+  FarlSetPEICMaskReg(FARL_ICMASK_I5C4);
+  FarlSetTEControlReg(FARL_TE_ICM | FARL_TE_LTEN | FARL_TE_SPEN | FARL_TE_BCE);
+  FarlValidateSwap();
+  dispon(bg | spr);
+
+  /* Registering Model Data */
+  obj.geometryTop = model_data;
+  obj.geometryLength = (model_data_length + sizeof(int) - 1) / sizeof(int);
+  
+  /* Material Settings */
+  material.ambient = 0x1000;
+  material.diffuse = 0x6FFF;
+  material.specular = 0x7FFF;
+  obj.material = &material;
+  AGLSetMaterial(&material, 1);
+
+  /* Light Settings */
+  AGLResetLight(AGL_LIGHT0);
+  AGLResetLight(AGL_LIGHT1);
+  AGLSetLight(AGL_LIGHT0, 0xf000, 0xf000, 0x0200, 0x7FFF);
+  AGLRotateLightY(AGL_LIGHT0, 700);
+  AGLRotateLightZ(AGL_LIGHT0, 3300);
+
+  while (1) {
+    AGLResetCamera();
+    AGLTranslateCamera(0, -0x80, 0);
+    AGLRotateCameraX(900);
+    AGLPerspectiveCamera(0xffc0);
+    AGLZoomCamera(0x80, 0x80, 0x80);
+    AGLResetObj(&obj);
+    AGLScaleObj(&obj, 0x80, 0x80, 0x80);
+    AGLRotateObjX(&obj, 900);
+    AGLRotateObjZ(&obj, angle);
+    AGLTranslateObj(&obj, 0, 0, 0);
+    AGLFixPutObj(&obj);
+    AGLShot();
+    angle += 10;
+    angle %= 3600;
+  }
+}
+----------</div>
+      <p>We compile and link this.</p>
+      <div class="codeblock">fxcc -02 -I\fxga\include -c main.c
+fxlk @ind</div>
+      <p>The contents of the indirect file ind is given below:</p>
+      <div class="codeblock">- ind -
+/cseg:8000 -o sample.ex
+\fxga\lib\_startup.o
+main.o
+\fxga\lib\libagl.a \fxga\lib\vlib.a \fxga\lib\libfarl.a
+\fxga\lib\_stack.o</div>
+      <p>Execution is done as follows. See <a href="./bin/fxdb.html">Explanation of "FXDB.EXE"</a> for more information.
+      </p>
+      <div class="codeblock">fxdb ysample;rg</div>
+    </div>
+
+    </div>
+
+    <hr>
+
+    <div class="chapter" id="ch4">
+      <h2>Chapter 4 Warnings</h2>
+      <div class="section" id="4-1">
+        <h3>4.1 Warnings During Development</h3>
+        <p>The GMAKER Starter Kit contains _STARTUP.O and _STACK.O to reset on execution. Please link _STARTUP.O and
+          _STACK.O as well.</p>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="footer">(C) 1995 HUDSON SOFT</div>
 
 
 </body>
