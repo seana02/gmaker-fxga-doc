@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../styles/styles.css">
+  <link rel="stylesheet" href="../styles/agddisp.css">
+  <title>AGDDISP</title>
+</head>
+
+<body>
+  <div class="heading">
+    <div>PC-FXGA Authoring Software</div>
+    <div>GMAKER Starter Kit (Ver.1.0)</div>
+    <div class="title">Explanation of "ADDDISP.EXE (Ver.1.0)"</div>
+    <div class="credits">NEC Home Electronics, Ltd.</div>
+    <div class="credits">Nov 10, 1995</div>
+    <div class="credits">Translated by Sean Aoki</div>
+  </div>
+  <a href="./">Return</a>
+
+  <h2>Name</h2>
+  <p><strong>AGDDISP</strong>: AGD File Display Application</p>
+
+  <h2>Software Structure</h2>
+  <p>
+    AGDDISP.EXE: The Program<br>
+    DISP.BIN: Part executed on the PC-FXGA
+  </p>
+
+  <h2>Syntax</h2>
+  <p>AGDDISP AGD file name [ATT file name] [ACD file name]</p>
+
+  <h2>Functionality</h2>
+  <p>
+    Reads the AGD file (input_file.agd) and the ATT file (att_file.att), as well as the
+    ACD file (acd_file.acd) and displays it on the actual device. If the ATT file is
+    omitted, it searches for input_file.att and reads that. If the ACD file is not
+    specified, it does not read it. For each file, the extension (.agd/.att/.acd) may
+    be omitted, but in that case it will be interpreted as the first being the AGD
+    file, the second the ATT file, and the third the ACD file. If the extension is
+    specified for the ATT file or the ACD file, the order can be changed, or one may be
+    omitted.
+  </p>
+
+  <h2>ATT File Compatibility</h2>
+  <p>
+    If the ATT file is not specified, the program will read infile.att. In this case,
+    the ATT file will be opened as if it is in the same directory as infile. If you
+    would like to read a different file as the ATT file, it must be specified. Next,
+    the AID file listed in the ATT file is read. If the file does not exist, it does
+    not read it. The texture data will be loaded into the texture bank listed in the
+    AID file. To change the load destination of the texture data, the AID file must be
+    changed. If the Texture_tag number listed in the AGD file is also listed in the ATT
+    file, the corresponding bank’s textures are used for the display. Furthermore, the
+    UV coordinates are recalculated based on the location and size listed in the ATT
+    file.
+  </p>
+
+  <h2>Prioritization in IC Mode</h2>
+  <p>
+    The IC mode specified in each file is prioritized in the order of the ACD file, the
+    AID file, then the AGD file. If the IC mode is not the same across the files, there
+    will not be an error, but the desired results may not be displayed.
+  </p>
+
+  <h2>Color Map</h2>
+  <p>
+    When an ACD file is specified, the contents of the ACD file will be used as the
+    color map. Otherwise, the default color map for the IC mode is set.
+  </p>
+
+  <h2>Controls</h2>
+  <p>After started, the following controls can be done through the pad.</p>
+
+  <table>
+
+    <tr>
+      <td>run + select + I</td>
+      <td>Return the file input.</td>
+    </tr>
+
+    <tr class="table-group">
+      <td>run + select</td>
+      <td>Reset graphics parameters</td>
+    </tr>
+
+    <tr class="table-group">
+      <td>← or →</td>
+      <td>Rotate the camera along the Y axis.</td>
+    </tr>
+
+    <tr class="table-group">
+      <td>↑ or ↓</td>
+      <td>Zoom in/out</td>
+    </tr>
+    </div>
+
+    <tr class="table-group">
+      <td>VI</td>
+      <td>Parameter freeze (movement stops)</td>
+    </tr>
+
+    <tr class="table-group">
+      <td>run+I</td>
+      <td>Object Rotation Mode</td>
+    </tr>
+    <tr>
+      <td>&emsp;I + ← or →</td>
+      <td>X-Axis Rotation</td>
+    </tr>
+    <tr>
+      <td>&emsp;II + ← or →</td>
+      <td>Y-Axis Rotation</td>
+    </tr>
+    <tr>
+      <td>&emsp;III + ← or →</td>
+      <td>Z-Axis Rotation</td>
+    </tr>
+    <tr>
+      <td>&emsp;↑ or ↓</td>
+      <td>Zoom in/out</td>
+    </tr>
+
+    <tr class="table-group">
+      <td>run+II</td>
+      <td>Object Movement Mode</td>
+    </tr>
+    <tr>
+      <td>&emsp;I + ← or →</td>
+      <td>X-Axis Rotation</td>
+    </tr>
+    <tr>
+      <td>&emsp;II + ← or →</td>
+      <td>Y-Axis Rotation</td>
+    </tr>
+    <tr>
+      <td>&emsp;III + ← or →</td>
+      <td>Z-Axis Rotation</td>
+    </tr>
+    <tr>
+      <td>&emsp;↑ or ↓</td>
+      <td>Zoom in/out</td>
+    </tr>
+
+    <tr class="table-group">
+      <td>run+III</td>
+      <td>Light 1 Control Mode</td>
+    </tr>
+    <tr>
+      <td>&emsp;I + ← or →</td>
+      <td>X-Axis Rotation</td>
+    </tr>
+    <tr>
+      <td>&emsp;II + ← or →</td>
+      <td>Y-Axis Rotation</td>
+    </tr>
+    <tr>
+      <td>&emsp;III + ← or →</td>
+      <td>Z-Axis Rotation</td>
+    </tr>
+    <tr>
+      <td>&emsp;↑ or ↓</td>
+      <td>Change Light Strength</td>
+    </tr>
+
+    <tr class="table-group">
+      <td>run+IV</td>
+      <td>Light 2 Control Mode</td>
+    </tr>
+    <tr>
+      <td>&emsp;I + ← or →</td>
+      <td>X-Axis Rotation</td>
+    </tr>
+    <tr>
+      <td>&emsp;II + ← or →</td>
+      <td>Y-Axis Rotation</td>
+    </tr>
+    <tr>
+      <td>&emsp;III + ← or →</td>
+      <td>Z-Axis Rotation</td>
+    </tr>
+    <tr>
+      <td>&emsp;↑ or ↓</td>
+      <td>Change Light Strength</td>
+    </tr>
+
+    <tr class="table-group">
+      <td>run+V</td>
+      <td>Normal Rotation Mode</td>
+    </tr>
+    <tr>
+      <td>&emsp;I + ← or →</td>
+      <td>X-Axis Rotation</td>
+    </tr>
+    <tr>
+      <td>&emsp;II + ← or →</td>
+      <td>Y-Axis Rotation</td>
+    </tr>
+    <tr>
+      <td>&emsp;III + ← or →</td>
+      <td>Z-Axis Rotation</td>
+    </tr>
+
+    <tr class="table-group">
+      <td>run+VI</td>
+      <td>Camera Rotation Mode</td>
+    </tr>
+    <tr>
+      <td>&emsp;I + ← or →</td>
+      <td>X-Axis Rotation</td>
+    </tr>
+    <tr>
+      <td>&emsp;II + ← or →</td>
+      <td>Y-Axis Rotation</td>
+    </tr>
+    <tr>
+      <td>&emsp;III + ← or →</td>
+      <td>Z-Axis Rotation</td>
+    </tr>
+    <tr>
+      <td>&emsp;↑ or ↓</td>
+      <td>Zoom in/out</td>
+    </tr>
+
+    <tr class="table-group">
+      <td>select + I</td>
+      <td>Textures on/off</td>
+    </tr>
+
+    <tr class="table-group">
+      <td>select + II</td>
+      <td>Specular on/off</td>
+    </tr>
+
+    <tr class="table-group">
+      <td>select + III</td>
+      <td>Back facecal? (バックフェースカル) on/off<br>
+        Negative Normal Flip on/off</td>
+    </tr>
+
+    <tr class="table-group">
+      <td>select + IV</td>
+      <td>Switch between V/F Normal<br>
+        Does not switch when there is no data.</td>
+    </tr>
+
+    <tr class="table-group">
+      <td>select + V</td>
+      <td>Switch between V/F Color<br>
+        Does not switch when there is no data.</td>
+    </tr>
+
+    <tr class="table-group">
+      <td>select + VI</td>
+      <td>Status Display</td>
+    </tr>
+
+  </table>
+
+
+  <hr>
+
+  <h2>Copyright and Trademark Notice</h2>
+  <ul>
+    <li>
+      AGDDISP.EXE, DISP.BIN and, AGDDISP.TXT（the Software）is a part of the PC-FXGA software
+      development toolkit. Do not use this software for any purpose other than developing
+      software for the PC-FX or PC-FXGA.
+    </li>
+    <li>
+      Hudson Soft bears no responsibility for any direct or indirect damage caused by
+      the use of this software.
+    </li>
+    <li>
+      Hudson Soft does not directly answer questions about how to use this software,
+      technical, or other questions. Please do not contact Hudson Soft.</li>
+    <li>
+      When using this software, read the “Conditions for the use of this Software”.
+    </li>
+  </ul>
+
+  <p>MS-DOS is a trademark of Microsoft.<br>
+    Other named companies and software are copyrights or trademarks of their respective companies.</p>
+
+  <div class="footer">(C) 1995 HUDSON SOFT&nbsp</div>
+  <div class="footer">(C) 1995 KUBOTA CORP.</div>
+
+</body>
+
+</html>

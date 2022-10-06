@@ -5,8 +5,8 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="fxga_sys.css">
+  <link rel="stylesheet" href="styles/styles.css">
+  <link rel="stylesheet" href="styles/fxga_sys.css">
   <title>FXGA_SYS</title>
 </head>
 
@@ -339,126 +339,126 @@
     <div class="section" id="ch3-2">
       <h3>3.2 Program Example</h3>
       <p>Here is an example of using the AGC File created in <a href="#ch3-1">3.1</a>, which we call MODEL.AGC</p>
-<div class="codeblock">- main.c -
-#include <system.h>
-#include <v93.h>
-#include <nt.h>
-#include <farl.h>
-#include <agl.h>
+      <div class="codeblock">- main.c -
+        #include <system.h>
+          #include <v93.h>
+            #include <nt.h>
+              #include <farl.h>
+                #include <agl.h>
 
-#define PALDATSIZ (512)
+                  #define PALDATSIZ (512)
 
-#asm
-      seg dseg
-palette_data::
-;;; DoGAGENIE-1-specific pallet data
-      binload "genie.acd",104
-      align 4
-model_data_length::
-      binload "model.agc",0,4
-      align 4
-model_data::
-      binload "model.agc",4
-#endasm
-extern unsigned short palette_data[];
-extern long model_data_length;
-extern int model_data[];
+                  #asm
+                  seg dseg
+                  palette_data::
+                  ;;; DoGAGENIE-1-specific pallet data
+                  binload "genie.acd",104
+                  align 4
+                  model_data_length::
+                  binload "model.agc",0,4
+                  align 4
+                  model_data::
+                  binload "model.agc",4
+                  #endasm
+                  extern unsigned short palette_data[];
+                  extern long model_data_length;
+                  extern int model_data[];
 
-void
-main(void)
-{
-  object obj;
-  Material material;
-  int angle = 0;
+                  void
+                  main(void)
+                  {
+                  object obj;
+                  Material material;
+                  int angle = 0;
 
-  /* Hu6261 Screen Mode Settings */
-  init_nt();
-  set_nt_mode(line263);
-  {
-    struct NT_PLO plo;
+                  /* Hu6261 Screen Mode Settings */
+                  init_nt();
+                  set_nt_mode(line263);
+                  {
+                  struct NT_PLO plo;
 
-    plo.cpo0 = 0x8000; /* Fixed */
-    plo.cpo1 = plo.cpo2 = plo.cpo3 = 0x0000;
-    set_pallet_offset(&plo);
-  }
-  /* Transferring Color Pallet */
-  write_pallet_datas(0, palette_data, PALDATSIZ);
+                  plo.cpo0 = 0x8000; /* Fixed */
+                  plo.cpo1 = plo.cpo2 = plo.cpo3 = 0x0000;
+                  set_pallet_offset(&plo);
+                  }
+                  /* Transferring Color Pallet */
+                  write_pallet_datas(0, palette_data, PALDATSIZ);
 
-  /* HuC6273 Settings. Please don’t change this normally. */
-  AGLInit();
-  FarlSetWindowScaleReg(128 * 2, 128, -128 * 2, 128);
-  FarlSetPEICMaskReg(FARL_ICMASK_I5C4);
-  FarlSetTEControlReg(FARL_TE_ICM | FARL_TE_LTEN | FARL_TE_SPEN | FARL_TE_BCE);
-  FarlValidateSwap();
-  dispon(bg | spr);
+                  /* HuC6273 Settings. Please don’t change this normally. */
+                  AGLInit();
+                  FarlSetWindowScaleReg(128 * 2, 128, -128 * 2, 128);
+                  FarlSetPEICMaskReg(FARL_ICMASK_I5C4);
+                  FarlSetTEControlReg(FARL_TE_ICM | FARL_TE_LTEN | FARL_TE_SPEN | FARL_TE_BCE);
+                  FarlValidateSwap();
+                  dispon(bg | spr);
 
-  /* Registering Model Data */
-  obj.geometryTop = model_data;
-  obj.geometryLength = (model_data_length + sizeof(int) - 1) / sizeof(int);
-  
-  /* Material Settings */
-  material.ambient = 0x1000;
-  material.diffuse = 0x6FFF;
-  material.specular = 0x7FFF;
-  obj.material = &material;
-  AGLSetMaterial(&material, 1);
+                  /* Registering Model Data */
+                  obj.geometryTop = model_data;
+                  obj.geometryLength = (model_data_length + sizeof(int) - 1) / sizeof(int);
 
-  /* Light Settings */
-  AGLResetLight(AGL_LIGHT0);
-  AGLResetLight(AGL_LIGHT1);
-  AGLSetLight(AGL_LIGHT0, 0xf000, 0xf000, 0x0200, 0x7FFF);
-  AGLRotateLightY(AGL_LIGHT0, 700);
-  AGLRotateLightZ(AGL_LIGHT0, 3300);
+                  /* Material Settings */
+                  material.ambient = 0x1000;
+                  material.diffuse = 0x6FFF;
+                  material.specular = 0x7FFF;
+                  obj.material = &material;
+                  AGLSetMaterial(&material, 1);
 
-  while (1) {
-    AGLResetCamera();
-    AGLTranslateCamera(0, -0x80, 0);
-    AGLRotateCameraX(900);
-    AGLPerspectiveCamera(0xffc0);
-    AGLZoomCamera(0x80, 0x80, 0x80);
-    AGLResetObj(&obj);
-    AGLScaleObj(&obj, 0x80, 0x80, 0x80);
-    AGLRotateObjX(&obj, 900);
-    AGLRotateObjZ(&obj, angle);
-    AGLTranslateObj(&obj, 0, 0, 0);
-    AGLFixPutObj(&obj);
-    AGLShot();
-    angle += 10;
-    angle %= 3600;
-  }
-}
-----------</div>
+                  /* Light Settings */
+                  AGLResetLight(AGL_LIGHT0);
+                  AGLResetLight(AGL_LIGHT1);
+                  AGLSetLight(AGL_LIGHT0, 0xf000, 0xf000, 0x0200, 0x7FFF);
+                  AGLRotateLightY(AGL_LIGHT0, 700);
+                  AGLRotateLightZ(AGL_LIGHT0, 3300);
+
+                  while (1) {
+                  AGLResetCamera();
+                  AGLTranslateCamera(0, -0x80, 0);
+                  AGLRotateCameraX(900);
+                  AGLPerspectiveCamera(0xffc0);
+                  AGLZoomCamera(0x80, 0x80, 0x80);
+                  AGLResetObj(&obj);
+                  AGLScaleObj(&obj, 0x80, 0x80, 0x80);
+                  AGLRotateObjX(&obj, 900);
+                  AGLRotateObjZ(&obj, angle);
+                  AGLTranslateObj(&obj, 0, 0, 0);
+                  AGLFixPutObj(&obj);
+                  AGLShot();
+                  angle += 10;
+                  angle %= 3600;
+                  }
+                  }
+                  ----------</div>
       <p>We compile and link this.</p>
       <div class="codeblock">fxcc -02 -I\fxga\include -c main.c
-fxlk @ind</div>
+        fxlk @ind</div>
       <p>The contents of the indirect file ind is given below:</p>
       <div class="codeblock">- ind -
-/cseg:8000 -o sample.ex
-\fxga\lib\_startup.o
-main.o
-\fxga\lib\libagl.a \fxga\lib\vlib.a \fxga\lib\libfarl.a
-\fxga\lib\_stack.o</div>
+        /cseg:8000 -o sample.ex
+        \fxga\lib\_startup.o
+        main.o
+        \fxga\lib\libagl.a \fxga\lib\vlib.a \fxga\lib\libfarl.a
+        \fxga\lib\_stack.o</div>
       <p>Execution is done as follows. See <a href="./bin/fxdb.html">Explanation of "FXDB.EXE"</a> for more information.
       </p>
       <div class="codeblock">fxdb ysample;rg</div>
     </div>
 
+  </div>
+
+  <hr>
+
+  <div class="chapter" id="ch4">
+    <h2>Chapter 4 Warnings</h2>
+    <div class="section" id="4-1">
+      <h3>4.1 Warnings During Development</h3>
+      <p>The GMAKER Starter Kit contains _STARTUP.O and _STACK.O to reset on execution. Please link _STARTUP.O and
+        _STACK.O as well.</p>
     </div>
+  </div>
 
-    <hr>
+  <hr>
 
-    <div class="chapter" id="ch4">
-      <h2>Chapter 4 Warnings</h2>
-      <div class="section" id="4-1">
-        <h3>4.1 Warnings During Development</h3>
-        <p>The GMAKER Starter Kit contains _STARTUP.O and _STACK.O to reset on execution. Please link _STARTUP.O and
-          _STACK.O as well.</p>
-      </div>
-    </div>
-
-    <hr>
-
-    <div class="footer">(C) 1995 HUDSON SOFT</div>
+  <div class="footer">(C) 1995 HUDSON SOFT</div>
 
 
 </body>

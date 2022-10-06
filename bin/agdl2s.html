@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../styles/styles.css">
+  <title>AGDL2S</title>
+</head>
+
+<body>
+  <div class="heading">
+    <div>PC-FXGA Authoring Software</div>
+    <div>GMAKER Starter Kit (Ver.1.0)</div>
+    <div class="title">Explanation of "AGDL2S.EXE (Ver.1.41)"</div>
+    <div class="credits">NEC Home Electronics, Ltd.</div>
+    <div class="credits">Nov 10, 1995</div>
+    <div class="credits">Translated by Sean Aoki</div>
+  </div>
+  <a href="./">Return</a>
+
+  <h2>Name</h2>
+  <p><strong>AGDL2S</strong>: AGD File Triangle List → Triangle Strip Converter</p>
+
+  <h2>Syntax</h2>
+  <p>AGDL2S [Switch] Input file name [Output file name]</p>
+
+  <h2>Functionality</h2>
+  <p>
+    Splits the triangle list data in the input file (input_file.agd) into some number
+    of triangle strip data and outputs it to the output file (output_file.agd). If the
+    output file is omitted, an output file with the same name as the input file, and a
+    backup of the input file is created in the current directory. If the input file is
+    in the current directory it will be overwritten. Data that could not be converted
+    to triangle strip data will be left as triangle list data. The program will not
+    search for data to convert outside the bounds of each Geometry Data Block. (The
+    program will not search for data to convert outside the bounds of the Geometry Data
+    Block that is not done in each Geometry Data Block??)
+  </p>
+
+  <h2>Switches</h2>
+  <div class="switch">-b<br>
+    Overwrites the input file without backing it up when the output file is not
+    specified.<br>
+    The default when omitted is the input file is saved as a “bak” file.
+  </div><br>
+
+  <div class="switch">-l [num]<br>
+    Specifies the maximum number of polygons to convert to a strip. Normally, it is the
+    maximum number of polygons the command can send at one time. However, if a strip
+    row that is longer than the maximum value cannot be found, this value is ignored.
+    The default when omitted is 34 (the maximum number of polygons that can be sent by
+    the vertex normal, vertex color command).
+  </div><br>
+
+  <div class="switch">-m [num]<br>
+    Specifies the minimum number of polygons to convert to a strip. Normally not
+    specified. Set when you want to know how much the Geometry Data is split. (For
+    debugging, etc.)<br>
+    When this switch is used, strip rows with fewer polygons than the minimum number
+    will not be created.<br>
+    The default when omitted is 2.
+  </div><br>
+
+  <div class="switch">-v<br>
+    When vertex normal is specified, even if normal is different, if the coordinate is
+    the same, it is treated as the same point.<br>
+    When omitted, if the normal is different, it is considered a different point with
+    the same coordinate.
+  </div><br>
+
+  <div class="switch">-t<br>
+    When the texture UV is speficied, even if the UV is different, if the coordinate is
+    the same, it is treated as the same point.<br>
+    When omitted, if the UV is different, it is considered a different point with the
+    same coordinate.
+
+  </div><br>
+
+  <hr>
+
+  <h2>Copyright and Trademark Notice</h2>
+  <ul>
+    <li>
+      AGDL2S.EXE and AGDL2S.TXT（the Software）is a part of the PC-FXGA software
+      development toolkit. Do not use this software for any purpose other than developing
+      software for the PC-FX or PC-FXGA.
+    </li>
+    <li>
+      Hudson Soft bears no responsibility for any direct or indirect damage caused by
+      the use of this software.
+    </li>
+    <li>
+      Hudson Soft does not directly answer questions about how to use this software,
+      technical, or other questions. Please do not contact Hudson Soft.</li>
+    <li>
+      When using this software, read the “Conditions for the use of this Software”.
+    </li>
+  </ul>
+
+  <p>MS-DOS is a trademark of Microsoft.<br>
+    Other named companies and software are copyrights or trademarks of their respective companies.</p>
+
+  <div class="footer">(C) 1995 HUDSON SOFT&nbsp</div>
+  <div class="footer">(C) 1995 KUBOTA CORP.</div>
+
+</body>
+
+</html>
