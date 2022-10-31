@@ -1,0 +1,45 @@
+table {
+  border-spacing: 16px;
+}
+
+#table46 {
+  height: 330px;
+}
+
+#table46-start {
+  position: relative;
+  width: max-content;
+}
+
+#table46-start::after {
+  content: '';
+  width: 0;
+  height: 286.5px;
+  border-right: 3px solid black;
+  position: absolute;
+  left: 20%;
+  top: 20px;
+}
+
+.table46-row {
+  margin: 16px;
+  margin-left: 60px;
+  width: 400px;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.table46-row::before {
+  content: '';
+  width: 20px;
+  height: 0;
+  border-top: 3px solid black;
+  position: absolute;
+  top: 8px;
+  left: -26px;
+}
+
+#register-table {
+  border: 1px black solid;
+}
