@@ -66,8 +66,8 @@
     </div>
     <div class="contents-chapter">
       <div class="contents-head"><a href="#ch7">Chapter 7: Using the C Compiler</a></div>
-      <div class="contents-subsection"><a href="#ch7-1">7.1: Entering Commands</a></div>
-      <div class="contents-subsection"><a href="#ch7-2">7.2: Command Syntax</a></div>
+      <div class="contents-subsection"><a href="#ch7-1">7.1: Command Syntax</a></div>
+      <div class="contents-subsection"><a href="#ch7-2">7.2: Option Switches</a></div>
     </div>
     <div class="contents-chapter">
       <div class="contents-head"><a href="#ch8">Chapter 8: Error/Warning Messages</a></div>
@@ -1253,12 +1253,12 @@ main:
       ld.b    lo(foo1)(rg1),rg0    ; Normal external variable
       movhi   #hi1(foo2),zero,rg2  ;
       st.b    rg0,lo(foo2)(rg2)    ;
-      # line  14
+# line  14
       ld.b    bar1(gp),rg3         ; Becomes ld.b -32756(gp),rg3
       st.b    rg3,bar2(gp)         ; Accesses the desired region
-      # line  15
+# line  15
       st.h    zero,@L2(gp)         ; The name changes for static inside a function
-      #line   16
+# line   16
       ld.w    Flg(gp),rg5          ;
       st.w    rg5,Data(gp)         ;
       rts</div>
@@ -1294,21 +1294,589 @@ main:
     <div class="chapter" id="ch7">
       <h2>Chapter 7 Using the C Compiler</h2>
       <div class="section" id="ch7-1">
-        <h3>7.1 </h3>
+        <h3>7.1 Command Syntax</h3>
+        <p>The following is the syntax for the command</p>
+        <div class="code">FXCC [Switch] File Name [File Name...]</div>
+        <p>An explanation for the use as well as possible switches are presented below.</p>
       </div>
       <div class="section" id="ch7-2">
-        <h3>7.2 Command Syntax</h3>
-        
+        <h3>7.2 Option Switches</h3>
+        <p>The following are explanations of switches that can be specified when running the C compiler.</p>
+        <div class="switch-box">
+          <h4>1) -B [Directory path name]</h4>
+          <p><strong>Function</strong>: Specify the directory path of a subprogram<br>
+            <strong>Explanation</strong>: Can specify the path of the subprogram the compiler executes (preprocessor, assembler, etc.).
+            Setting the path name as the HBINPATH environment variable has the same effect.
+            Note that the compiler driver searches -B option, HBINPATH, PATH in that order for subprograms, so
+            normally setting this is not needed.<br>
+            <strong>Omission</strong>: Searches for subprograms in from HBINPATH, then PATH.
+          </p>
+        </div>
+        <div class="switch-box">
+          <h4>2) -c[File name]</h4>
+          <p><strong>Function</strong>: Prevent linking<br>
+            <strong>Explanation</strong>: Setting this switch stops the compiler from executing the linker,
+            stopping after outputting object files. If a file name is given after the switch,
+            an object file is given that name, but if not, it is given the same name as the compiled file with
+            extension ".o".<br>
+            <strong>Omission</strong>: Executes the linker and outputs an executable
+          </p>
+        </div>
+        <div class="switch-box">
+          <h4>3) -C</h4>
+          <p><strong>Function</strong>: Generate Stack Check code<br>
+            <strong>Explanation</strong>: Generates code that calls a function (name is already chosen)
+            for stack check.<br>
+            jal __stack_check<br>
+            This function must be created by the user. The __stack_check function is called
+            after allocating auto variable area and link register saving code, apd simply checks whether
+            the current SP is outside the stack area.
+          </p>
+        </div>
+        <div class="switch-box">
+          <h4>4) -D Macro Name</h4>
+          <p><strong>Function</strong>: Define a macro<br>
+            <strong>Explanation</strong>: Can define macros in the same way as #define command with this switch.<br>
+            <strong>Omission</strong>: Only macros defined with the #define command in the source code is valid.
+          </p>
+        </div>
+        <div class="switch-box">
+          <h4>5) -e *</h4>
+          <p><strong>Function</strong>: Output the assembler source file (to stdout)<br>
+            <strong>Explanation</strong>: Outputs the assembler source file to standard output.
+          </p>
+        </div>
+        <div class="switch-box">
+          <h4>6) -E</h4>
+          <p><strong>Function</strong>: Output the preprocessor file (to stdout)<br>
+            <strong>Explanation</strong>: Outputs the source that was processed with the preprocessor file to standard output.
+          </p>
+        </div>
+        <div class="switch-box">
+          <h4>7) -fm</h4>
+          <p><strong>Function</strong>: Change where messages are output<br>
+            <strong>Explanation</strong>: Changes the output location of messages to include error/warning messages<br>
+            Without -fm: stdout
+            With -fm: stderr
+          </p>
+        </div>
+        <div class="switch-box">
+          <h4>8) -g</h4>
+          <p><strong>Function</strong>: Generate code for the source code debugger<br>
+            <strong>Explanation</strong>: Setting this switch outputs debug information
+            to allow debugging at the source code level with the source code debugger.<br>
+            <strong>Omission</strong>: Does not output debug information
+          </p>
+        </div>
+        <div class="switch-box">
+          <h4>9) -i size</h4>
+          <p><strong>Function</strong>: Alignment of functions<br>
+            <strong>Explanation</strong>: Setting this switch makes functions to size-byte alignment<br>
+            <strong>Omission</strong>: Doesn't process alignment.
+          </p>
+        </div>
+        <div class="switch-box">
+          <h4>10) -I Path Name</h4>
+          <p><strong>Function</strong>: Specify Include path<br>
+            <strong>Explanation</strong>: Setting this switch with a path name sets or changes the
+            path of the include file. Include path can also be set with the VINCLUDE environment variable.<br>
+            <strong>Omission</strong>: Searches for the path set by the environment variable.
+          </p>
+        </div>
+        <div class="switch-box">
+          <h4>11) -l Library Name</h4>
+          <p><strong>Function</strong>: Specify a library<br>
+            <strong>Explanation</strong>: Uses the specified libraries in the directory
+            that is set by the VLIB environment variable. (The library extension ".a" is automatically added)<br>
+            <strong>Omission</strong>: Only uses standard libraries.
+          </p>
+        </div>
+        <div class="switch-box">
+          <h4>12) -o File Name</h4>
+          <p><strong>Function</strong>: Sets the name of the output file<br>
+            <strong>Explanation</strong>: By setting this switch and specifying a file name, the
+            file is outputted with the specified name. If -c, -P, -S optins are not set
+            and the extension is omitted, an executable with the ".ex" extension is outputted.<br>
+            <strong>Omission</strong>: Outputs an executable called "a.ex" to the current directory (assuming -c, -P, -s are not set)
+          </p>
+        </div>
+        <div class="switch-box">
+          <h4>13) -O</h4>
+          <p><strong>Function</strong>: Optimize Switch<br>
+            <strong>Explanation</strong>: Setting this switch optimizes the generated code. (Doesn't optimize the pipeline)<br>
+            <strong>Omission</strong>: Doesn't optimize the generated code.
+          </p>
+        </div>
+        <div class="switch-box">
+          <h4>14) -O2</h4>
+          <p><strong>Function</strong>: Pipeline Opimize Switch<br>
+            <strong>Explanation</strong>: Setting this switch optimizes the generated code's pipeline. (And performs the same optimization as -O)<br>
+            <strong>Omission</strong>: Doesn't optimize the generated code's pipeline
+          </p>
+        </div>
+        <div class="switch-box">
+          <h4>15) -P [File Name]</h4>
+          <p><strong>Function</strong>: Generate preprocessor file<br>
+            <strong>Explanation</strong>: Setting this switch makes the compiler stop after only the preprocessor.<br>
+            Specifying a file name after the switch creates a preprocessor file with that file name. If it is not specified,
+            it is the same name as the file that was compiled, but as a preprocessor file with a ".p" extension.<br>
+            <strong>Omission</strong>: Compiling process continues after preprocessor finishes.
+          </p>
+        </div>
+        <div class="switch-box">
+          <h4>16) -q</h4>
+          <p><strong>Function</strong>: Compresses sequences of identical characters<br>
+            <strong>Explanation</strong>: Setting this switch compresses sequences of identical characters.<br>
+            <strong>Omission</strong>: Doesn't compress sequences of identical characters.
+          </p>
+        </div>
+        <div class="switch-box">
+          <h4>17) -r</h4>
+          <p><strong>Function</strong>: Change register representation when assembler source is outputted<br>
+            <strong>Explanation</strong>: Setting this switch makes the registers in the assembler file
+            be written in NEC format (r6-r29 format).<br>
+            <strong>Omission</strong>: Uses this system's format (ra0-ra3, rg0-rg9, etc)
+          </p>
+        </div>
+        <div class="switch-box">
+          <h4>18) -S [File Name]</h4>
+          <p><strong>Function</strong>: Generate only the assembler source<br>
+            <strong>Explanation</strong>: Setting this switch makes the compiler output only the assembler source and quit.<br>
+            If a file name is specified after the switch, the assembler source is outputted with that file name. If not, it is the
+            same name as the compiled file, but as an assembler source file with the ".s" extension.<br>
+            <strong>Omission</strong>: Assembles and links, and generates an executable. The assembler source is deleted.
+          </p>
+        </div>
+        <div class="switch-box">
+          <h4>19) -u</h4>
+          <p><strong>Function</strong>: Makes char types unsigned char types<br>
+            <strong>Explanation</strong>: Setting this switch makes char types, normally processed signed, become
+            processed as unsigned char types.<br>
+            <strong>Omission</strong>: char is processed as a signed char
+          </p>
+        </div>
+        <div class="switch-box">
+          <h4>20) -U Macro Name</h4>
+          <p><strong>Function</strong>: Undefine a macro<br>
+            <strong>Explanation</strong>: Specify a macro name to undefine. Undefines a macro
+            in the same way that the #undef command does.<br>
+            <strong>Omission</strong>: Only #undef commands in the source files are used to undefine a macro.
+          </p>
+        </div>
+        <div class="switch-box">
+          <h4>21) -v</h4>
+          <p><strong>Function</strong>: Verbose Mode<br>
+            <strong>Explanation</strong>: Setting this makes the compilation process get outputted to stdout.<br>
+            <strong>Omission</strong>: Doesn't output compilation process.
+          </p>
+        </div>
+        <div class="switch-box">
+          <h4>22) -V</h4>
+          <p><strong>Function</strong>: Generate Overflow Check Code<br>
+            <strong>Explanation</strong>: Generates code that calls a function (name predetermined)
+            that checks for overflow on multiplication, division, modulus.<br>
+            __mul_overflow_check: Multiplication<br>
+            __div_overflo_check: Division, Modulus<br>=
+            Note that the function itself must be created by the user.<br>
+            The overflow check code is called when overflow occurs in multliplication or division.
+            Can inspect the address of the overflow value, and other things.
+          </p>
+        </div>
+        <div class="switch-box">
+          <h4>23) -w</h4>
+          <p><strong>Function</strong>: Suppress Warnings<br>
+            <strong>Explanation</strong>: Doesn't output warning messages.<br>
+            <strong>Omission</strong>: Outputs warning messages.
+          </p>
+        </div>
+        <div class="switch-box">
+          <h4>24) -W Level</h4>
+          <p><strong>Function</strong>: Set Warning Level<br>
+            <strong>Explanation</strong>: Set the warning le vel. Level 3 performs the strictest warning check.<br>
+            <strong>Omission</strong>: Performs checks with warning level 1.
+          </p>
+        </div>
+        <div class="switch-box">
+          <h4>25) -x</h4>
+          <p><strong>Function</strong>: Change Symbols' Address Loading<br>
+            <strong>Explanation</strong>: By setting this switch, global variables that don't have zero or far storage class modifiers
+            are considered GP relative symbols.<br>
+            <strong>Omission</strong>: Global variables without zero or far storage class modifiers are considered normal symbols.
+          </p>
+        </div>
+        <div class="switch-box">
+          <h4>26) -X Address</h4>
+          <p><strong>Function</strong>: Specify Program's Starting Address<br>
+            <strong>Explanation</strong>: Allows for specifying the program's starting address.<br>
+            <strong>Omission</strong>: Puts the program at 0x8000.
+          </p>
+        </div>
+        <div class="switch-box">
+          <h4>27) -y</h4>
+          <p><strong>Function</strong>: Change Output Method of Common Symbols<br>
+            <strong>Explanation</strong>: Change the output method of unreset symbols with external linkages.
+            In a normal C compiler, a file A and file B contain something like<br>
+            <div class="codeblock">char buffer[128]:        char buffer[256]:</div>
+            To link them, code is generated so that the symbol is the largest size (256 in the above example),
+            but in the FXCC C compiler, this throws an error when linking. Setting the -y switch makes the behavior
+            follow that of a normal C compiler.
+          </p>
+        </div>
+        <div class="switch-box">
+          <h4>28) -zC Segment Name, -zD Segment Name, -zd Segment Name -zB Segment Name, -zb Segment Name, -zZ Segment Name</h4>
+          <p><strong>Function</strong>: Specify Default Segment Name<br>
+            <strong>Explanation</strong>: If there is no segment specification #pragma seg(??) in the source,
+            code segment, data segment, GP relative data segment, BSS segment, GP relative BSS data segment, zero page segment
+            are all given the default names, cseg, dseg, gdseg, bseg, gbseg, zseg, respectively. Use this switch to use a user-defined segment name.<br>
+            <strong>Omission</strong>; For any switch not set, the default name is used.
+          </p>
+        </div>
+        <div class="switch-box">
+          <h4>29) -AS "String"</h4>
+          <p><strong>Function</strong>: Set Switches for the Assembler<br>
+            <strong>Explanation</strong>: Setting this switch, with switches in the string following, sends the switches
+            to the assembler from the C compiler.<br>
+            However, the C compiler does not check the assembler switches. Please do not set
+            the -g switch in the assembler if the -g switch is set for the compiler.<br>
+            <strong>Omission</strong>: Only sets the standard switches, -u and -o
+          </p>
+        </div>
+        <div class="switch-box">
+          <h4>30) -LK "Switch"</h4>
+          <p><strong>Function</strong>: Set Switches for the Linker<br>
+            <strong>Explanation</strong>: Setting this switch, with switches in the string following, sends the switches
+            to the linker from the C compiler.<br>
+            However, the C compiler does not check the linker switches.<br>
+            <strong>Omission</strong>: Only sets the standard switches, -p and -o
+          </p>
+        </div>
+        <div class="switch-box">
+          <h4>31) @ File Name</h4>
+          <p><strong>Function</strong>: Specify Indirect Files<br>
+            <strong>Explanation</strong>: Allows setting compiler switches writted in an indirect file.
+          </p>
+        </div>
       </div>
     </div>
+
+    <hr>
 
     <div class="chapter" id="ch8">
       <h2>Chapter 8 Error/Warning Messages</h2>
       <div class="section" id="ch8-1">
         <h3>8.1 Fatal Errors</h3>
+        <table>
+          <tr>
+            <td>0:</td>
+            <td>Too many identifiers</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>1:</td>
+            <td>Not enough memory</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>2:</td>
+            <td>Intermediate file error</td>
+            <td>Error when outputting intermediate file</td>
+          </tr>
+          <tr>
+            <td>3:</td>
+            <td>End of file</td>
+            <td>(), {}, "", /*, */, etc are not closed.</td>
+          </tr>
+          <tr>
+            <td>4:</td>
+            <td>Target file does not exist</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>5:</td>
+            <td>Register overflow</td>
+            <td>The expression is so complex there are not enough operation registers</td>
+          </tr>
+          <tr>
+            <td>6:</td>
+            <td>Parser stack overflow</td>
+            <td>The expression is so complex the compiler's internal stack ran out of space</td>
+          </tr>
+          <tr>
+            <td>7:</td>
+            <td>Illegal use of pragma</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>8:</td>
+            <td>Segment overflow</td>
+            <td></td>
+          </tr>
+        </table>
       </div>
       <div class="section" id="ch8-1">
         <h3>8.2 Errors</h3>
+        <table>
+          <tr>
+            <td>0:</td>
+            <td>Unknown character</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>1:</td>
+            <td>Illegal preprocessor # line</td>
+            <td>A # command that was not preprocessed remained</td>
+          </tr>
+          <tr>
+            <td>2:</td>
+            <td>Comment statement error</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>3:</td>
+            <td>String is not closed</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>4:</td>
+            <td>Undefined identifier in function FunctionName : Identifier</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>5:</td>
+            <td>Number syntax error</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>6:</td>
+            <td>Expression error</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>7:</td>
+            <td>Illegal storage class: storage class identifier</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>8:</td>
+            <td>External definition error</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>9:</td>
+            <td>Illegal use of storage class</td>
+            <td>Improper storage class declaration</td>
+          </tr>
+          <tr>
+            <td>10:</td>
+            <td>Identifier duplicated : identifier</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>11:</td>
+            <td>Undefined struct/union name</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>12:</td>
+            <td>Illegal type specifier</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>13:</td>
+            <td>Too many initializer</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>14:</td>
+            <td>Declaration error</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>15:</td>
+            <td>Identifier redeclaration</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>16:</td>
+            <td>Storage class error at function</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>17:</td>
+            <td>Break statement error</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>18:</td>
+            <td>Continue statement error</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>19:</td>
+            <td>Field width overflow</td>
+            <td>Bit count in bitfield overflowed</td>
+          </tr>
+          <tr>
+            <td>20:</td>
+            <td>Field type error</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>21:</td>
+            <td>Array dimension overflow</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>22:</td>
+            <td>Element index undefined</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>23:</td>
+            <td>Undefined label: Label</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>24:</td>
+            <td>Incorrect ()</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>25:</td>
+            <td>Case statement error</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>26:</td>
+            <td>Default statement error</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>27:</td>
+            <td>Switch table overflow</td>
+            <td>Too many case statements in switch</td>
+          </tr>
+          <tr>
+            <td>28:</td>
+            <td>Multiple default statements</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>29:</td>
+            <td>Constant expression required</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>30:</td>
+            <td>Invalid operand type</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>31:</td>
+            <td>Void function</td>
+            <td>Cannot specify a return value in a void function</td>
+          </tr>
+          <tr>
+            <td>32:</td>
+            <td>Invoid expression value</td>
+            <td>A term of an expression has no value</td>
+          </tr>
+          <tr>
+            <td>33:</td>
+            <td>Invalid parameter declared</td>
+            <td>Incorrectly declaring a function prototype with an arbitrary number of parameters</td>
+          </tr>
+          <tr>
+            <td>34:</td>
+            <td>Illegal register used</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>35:</td>
+            <td>Duplicate case value</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>36:</td>
+            <td>Cannot initialize</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>37:</td>
+            <td>Mismatched number of parameters: Identifier</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>38:</td>
+            <td>Illegal structure operation</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>39:</td>
+            <td>Illegal pointer conversion</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>40:</td>
+            <td>Struct reference error</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>41:</td>
+            <td>Illegal member of structure : Indentifier</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>42:</td>
+            <td>Insufficient arguments in function call</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>43:</td>
+            <td>Too many arguments in function call</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>44:</td>
+            <td>Multiple tag names used</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>45:</td>
+            <td>Invalid storage class</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>46:</td>
+            <td>Void typed parameter declared</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>47:</td>
+            <td>Void typed identifier declared</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>48:</td>
+            <td>Undefined tag name: Tag name</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>49:</td>
+            <td>Assigned in constant identifier</td>
+            <td>Assignment to a variable with constant modifier</td>
+          </tr>
+          <tr>
+            <td>50:</td>
+            <td>Invalid indirect operator</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>51:</td>
+            <td>Invalid address operator</td>
+            <td></td>
+          </tr>
+        </table>
       </div>
       <div class="section" id="ch8-1">
         <h3>8.3 Warnings</h3>
@@ -1316,7 +1884,5 @@ main:
     </div>
 
   </div>
-
-</body>
-
+x
 </html>

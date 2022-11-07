@@ -43,3 +43,9 @@ table {
 #register-table {
   border: 1px black solid;
 }
+
+.switch-box {
+  border: 1px black solid;
+  padding: 4px;
+  margin: 4px;
+}
