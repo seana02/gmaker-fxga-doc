@@ -248,96 +248,97 @@
         </div>
       </div>
     </div>
+  </div>
 
     <hr>
 
-    <div class="chapter" id="ch5">
-      <h2>Chapter 5 How Registers are Used</h2>
-      <table id="register-table">
-        <tr>
-          <th>Register</th>
-          <th>Name</th>
-          <th>Explanation</th>
-        </tr>
-        <tr>
-          <td>zero</td>
-          <td>Zero Register</td>
-          <td>Holds the value 0</td>
-        </tr>
-        <tr>
-          <td>at</td>
-          <td>Assemelber Reserved Register</td>
-          <td>Used when commands are expanded by the assembler</td>
-        </tr>
-        <tr>
-          <td>hsp</td>
-          <td>Handler Stack Pointer</td>
-          <td>Currently unused</td>
-        </tr>
-        <tr>
-          <td>sp</td>
-          <td>Stack Pointer</td>
-          <td>Holds the address of the stack frame</td>
-        </tr>
-        <tr>
-          <td>gp</td>
-          <td>Global Pointer</td>
-          <td>Sets the base register when accessing the near symbol</td>
-        </tr>
-        <tr>
-          <td>tp</td>
-          <td>Text Pointer</td>
-          <td>Currently Unused</td>
-        </tr>
-        <tr>
-          <td>ra0-ra3</td>
-          <td>Function Argument Register</td>
-          <td>Used to pass arguments</td>
-        </tr>
-        <tr>
-          <td>rg0-rg9</td>
-          <td>Operation Registers</td>
-          <td>Used when performing operations<br>(The return value sets rg0)</td>
-        </tr>
-        <tr>
-          <td>rs0-rs9</td>
-          <td>Register Variable Registers</td>
-          <td>Used for symbols that declare register use</td>
-        </tr>
-        <tr>
-          <td>ut</td>
-          <td>Operation Register for Commands</td>
-          <td>Set by remainder in division</td>
-        </tr>
-        <tr>
-          <td>link</td>
-          <td>Link Register</td>
-          <td>Holds the return address for the function</td>
-        </tr>
-      </table>
-      <p>rs6-ut are reserved when using bit string commands</p>
-    </div>
+  <div class="chapter" id="ch5">
+    <h2>Chapter 5 How Registers are Used</h2>
+    <table id="register-table">
+      <tr>
+        <th>Register</th>
+        <th>Name</th>
+        <th>Explanation</th>
+      </tr>
+      <tr>
+        <td>zero</td>
+        <td>Zero Register</td>
+        <td>Holds the value 0</td>
+      </tr>
+      <tr>
+        <td>at</td>
+        <td>Assemelber Reserved Register</td>
+        <td>Used when commands are expanded by the assembler</td>
+      </tr>
+      <tr>
+        <td>hsp</td>
+        <td>Handler Stack Pointer</td>
+        <td>Currently unused</td>
+      </tr>
+      <tr>
+        <td>sp</td>
+        <td>Stack Pointer</td>
+        <td>Holds the address of the stack frame</td>
+      </tr>
+      <tr>
+        <td>gp</td>
+        <td>Global Pointer</td>
+        <td>Sets the base register when accessing the near symbol</td>
+      </tr>
+      <tr>
+        <td>tp</td>
+        <td>Text Pointer</td>
+        <td>Currently Unused</td>
+      </tr>
+      <tr>
+        <td>ra0-ra3</td>
+        <td>Function Argument Register</td>
+        <td>Used to pass arguments</td>
+      </tr>
+      <tr>
+        <td>rg0-rg9</td>
+        <td>Operation Registers</td>
+        <td>Used when performing operations<br>(The return value sets rg0)</td>
+      </tr>
+      <tr>
+        <td>rs0-rs9</td>
+        <td>Register Variable Registers</td>
+        <td>Used for symbols that declare register use</td>
+      </tr>
+      <tr>
+        <td>ut</td>
+        <td>Operation Register for Commands</td>
+        <td>Set by remainder in division</td>
+      </tr>
+      <tr>
+        <td>link</td>
+        <td>Link Register</td>
+        <td>Holds the return address for the function</td>
+      </tr>
+    </table>
+    <p>rs6-ut are reserved when using bit string commands</p>
+  </div>
 
-    <div class="chapter" id="ch6">
-      <h2>Chapter 6 Language Specifications</h2>
-      <div class="section" id="ch6-1">
-        <h3>6.1 Preprocessor Commands</h3>
-        The following commands are available
-        <ol>
-          <li>
-            <p>Defining Macros</p>
-            <div class="codeblock">#define MacroName [Token]
+  <div class="chapter" id="ch6">
+    <h2>Chapter 6 Language Specifications</h2>
+    <div class="section" id="ch6-1">
+      <h3>6.1 Preprocessor Commands</h3>
+      The following commands are available
+      <ol>
+        <li>
+          <p>Defining Macros</p>
+          <div class="codeblock">#define MacroName [Token]
 
 #define MacroName (arg1,arg2,...) Token
 #undef MacroName</div>
-          </li>
-          <li>
-            <p>Including Source Files</p>
-            <div class="codeblock">#include &lt;File Name&gt; or "File Name"</File></div>
-          </li>
-          <li>
-            <p>Conditional Compilation</p>
-            <div class="codeblock">#if Expression
+        </li>
+        <li>
+          <p>Including Source Files</p>
+          <div class="codeblock">#include &lt;File Name&gt; or "File Name"</File></div>
+        </li>
+        <li>
+          <p>Conditional Compilation</p>
+          <div class="codeblock">#if Expression
 
 #ifdef MacroName
 
@@ -345,130 +346,130 @@
 #else
 #endif
 #elif Expression</div>
-          </li>
-          <li>
-            <p>Other Control Commands</p>
-            <div class="codeblock">#line Constant ["File Name"]
+        </li>
+        <li>
+          <p>Other Control Commands</p>
+          <div class="codeblock">#line Constant ["File Name"]
 #error ErrorMessage
 #pragma
 #asm
 #endasm</div>
-          </li>
-        </ol>
-        <details>
-          <summary>About #pragma</summary>
-          <div class="summary-contents">
-            Supports special commands dependent on the compiler:
-            <div class="codeblock">#pragma align(??)
+        </li>
+      </ol>
+      <details>
+        <summary>About #pragma</summary>
+        <div class="summary-contents">
+          Supports special commands dependent on the compiler:
+          <div class="codeblock">#pragma align(??)
 #pragma optimize( ?? -? )
 #pragma defseg( -? , ?? )
 #pragma seg(??)</div>
-              <h3>Function Definition Alignment</h3>
-              <p>Syntax</p>
-              <div class="codeblock">#pragma align (Alignment size)</div>
-              <p>Only the first function found that is defined after the above statement is affected.</p>
-              <div class="codeblock">#pragma align ( 8 ) → Binary
+            <h3>Function Definition Alignment</h3>
+            <p>Syntax</p>
+            <div class="codeblock">#pragma align (Alignment size)</div>
+            <p>Only the first function found that is defined after the above statement is affected.</p>
+            <div class="codeblock">#pragma align ( 8 ) → Binary
 #pragma align ( 0x10 ) → Hexadecimal
 #pragma align ( 04 ) → Octal</div>
-              <p>Don't forget to start with 0 when specifying octal.</p>
-              <h3>Control Optimization</h3>
-              <p>Syntax</p>
-              <div class="codeblock">#pragma optimize (On/Off Switch  Selection Switch)</div>
-              <p>
-                On/Off Switch:<br>
-                &emsp;on &emsp;→ Optimize<br>
-                &emsp;off&emsp;→ Don't Optimize<br></p>
-              <p>
-                Selection Switch:<br>
-                &emsp;-c &emsp;→ Copy Propagation<br>
-                &emsp;-d &emsp;→ Dead Code Elimination<br>
-                &emsp;-p &emsp;→ Pipeline Optimization<br>
-                &emsp;-r &emsp;→ Register Assignment<br>
-                &emsp;-s &emsp;→ Common Subexpression Elimination<br>
-                &emsp;-v &emsp;→ Dead Variable Elimination</p>
-              <p>In general, the range of effect starts from the line this statement
-                is given until either the file ends or another statement changing the on/off state is given,
-                but if -r or -v is given in a function, the variables within the function are affected.
-              </p>
-              <p>Note that other than -s and -v, #pragma optimize( ?? -? ) is only
-                effective when -O (compiler optimization option) is set
-              </p>
-              <p>Example:</p>
-              <div class="codeblock">#pragma optimize ( off -c ) →Don't propagate statement copying
+            <p>Don't forget to start with 0 when specifying octal.</p>
+            <h3>Control Optimization</h3>
+            <p>Syntax</p>
+            <div class="codeblock">#pragma optimize (On/Off Switch  Selection Switch)</div>
+            <p>
+              On/Off Switch:<br>
+              &emsp;on &emsp;→ Optimize<br>
+              &emsp;off&emsp;→ Don't Optimize<br></p>
+            <p>
+              Selection Switch:<br>
+              &emsp;-c &emsp;→ Copy Propagation<br>
+              &emsp;-d &emsp;→ Dead Code Elimination<br>
+              &emsp;-p &emsp;→ Pipeline Optimization<br>
+              &emsp;-r &emsp;→ Register Assignment<br>
+              &emsp;-s &emsp;→ Common Subexpression Elimination<br>
+              &emsp;-v &emsp;→ Dead Variable Elimination</p>
+            <p>In general, the range of effect starts from the line this statement
+              is given until either the file ends or another statement changing the on/off state is given,
+              but if -r or -v is given in a function, the variables within the function are affected.
+            </p>
+            <p>Note that other than -s and -v, #pragma optimize( ?? -? ) is only
+              effective when -O (compiler optimization option) is set
+            </p>
+            <p>Example:</p>
+            <div class="codeblock">#pragma optimize ( off -c ) →Don't propagate statement copying
 #pragma optimize ( off -d ) →Don't eliminate dead code
 #pragma optimize ( on  -p ) →Perform pipeline optimization
 #pragma optimize ( on  -r ) →Assign auto variables and function arguments to registers
 #pragma optimize ( off -s ) →Don't eliminate common subexpressions
 #pragma optimize ( on  -v ) →Delete unused auto/register variables</div>
-              <p>Program Example:</p>
-              <div class="codeblock">--------- sample.c ---------
+            <p>Program Example:</p>
+            <div class="codeblock">--------- sample.c ---------
 main()
 {
-    int a,b,c;
-    a = 1;
+  int a,b,c;
+  a = 1;
 #pragma optimize (off -d)        →From this line forward, don't delete dead code
-    b = 2;
+  b = 2;
 #pragma optimize (on -d )        →Start eliminating dead code again
-    c = 3;
+  c = 3;
 }
 -----
 % fxcc -S -O sample.c
 --------- sample.s --------- *
 #
-    file    "sample.c"
-    seg     cseg
+  file    "sample.c"
+  seg     cseg
 #
-    globl   main
-    seg     cseg
+  globl   main
+  seg     cseg
 main:
-    add     #$fffffffc, sp
+  add     #$fffffffc, sp
 # line 7
-    mov     #$2, rg0             →From the previous specification, b=2 is not deleted
-    st.w    rg0, $0(sp)
-    add     #$4, sp
-    rts
+  mov     #$2, rg0             →From the previous specification, b=2 is not deleted
+  st.w    rg0, $0(sp)
+  add     #$4, sp
+  rts
 #
-    seg     cseg
+  seg     cseg
 ------</div>
-            <h3>Defining Segments</h3>
-            <p>Syntax</p>
-            <div class="codeblock">#pragma defseg (Option switch, Segment name)</div>
-            <p>Option switches:<br>
-              &emsp;-C&emsp;→Specify code segment<br>
-              &emsp;-D&emsp;→Specify data segment<br>
-              &emsp;-B&emsp;→Specify BSS segment<br>
-              &emsp;-d&emsp;→Specify GP relative data segment<br>
-              &emsp;-b&emsp;→Specify GP relative BSS segment<br>
-              &emsp;-Z&emsp;→Specify zero page segment</p>
-            <p>Segment name:<br>
-              &emsp;????&emsp;→Use defined segment name</p>
-            <p>Example:</p>
-            <div class="codeblock">#pragma defseg(-C,Text)&emsp;→Define Text
+          <h3>Defining Segments</h3>
+          <p>Syntax</p>
+          <div class="codeblock">#pragma defseg (Option switch, Segment name)</div>
+          <p>Option switches:<br>
+            &emsp;-C&emsp;→Specify code segment<br>
+            &emsp;-D&emsp;→Specify data segment<br>
+            &emsp;-B&emsp;→Specify BSS segment<br>
+            &emsp;-d&emsp;→Specify GP relative data segment<br>
+            &emsp;-b&emsp;→Specify GP relative BSS segment<br>
+            &emsp;-Z&emsp;→Specify zero page segment</p>
+          <p>Segment name:<br>
+            &emsp;????&emsp;→Use defined segment name</p>
+          <p>Example:</p>
+          <div class="codeblock">#pragma defseg(-C,Text)&emsp;→Define Text
 #pragma defseg(-D,Data)   →Define Data
 #pragma defseg(-B,Bss)    →Define Bss
 #pragma defseg(-d,Gdata)  →Define Gdata
 #pragma defseg(-b,Gbss)   →Define Gbss
 #pragma defseg(-Z,Zero)   →Define Zero</div>
-            <h3>Switching Segments</h3>
-            <p>Syntax</p>
-            <div class="codeblock">#pragma seg (Segment name)</div>
-            <p>Segment name:<br>
-              &emsp;???? &emsp;→Switch to a user defined segment<br>
-              &emsp;cseg &emsp;→Switch to the default code segment<br>
-              &emsp;dseg &emsp;→Switch to the default data segment<br>
-              &emsp;bseg &emsp;→Switch to the default BSS segment<br>
-              &emsp;gdseg&emsp;→Switch to the default GP relative data segment<br>
-              &emsp;gbseg&emsp;→Switch to the default GP relative BSS segment<br>
-              &emsp;zseg &emsp;→Switch to the zero page segment</p>
-            <p>Example:</p>  
-            <div class="codeblock">#pragma seg(Text) &emsp;→Switch to Text
+          <h3>Switching Segments</h3>
+          <p>Syntax</p>
+          <div class="codeblock">#pragma seg (Segment name)</div>
+          <p>Segment name:<br>
+            &emsp;???? &emsp;→Switch to a user defined segment<br>
+            &emsp;cseg &emsp;→Switch to the default code segment<br>
+            &emsp;dseg &emsp;→Switch to the default data segment<br>
+            &emsp;bseg &emsp;→Switch to the default BSS segment<br>
+            &emsp;gdseg&emsp;→Switch to the default GP relative data segment<br>
+            &emsp;gbseg&emsp;→Switch to the default GP relative BSS segment<br>
+            &emsp;zseg &emsp;→Switch to the zero page segment</p>
+          <p>Example:</p>  
+          <div class="codeblock">#pragma seg(Text) &emsp;→Switch to Text
 #pragma seg(Data)  →Switch to Data
 #pragma seg(Bss)   →Switch to Bss
 #pragma seg(Gdata) →Switch to Gdata
 #pragma seg(Gbss)  →Switch to Gbss
 #pragma seg(Zero)  →Switch to Zero</div>
-            <p>Program Example:</p>
-            <div class="codeblock">--------- sample.c ---------
+          <p>Program Example:</p>
+          <div class="codeblock">--------- sample.c ---------
 
 #pragma defseg(-C,Text)  →Define a code segment called Text
 #pragma defseg(-D,Data)  →Define a data segment called Data
@@ -514,1375 +515,1625 @@ void foo1()              →Assign to cseg
 #
 defseg    Text,"text"
 defseg    Data,"data"
-    defseg    Bss,"bss"
-    defseg    Gdata,"data,offset"
-    defseg    Gbss,"bss,offset"
-    defseg    Zero,"bss,zero"
-    file      "sample.c"
-    seg       Data
-    globl     Ea
+  defseg    Bss,"bss"
+  defseg    Gdata,"data,offset"
+  defseg    Gbss,"bss,offset"
+  defseg    Zero,"bss,zero"
+  file      "sample.c"
+  seg       Data
+  globl     Ea
 Ea:
-    dw        $1
-    seg       Gdata
-    globl     Ena
+  dw        $1
+  seg       Gdata
+  globl     Ena
 Ena:
-    dw        $1
-    seg       dseg
-    globl     Ea1
+  dw        $1
+  seg       dseg
+  globl     Ea1
 Ea1:
-    dw        $1
-    seg       gdseg
-    globl     Ena1
+  dw        $1
+  seg       gdseg
+  globl     Ena1
 En1:
-    dw        $1
-    seg       Gbss
-    globl     Enb
+  dw        $1
+  seg       Gbss
+  globl     Enb
 Enb:
-    ds        $4
-    seg       gbseg
-    globl     Enb1
+  ds        $4
+  seg       gbseg
+  globl     Enb1
 Enb1:
-    ds        $4
-    seg       Bss
-    globl     Eb
+  ds        $4
+  seg       Bss
+  globl     Eb
 Eb:
-    ds        $4
-    seg       bseg
-    globl     Eb1
+  ds        $4
+  seg       bseg
+  globl     Eb1
 Eb1:
-    ds        $4
-    seg       Zero
-    globl     Eza
+  ds        $4
+  seg       Zero
+  globl     Eza
 Eza:
-    ds        $4
-    seg       zseg
-    globl     Eza1
+  ds        $4
+  seg       zseg
+  globl     Eza1
 Eza1:
-    ds        $4
+  ds        $4
 #
-    globl     foo
-    seg       Text
+  globl     foo
+  seg       Text
 foo:
-    rts
-    #
-    globl     foo1
-    seg       cseg
+  rts
+  #
+  globl     foo1
+  seg       cseg
 foo1:
-    rts
+  rts
 #
-    seg       cseg
+  seg       cseg
 ------</div>
-          </div>
-        </details>
-        <details>
-          <summary>About #asm, #endasm</summary>
-          <div class="summary-contents">
-            Write assembly code directly in the C program. Written as
-            <div class="codeblock">#asm
+        </div>
+      </details>
+      <details>
+        <summary>About #asm, #endasm</summary>
+        <div class="summary-contents">
+          Write assembly code directly in the C program. Written as
+          <div class="codeblock">#asm
 :
 :
 Assembler Code
 #endasm</div>
-            <p>Everything from the line after #asm to #endasm is not edited and outputted as assembler source code.</p>
-            <p>Example:</p>
-            <div class="codeblock">--------- adp_data.c ---------
+          <p>Everything from the line after #asm to #endasm is not edited and outputted as assembler source code.</p>
+          <p>Example:</p>
+          <div class="codeblock">--------- adp_data.c ---------
 #asm
-    seg   dseg
-    align $4
+  seg   dseg
+  align $4
 adp_data::
-    binload "SAMPLE.ADP",0x2c
+  binload "SAMPLE.ADP",0x2c
 #endasm
 
 * binload "File name"[, offset[, number of bytes]]</div>
-          </div>
-        </details>
-      </div>
-      <div class="section" id="ch6-2">
-        <h3>6.2 Types of Data</h3>
-        <p>Data types can be defined in many ways with storage class specifiers and
-          type specifiers.
-        </p>
-        <ol>
-          <li>
-            Storage class specifiers
-            <p>auto, register, static, extern, typedef</p>
-            <p>The above is the same as the standard C language specification, but the fxcc compiler also
-              has interrupt, zero, near, far as modifiers.
-            </p>
-            <h4>interrupt</h4>
-            <p>Used when defining an interrupt type function (anything other than a function type throws an error)</p>
-            <p>Normally, functions are generated with the rts command at the end, but with this is specified, it is generated
-              with the reti commend. Saving registers and other processes required for an interrupt must be performed by the user.
-            </p>
-            <h4>zero</h4>
-            <p>Means the symbol is a zero register relative symbol. The zero register relative symbol accesses
-              the zero register + signed 16 bit offset.
-            </p>
-            <h4>near</h4>
-            <p>Means the symbol is a GP register relative symbol.
-              Accessed in 32 bits when the symbol is loaded. Used to explicitly declare a symbol
-              accessed in 32 bits.
-            </p>
-          </li>
-          <li>
-            Type specifiers
-            <p>void, char, short, int, long, float</p>
-            <p>double (currently unsupported)</p>
-            <p>signed, unsigned, struct, union, enum</p>
-            <p>const, volatile</p>
-            <p>Symbol declared with typedef</p>
-          </li>
-        </ol>
-      </div>
-      <div class="section" id="ch6-3">
-        <h3>6.3 Type Conversion</h3>
-        <p>When the two sides of a substitution, evaluation, or comparison are different, a type conversion occurs.</p>
-        <p>The conversion method follows the ANSI standard, with evaluation and comparison always converting to int,
-          and substitution converted to the type that is being substituted.
-        </p>
-      </div>
-      <div class="section" id="ch6-4">
-        <h3>6.4 Special Specifications</h3>
-        <div class="subsection" id="ch6-4-1">
-          <h4>6.4.1 Restricting Register Use</h4>
-          <p>Code is generated without using the specified register.</p>
-          <p>Specified with: regmsk &lt;register&gt;;</p>
-          <p>The only registers that can be specified are operation registers and register variable registers.</p>
-          <p>NEC Register format can be used.</p>
-          <p>Operation registers: rg1 - rg9 : r11 - r19</p>
-          <p>Register variable registers: rs0 - rs9 : r20 - r29</p>
-          <div class="codeblock">regmsk rs2                  → rs2 not allowed
+        </div>
+      </details>
+    </div>
+    <div class="section" id="ch6-2">
+      <h3>6.2 Types of Data</h3>
+      <p>Data types can be defined in many ways with storage class specifiers and
+        type specifiers.
+      </p>
+      <ol>
+        <li>
+          Storage class specifiers
+          <p>auto, register, static, extern, typedef</p>
+          <p>The above is the same as the standard C language specification, but the fxcc compiler also
+            has interrupt, zero, near, far as modifiers.
+          </p>
+          <h4>interrupt</h4>
+          <p>Used when defining an interrupt type function (anything other than a function type throws an error)</p>
+          <p>Normally, functions are generated with the rts command at the end, but with this is specified, it is generated
+            with the reti commend. Saving registers and other processes required for an interrupt must be performed by the user.
+          </p>
+          <h4>zero</h4>
+          <p>Means the symbol is a zero register relative symbol. The zero register relative symbol accesses
+            the zero register + signed 16 bit offset.
+          </p>
+          <h4>near</h4>
+          <p>Means the symbol is a GP register relative symbol.
+            Accessed in 32 bits when the symbol is loaded. Used to explicitly declare a symbol
+            accessed in 32 bits.
+          </p>
+        </li>
+        <li>
+          Type specifiers
+          <p>void, char, short, int, long, float</p>
+          <p>double (currently unsupported)</p>
+          <p>signed, unsigned, struct, union, enum</p>
+          <p>const, volatile</p>
+          <p>Symbol declared with typedef</p>
+        </li>
+      </ol>
+    </div>
+    <div class="section" id="ch6-3">
+      <h3>6.3 Type Conversion</h3>
+      <p>When the two sides of a substitution, evaluation, or comparison are different, a type conversion occurs.</p>
+      <p>The conversion method follows the ANSI standard, with evaluation and comparison always converting to int,
+        and substitution converted to the type that is being substituted.
+      </p>
+    </div>
+    <div class="section" id="ch6-4">
+      <h3>6.4 Special Specifications</h3>
+      <div class="subsection" id="ch6-4-1">
+        <h4>6.4.1 Restricting Register Use</h4>
+        <p>Code is generated without using the specified register.</p>
+        <p>Specified with: regmsk &lt;register&gt;;</p>
+        <p>The only registers that can be specified are operation registers and register variable registers.</p>
+        <p>NEC Register format can be used.</p>
+        <p>Operation registers: rg1 - rg9 : r11 - r19</p>
+        <p>Register variable registers: rs0 - rs9 : r20 - r29</p>
+        <div class="codeblock">regmsk rs2                  → rs2 not allowed
 regmsk rs2, rg1, rg2;       → rs2, rg1, rg2 not allowed
 regmsk rs2-rs6;             → rs2, rs3, rs4, rs5, rs6 not allowed</div>
-          </div>
-          <p>',' and '-' can be used together. In addition, the specified register names must be lowercase</p>
-          <div class="codeblock">regmsk rg2, rg5-rg7, rg9, rs1;</div>
-          <p>Furthermore, regmsk is treated similarly to a variable declaration, and can be specified within each block. (Cannot specify in the middle of an expression)</p>
-          <p>Example:</p>
-          <div class="codeblock">test.c
+        </div>
+        <p>',' and '-' can be used together. In addition, the specified register names must be lowercase</p>
+        <div class="codeblock">regmsk rg2, rg5-rg7, rg9, rs1;</div>
+        <p>Furthermore, regmsk is treated similarly to a variable declaration, and can be specified within each block. (Cannot specify in the middle of an expression)</p>
+        <p>Example:</p>
+        <div class="codeblock">test.c
 
 regmsk rs0-rs2;   → In this file, rs0 to rs2 cannot be used
 
 void fnc(int arg)
 {
-    regmsk rg2;           → In this function, rs0 to rs2 and rg2 cannot be used.
-    if ( arg ) {
-        regmsk rg3,rg6;   → In this block, rs0 to rs2, rg2, rg3, rg6 cannot be used.
-    }
+  regmsk rg2;           → In this function, rs0 to rs2 and rg2 cannot be used.
+  if ( arg ) {
+      regmsk rg3,rg6;   → In this block, rs0 to rs2, rg2, rg3, rg6 cannot be used.
+  }
 }</div>
-          <p>The following registers cannot be specified (will be ignored):</p>
-          <table>
-            <tr>
-              <td>zero</td>
-              <td>Zero Register</td>
-            </tr>
-            <tr>
-              <td>at</td>
-              <td>Assembler Reserved</td>
-            </tr>
-            <tr>
-              <td>hsp</td>
-              <td>Handler Stack Pointer</td>
-            </tr>
-            <tr>
-              <td>sp</td>
-              <td>Stack Pointer</td>
-            </tr>
-            <tr>
-              <td>gp</td>
-              <td>gp Register</td>
-            </tr>
-            <tr>
-              <td>ra0-ra3</td>
-              <td>Function Parameters</td>
-            </tr>
-            <tr>
-              <td>rg0</td>
-              <td>Function Return Value Register</td>
-            </tr>
-            <tr>
-              <td>ut</td>
-              <td>Special Operation Register</td>
-            </tr>
-            <tr>
-              <td>link</td>
-              <td>Link Register</td>
-            </tr>
-          </table>
-        <div class="subsection" id="ch6-4-2">
-          <h4>6.4.2 Variable Register Assignment</h4>
-          <p>A given register can be used as a variable</p>
-          <p>Specified with:</p>
-          <div class="codeblock">int a:rg8;</div>
-          <div class="codeblock">register int a:rg8;</div>
-          <p>The second case assigns the rg8 register without using the register variable registers.</p>
-          <div class="codeblock">int a:rg8,b:rg8;</div>
-          <p>Results in a duplication error.</p>
-          <p>Registers must be specified with lowercase characters.</p>
-          <p>Example:</p>
-          <div class="codeblock">foo()
+        <p>The following registers cannot be specified (will be ignored):</p>
+        <table>
+          <tr>
+            <td>zero</td>
+            <td>Zero Register</td>
+          </tr>
+          <tr>
+            <td>at</td>
+            <td>Assembler Reserved</td>
+          </tr>
+          <tr>
+            <td>hsp</td>
+            <td>Handler Stack Pointer</td>
+          </tr>
+          <tr>
+            <td>sp</td>
+            <td>Stack Pointer</td>
+          </tr>
+          <tr>
+            <td>gp</td>
+            <td>gp Register</td>
+          </tr>
+          <tr>
+            <td>ra0-ra3</td>
+            <td>Function Parameters</td>
+          </tr>
+          <tr>
+            <td>rg0</td>
+            <td>Function Return Value Register</td>
+          </tr>
+          <tr>
+            <td>ut</td>
+            <td>Special Operation Register</td>
+          </tr>
+          <tr>
+            <td>link</td>
+            <td>Link Register</td>
+          </tr>
+        </table>
+      <div class="subsection" id="ch6-4-2">
+        <h4>6.4.2 Variable Register Assignment</h4>
+        <p>A given register can be used as a variable</p>
+        <p>Specified with:</p>
+        <div class="codeblock">int a:rg8;</div>
+        <div class="codeblock">register int a:rg8;</div>
+        <p>The second case assigns the rg8 register without using the register variable registers.</p>
+        <div class="codeblock">int a:rg8,b:rg8;</div>
+        <p>Results in a duplication error.</p>
+        <p>Registers must be specified with lowercase characters.</p>
+        <p>Example:</p>
+        <div class="codeblock">foo()
 {
-    int a:rg8;
-    
-    a = 0;
+  int a:rg8;
+  
+  a = 0;
 }               → Treats a as rg8</div>
-          <p>In an expanded register syntax like int a:rg8;, the storage class will always be register.</p>
-          <div class="codeblock">bar()
+        <p>In an expanded register syntax like int a:rg8;, the storage class will always be register.</p>
+        <div class="codeblock">bar()
 {
-    extern int a:rg8;   → register int a:rg8;
-    static int b:rg1;   → register int b:rg1;
-    int c:rg2;          → register int c:rg2;
+  extern int a:rg8;   → register int a:rg8;
+  static int b:rg1;   → register int b:rg1;
+  int c:rg2;          → register int c:rg2;
 }
 
-    int e:rg3;          → register int e:rg3;   → error</div>
-          <p>An error is thrown because a register was declared with an external linkage.</p>
-        </div>
-        <div class="subsection" id="ch6-4-3">
-          <h4>6.4.3 Saving Registers</h4>
-          <p>Save a given register at the start of a function or block. (Reverts it back at the end of the function or block)</p>
-          <p>Specified with: regsave &lt;register&gt;;</p>
-          <p>Registers are specified the same way as regmsk</p>
-          <p>Register names must be specified in lowercase characters.</p>
-        </div>
-        <div class="subsection" id="ch6-4-4">
-          <h4>6.4.4 Direct Register Addressing</h4>
-          <p>The following registers can be directly written into the C program:</p>
-          <p>General Registers:</p>
-          <table>
-            <tr>
-              <td>This System's</td>
-              <td>Format</td>
-              <td>NEC's</td>
-              <td>Format</td>
-            </tr>
-            <tr>
-              <td>zero</td>
-              <td>_ZERO</td>
-              <td>r0</td>
-              <td>_R0</td>
-            </tr>
-            <tr>
-              <td>at</td>
-              <td>_AT</td>
-              <td>r1</td>
-              <td>_R1</td>
-            </tr>
-            <tr>
-              <td>hsp</td>
-              <td>_HSP</td>
-              <td>r2</td>
-              <td>_R2</td>
-            </tr>
-            <tr>
-              <td>sp</td>
-              <td>_SP</td>
-              <td>r3</td>
-              <td>_R3</td>
-            </tr>
-            <tr>
-              <td>gp</td>
-              <td>_GP</td>
-              <td>r4</td>
-              <td>_R4</td>
-            </tr>
-            <tr>
-              <td>tp</td>
-              <td>_TP</td>
-              <td>r5</td>
-              <td>_R5</td>
-            </tr>
-            <tr>
-              <td>ra0-ra3</td>
-              <td>_RA0-_RA3</td>
-              <td>r6-r9</td>
-              <td>_R6-_R9</td>
-            </tr>
-            <tr>
-              <td>rg0-rg9</td>
-              <td>_RG0-_RG9</td>
-              <td>r10-r19</td>
-              <td>_R10-_R19</td>
-            </tr>
-            <tr>
-              <td>rs0-rs9</td>
-              <td>_RS0-_RS9</td>
-              <td>r20-r29</td>
-              <td>_R20-_R29</td>
-            </tr>
-            <tr>
-              <td>ut</td>
-              <td>_UT</td>
-              <td>r30</td>
-              <td>R30</td>
-            </tr>
-            <tr>
-              <td>link</td>
-              <td>_LINK</td>
-              <td>r31</td>
-              <td>R31</td>
-            </tr>
-          </table>
-          <p>Special Registers:</p>
-          <table>
-            <tr>
-              <td>eipc</td>
-              <td>_EIPC</td>
-            </tr>
-            <tr>
-              <td>eipsw</td>
-              <td>_EIPSW</td>
-            </tr>
-            <tr>
-              <td>fepc</td>
-              <td>_FEPC</td>
-            </tr>
-            <tr>
-              <td>fepsw</td>
-              <td>_FEPSW</td>
-            </tr>
-            <tr>
-              <td>ecr</td>
-              <td>_ECR</td>
-            </tr>
-            <tr>
-              <td>psw</td>
-              <td>_PSW</td>
-            </tr>
-            <tr>
-              <td>pir</td>
-              <td>_PIR</td>
-            </tr>
-            <tr>
-              <td>tkcw</td>
-              <td>_TKCW</td>
-            </tr>
-            <tr>
-              <td>chcw</td>
-              <td>_CHCW</td>
-            </tr>
-            <tr>
-              <td>adtre</td>
-              <td>_ADTRE</td>
-            </tr>
-          </table>
-        </div>
-        <div class="subsection" id="ch6-4-5">
-          <h4>6.4.5 I/O Port Access Syntax</h4>
-          <p>Special function calls are used to access the I/O port from the C program.</p>
-          <table>
-            <tr>
-              <td></td>
-              <td>Syntax</td>
-              <td>Generated Code</td>
-            </tr>
-            <tr>
-              <td>Input</td>
-              <td>_INPORTB(value)</td>
-              <td>in.b value(zero), reg</td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>_INPORTH(value)</td>
-              <td>in.h value(zero), reg</td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>_INPORTW(value)</td>
-              <td>in.w value(zero), reg</td>
-            </tr>
-            <tr>
-              <td>Output</td>
-              <td>_OUTPORTB(value, data)</td>
-              <td>data → reg<br>out.b reg,value(zero)</td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>_OUTPORTH(value, data)</td>
-              <td>data → reg<br>out.h reg,value(zero)</td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>_OUTPORTW(value, data)</td>
-              <td>data → reg<br>out.w reg,value(zero)</td>
-            </tr>
-          </table>
-          <p>These functions are registered as reserved names, so you can not declare variables/functions with the same name.</p>
-        </div>
-        <div class="subsection" id="ch6-4-6">
-          <h4>6.4.6 Interruprt Functions</h4>
-          <p>By using the interrupt expansion keyword, you can write an interrupt handler routine.
-            Interrupt functions must be declared without a return value (void) and return with reti instead of rts.
-            Saving and reverting registers must be done by the user with regsave.
-          </p>
-          <div class="codeblock">void    interrupt   functionName()
+  int e:rg3;          → register int e:rg3;   → error</div>
+        <p>An error is thrown because a register was declared with an external linkage.</p>
+      </div>
+      <div class="subsection" id="ch6-4-3">
+        <h4>6.4.3 Saving Registers</h4>
+        <p>Save a given register at the start of a function or block. (Reverts it back at the end of the function or block)</p>
+        <p>Specified with: regsave &lt;register&gt;;</p>
+        <p>Registers are specified the same way as regmsk</p>
+        <p>Register names must be specified in lowercase characters.</p>
+      </div>
+      <div class="subsection" id="ch6-4-4">
+        <h4>6.4.4 Direct Register Addressing</h4>
+        <p>The following registers can be directly written into the C program:</p>
+        <p>General Registers:</p>
+        <table>
+          <tr>
+            <td>This System's</td>
+            <td>Format</td>
+            <td>NEC's</td>
+            <td>Format</td>
+          </tr>
+          <tr>
+            <td>zero</td>
+            <td>_ZERO</td>
+            <td>r0</td>
+            <td>_R0</td>
+          </tr>
+          <tr>
+            <td>at</td>
+            <td>_AT</td>
+            <td>r1</td>
+            <td>_R1</td>
+          </tr>
+          <tr>
+            <td>hsp</td>
+            <td>_HSP</td>
+            <td>r2</td>
+            <td>_R2</td>
+          </tr>
+          <tr>
+            <td>sp</td>
+            <td>_SP</td>
+            <td>r3</td>
+            <td>_R3</td>
+          </tr>
+          <tr>
+            <td>gp</td>
+            <td>_GP</td>
+            <td>r4</td>
+            <td>_R4</td>
+          </tr>
+          <tr>
+            <td>tp</td>
+            <td>_TP</td>
+            <td>r5</td>
+            <td>_R5</td>
+          </tr>
+          <tr>
+            <td>ra0-ra3</td>
+            <td>_RA0-_RA3</td>
+            <td>r6-r9</td>
+            <td>_R6-_R9</td>
+          </tr>
+          <tr>
+            <td>rg0-rg9</td>
+            <td>_RG0-_RG9</td>
+            <td>r10-r19</td>
+            <td>_R10-_R19</td>
+          </tr>
+          <tr>
+            <td>rs0-rs9</td>
+            <td>_RS0-_RS9</td>
+            <td>r20-r29</td>
+            <td>_R20-_R29</td>
+          </tr>
+          <tr>
+            <td>ut</td>
+            <td>_UT</td>
+            <td>r30</td>
+            <td>R30</td>
+          </tr>
+          <tr>
+            <td>link</td>
+            <td>_LINK</td>
+            <td>r31</td>
+            <td>R31</td>
+          </tr>
+        </table>
+        <p>Special Registers:</p>
+        <table>
+          <tr>
+            <td>eipc</td>
+            <td>_EIPC</td>
+          </tr>
+          <tr>
+            <td>eipsw</td>
+            <td>_EIPSW</td>
+          </tr>
+          <tr>
+            <td>fepc</td>
+            <td>_FEPC</td>
+          </tr>
+          <tr>
+            <td>fepsw</td>
+            <td>_FEPSW</td>
+          </tr>
+          <tr>
+            <td>ecr</td>
+            <td>_ECR</td>
+          </tr>
+          <tr>
+            <td>psw</td>
+            <td>_PSW</td>
+          </tr>
+          <tr>
+            <td>pir</td>
+            <td>_PIR</td>
+          </tr>
+          <tr>
+            <td>tkcw</td>
+            <td>_TKCW</td>
+          </tr>
+          <tr>
+            <td>chcw</td>
+            <td>_CHCW</td>
+          </tr>
+          <tr>
+            <td>adtre</td>
+            <td>_ADTRE</td>
+          </tr>
+        </table>
+      </div>
+      <div class="subsection" id="ch6-4-5">
+        <h4>6.4.5 I/O Port Access Syntax</h4>
+        <p>Special function calls are used to access the I/O port from the C program.</p>
+        <table>
+          <tr>
+            <td></td>
+            <td>Syntax</td>
+            <td>Generated Code</td>
+          </tr>
+          <tr>
+            <td>Input</td>
+            <td>_INPORTB(value)</td>
+            <td>in.b value(zero), reg</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>_INPORTH(value)</td>
+            <td>in.h value(zero), reg</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>_INPORTW(value)</td>
+            <td>in.w value(zero), reg</td>
+          </tr>
+          <tr>
+            <td>Output</td>
+            <td>_OUTPORTB(value, data)</td>
+            <td>data → reg<br>out.b reg,value(zero)</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>_OUTPORTH(value, data)</td>
+            <td>data → reg<br>out.h reg,value(zero)</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>_OUTPORTW(value, data)</td>
+            <td>data → reg<br>out.w reg,value(zero)</td>
+          </tr>
+        </table>
+        <p>These functions are registered as reserved names, so you can not declare variables/functions with the same name.</p>
+      </div>
+      <div class="subsection" id="ch6-4-6">
+        <h4>6.4.6 Interruprt Functions</h4>
+        <p>By using the interrupt expansion keyword, you can write an interrupt handler routine.
+          Interrupt functions must be declared without a return value (void) and return with reti instead of rts.
+          Saving and reverting registers must be done by the user with regsave.
+        </p>
+        <div class="codeblock">void    interrupt   functionName()
 {
-     function body
+    function body
 }</div>
-        </div>
-        <div class="subsection" id="ch6-4-7">
-          <h4>6.4.7 zero Storage Class Modifier</h4>
-          <p>The zero keyword is used to declare a zero register relative symbol.
-            A zero register relative symbol loads from memory based on an offset from the zero register.
-          </p>
-          <p>Written as: &lt;Storage class specifier&gt; zero &lt;type specifier&gt; &lt;symbol name&gt;</p>
-          <p>Example:</p>
-          <div class="codeblock">--------- ok.c ---------
+      </div>
+      <div class="subsection" id="ch6-4-7">
+        <h4>6.4.7 zero Storage Class Modifier</h4>
+        <p>The zero keyword is used to declare a zero register relative symbol.
+          A zero register relative symbol loads from memory based on an offset from the zero register.
+        </p>
+        <p>Written as: &lt;Storage class specifier&gt; zero &lt;type specifier&gt; &lt;symbol name&gt;</p>
+        <p>Example:</p>
+        <div class="codeblock">--------- ok.c ---------
 zero int          Eza;
 static zero int   Ezb;
 extern zero int   Ezc;
 void foo()
 {
-    static zero int za;
-    extern zero int zb;
-    zb =Eza;
+  static zero int za;
+  extern zero int zb;
+  zb =Eza;
 }
 --------- ok.s --------- *
 #
-    file    "ok.c"
-    seg     zseg
+  file    "ok.c"
+  seg     zseg
 @L2:
-    ds      $4
-    zglobl  Ezc     → Outside reference zero page symbol</div>
-    zglobl  zb      → Outside reference zero page symbol
-    seg     zseg
-    globl   Eza
+  ds      $4
+  zglobl  Ezc     → Outside reference zero page symbol</div>
+  zglobl  zb      → Outside reference zero page symbol
+  seg     zseg
+  globl   Eza
 Eza:                → Since it is a zero page symbol, it is assigned to zseg
-    ds      $4
+  ds      $4
 Ezb:                → Since it is a zero page symbol, it is assigned to zseg
-    ds      $4
-    align   $4
+  ds      $4
+  align   $4
 #
-    globl   foo
-    seg     cseg
+  globl   foo
+  seg     cseg
 foo:
 # line 10
-    ld.w    Eza(zero),rg0    → Accessed relative to zero register
-    st.w    rg0,zb(zero)     → Accessed relative to zero register
-    rts
+  ld.w    Eza(zero),rg0    → Accessed relative to zero register
+  st.w    rg0,zb(zero)     → Accessed relative to zero register
+  rts
 #
-    seg     cseg
+  seg     cseg
 
 --------- err.c ---------
 zero int    Ezx = 1;    → Resetting causes an error
 zero void   bar()       → Using in a function causes an error
 {
-    zero int    zx;     → Defining a zero page symbol within a function that has an external linkage causes an error.
+  zero int    zx;     → Defining a zero page symbol within a function that has an external linkage causes an error.
 }</div>
-        <div class="subsection" id="ch6-4-8">
-          <h4>6.4.8 near Storage Class Modifier</h4>
-          <p>The near keyword is used to declare a GP register relative symbol.
-            A GP register relative symbol loads from memory based on an offset from the gp register.</p>
-          <p>Written as &lt;Storage class specifier&gt; near &lt;type specifier&gt; &lt;symbol name&gt;</p>            
-          <p>Example:</p>
-          <div class="codeblock">--------- ok.c ---------
+      <div class="subsection" id="ch6-4-8">
+        <h4>6.4.8 near Storage Class Modifier</h4>
+        <p>The near keyword is used to declare a GP register relative symbol.
+          A GP register relative symbol loads from memory based on an offset from the gp register.</p>
+        <p>Written as &lt;Storage class specifier&gt; near &lt;type specifier&gt; &lt;symbol name&gt;</p>            
+        <p>Example:</p>
+        <div class="codeblock">--------- ok.c ---------
 near int          Ena;
 static near int   Enb;
 extern near int   Enc;
 void foo()
 {
-    static near int   na;
-    extern near int   nb;
-    nb = Ena;
+  static near int   na;
+  extern near int   nb;
+  nb = Ena;
 }
 --------- ok.s ---------
 #
-    file        "ok.c"
-    seg         gbseg
+  file        "ok.c"
+  seg         gbseg
 @L2:
-    ds          $4
-    zglobl[gp]  Enc         → Outside reference GP relative symbol
-    zglobl[gp]  nb          → Outside reference GP relative symbol
-    seg         gbseg
-    align       $4
-    globl       Ena
+  ds          $4
+  zglobl[gp]  Enc         → Outside reference GP relative symbol
+  zglobl[gp]  nb          → Outside reference GP relative symbol
+  seg         gbseg
+  align       $4
+  globl       Ena
 Ena:                        → Since it is a GP relative BSS symbol, it is assigned gbseg
-    ds          $4
+  ds          $4
 Enb:                        → Since it is a GP relative BSS symbol, it is assigned gbseg
-    ds          $4
-    align       $4
+  ds          $4
+  align       $4
 #
-    globl       foo
-    seg         cseg
+  globl       foo
+  seg         cseg
 foo:
 # line 10
-    ld.w        Ena(gp),rg0 → Accessed relative to the GP register
-    st.w        rg0,nb(gp)  → ACcessed relative to the GP register
-    rts
+  ld.w        Ena(gp),rg0 → Accessed relative to the GP register
+  st.w        rg0,nb(gp)  → ACcessed relative to the GP register
+  rts
 #
-    seg         cseg
+  seg         cseg
 --------- err.c ---------
 near void   bar()           → Using in a function causes an error
 {
-    near int    nx;         → Defining a GP relative symbol within a function that has an external linkage causes an error.
+  near int    nx;         → Defining a GP relative symbol within a function that has an external linkage causes an error.
 }</div>
-        </div>
-        <div class="subsection" id="ch6-4-9">
-          <h4>6.4.9 far Storage Class Modifier</h4>
-          <p>Used to explicitly declare a 32-bit absolute symbol when the -x switch
-            (switch that makes global variables GP relative symbols by default) is specified.
-          </p>
-          <p>Written as &lt;Storage class specifier&gt; far &lt;type specifier&gt; &lt;symbol name&gt;</p>
-          <p>Example:</p>
-          <div class="codeblock">--------- ok.c ---------
+      </div>
+      <div class="subsection" id="ch6-4-9">
+        <h4>6.4.9 far Storage Class Modifier</h4>
+        <p>Used to explicitly declare a 32-bit absolute symbol when the -x switch
+          (switch that makes global variables GP relative symbols by default) is specified.
+        </p>
+        <p>Written as &lt;Storage class specifier&gt; far &lt;type specifier&gt; &lt;symbol name&gt;</p>
+        <p>Example:</p>
+        <div class="codeblock">--------- ok.c ---------
 far int E1;
 int     E2;
 
 void    foo()
 {
-    E1 = 0;
-    E2 = 0;
+  E1 = 0;
+  E2 = 0;
 }
 ---------
 % fxcc -x -S ok.c
 --------- ok.s ---------
 #
-    file    "z.c"
-    seg     bseg
-    align   $4
-    globl   E1
+  file    "z.c"
+  seg     bseg
+  align   $4
+  globl   E1
 E1:                   → Because it is declared far, it is a 32 bit symbol.
-    ds      $4
-    seg     gbseg
-    align   $4
-    globl   E2
+  ds      $4
+  seg     gbseg
+  align   $4
+  globl   E2
 E2:                   → Becomes GP relative because of the -x switch
-    ds      $4
+  ds      $4
 #
-    globl   foo
-    seg     cseg
+  globl   foo
+  seg     cseg
 foo:
 # line 6
-    movhi   #hi1(E1),zero,rg1     → Accessed as a 32 bit symbol
-    st.w    zero,lo(E1)(rg1)
+  movhi   #hi1(E1),zero,rg1     → Accessed as a 32 bit symbol
+  st.w    zero,lo(E1)(rg1)
 # line 7
-    st.w    zero,E2(gp)           → GP Register relative address
+  st.w    zero,E2(gp)           → GP Register relative address
 #
-    rts
+  rts
 #
-    seg     cseg
+  seg     cseg
 --------- err.c ---------
 far void    bar()                 → Throws an error when used for a function
 {
-    far     int   fx;             → Throws an error when defining a symbol that has an external linkage within a function
+  far     int   fx;             → Throws an error when defining a symbol that has an external linkage within a function
 }</div>
-        </div>
-        <div class="subsection" id="ch6-4-10">
-          <h4>6.4.10 About near Type (GP relative register) Symbols</h4>
-          <p>This compiler supports using GP relative register using the near keyword.
-            By how the system works, variables with the near type are assigned the gbseg segment.
-            When you access memory relative to a register, the displacement is 16 bit, so the area that can be
-            accessed is -32768 to +32767 from the address designated gp. Variables declared with near must
-            be within this range. (The near variable area cannot exceed 64K bytes in total.)
-          </p>
-          <p><strong>About resetting the gp register</strong><br>
-            If a segment is not explcitly specified, this compiler takes an unreset symbol
-            declared with the near keyword and assigns it to gbseg, but to ensure this symbol is
-            correctly accessed, the _Sgbseg value is usually set in the startup routine. (Set in _STARTUP.O)
-          </p>
-          <p>Example:</p>
-          <div class="codeblock">---- _start.s ---- *
-        ・
-        ・
-        ・
-  mov.w   #_Sgbseg
-        ・
-        ・
-        ・
-   jmp     main</div>
-          <p><strong>About declaring variables</strong><br>
-            The near storage class modifier can only be used on external variables declared outside of functions
-            and extern and static variables inside and outside functions. For the specifics on how to declare variables, see the example below.
-          </p>
-          <p>Example:</p>
-          <div class="codeblock">--------- main.c ---------
+      </div>
+      <div class="subsection" id="ch6-4-10">
+        <h4>6.4.10 About near Type (GP relative register) Symbols</h4>
+        <p>This compiler supports using GP relative register using the near keyword.
+          By how the system works, variables with the near type are assigned the gbseg segment.
+          When you access memory relative to a register, the displacement is 16 bit, so the area that can be
+          accessed is -32768 to +32767 from the address designated gp. Variables declared with near must
+          be within this range. (The near variable area cannot exceed 64K bytes in total.)
+        </p>
+        <p><strong>About resetting the gp register</strong><br>
+          If a segment is not explcitly specified, this compiler takes an unreset symbol
+          declared with the near keyword and assigns it to gbseg, but to ensure this symbol is
+          correctly accessed, the _Sgbseg value is usually set in the startup routine. (Set in _STARTUP.O)
+        </p>
+        <p>Example:</p>
+        <div class="codeblock">---- _start.s ---- *
+      ・
+      ・
+      ・
+mov.w   #_Sgbseg
+      ・
+      ・
+      ・
+  jmp     main</div>
+        <p><strong>About declaring variables</strong><br>
+          The near storage class modifier can only be used on external variables declared outside of functions
+          and extern and static variables inside and outside functions. For the specifics on how to declare variables, see the example below.
+        </p>
+        <p>Example:</p>
+        <div class="codeblock">--------- main.c ---------
 extern        char    foo1;
 extern        char    foo2;
 
-        near  long    Data;
+      near  long    Data;
 extern  near  char    bar1;
 static  near  int     Flg;
 
 main()
 {
-    extern  near  char  bar2;
-    static  near  short Test;
-    
-    foo2 = foo1;
-    bar2 = bar1;
-    Test = 0;
-    Data = Flg;
+  extern  near  char  bar2;
+  static  near  short Test;
+  
+  foo2 = foo1;
+  bar2 = bar1;
+  Test = 0;
+  Data = Flg;
 }
 ------------</div>
-          <p><strong>About the addresses referenced</strong><br>
-            The value of the symbol used when referencing address is normally the first
-            address of the segment the symbol belongs to (e.g. _Sbseg) plus an offset. However, with a near keyword symbol,
-            because it is used relative to a register, the symbol's value is used as the offset.
-          </p>
-          <div style="display: flex;">
-            <div class="codeblock" style="width: 50%;">Regular external symbol
+        <p><strong>About the addresses referenced</strong><br>
+          The value of the symbol used when referencing address is normally the first
+          address of the segment the symbol belongs to (e.g. _Sbseg) plus an offset. However, with a near keyword symbol,
+          because it is used relative to a register, the symbol's value is used as the offset.
+        </p>
+        <div style="display: flex;">
+          <div class="codeblock" style="width: 50%;">Regular external symbol
 --------- foo.c ---------
 char foo1;
 char foo2;
 
 --------- foo.s ---------
-        seg       bseg
-        globl     foo1
+      seg       bseg
+      globl     foo1
 foo1:
-        ds        $1
-        globl     foo2
+      ds        $1
+      globl     foo2
 foo2:
-        ds        $1
-  ・          ・
-  ・          ・
-  ・          ・   -Sbseg
+      ds        $1
+・          ・
+・          ・
+・          ・   -Sbseg
 +0・・・・・←($9000)
-  ・  foo1    ・
+・  foo1    ・
 +1・・・・・
-  ・  foo2    ・
-  ・・・・・
-  ・   ・     ・
-  ・   ・     ・
-  ・   ・     ・
-  ・          ・</div>
-            <div class="codeblock" style="width: 50%;">near Symbol
+・  foo2    ・
+・・・・・
+・   ・     ・
+・   ・     ・
+・   ・     ・
+・          ・</div>
+          <div class="codeblock" style="width: 50%;">near Symbol
 --------- bar.c ---------
 near char bar1;
 near char bar2;
 
 --------- bar.s ---------
-        seg       bseg
-        globl     bar1
+      seg       bseg
+      globl     bar1
 bar1:
-        ds        $1
-        globl     bar2
+      ds        $1
+      globl     bar2
 bar2:
-        ds        $1
-  ・          ・
+      ds        $1
+・          ・
 -32768・・・・・Original
-  ・  bar1    ・・ _Sgbseg
+・  bar1    ・・ _Sgbseg
 -32767・・・・・($10000)
-  ・  bar2    ・・
+・  bar2    ・・
 -32766・・・・・
-  ・    ・    ・+32768($8000)
-  ・    ・    ・・
- 0・・・・・・・Actual
-  ・          ・ _Sgbseg
-  ・          ・ ($18000)</div>
-            </div>
-            <p>Translator note: I could not figure out if Notepad formatted this correctly,
-              so it is possible the format is wrong.
-            </p>
-            <p>Assuming bseg starts at $9000 and gbseg starts at $10000,</p>
-            <table>
-              <tr>
-                <th>Regular<br>Symbol Name</th>
-                <th>Value</th>
-                <th>near<br>Symbol Name</th>
-                <th>Value</th>
-              </tr>
-              <tr>
-                <td>_Sbseg</td>
-                <td>$9000</td>
-                <td>_Sgbseg</td>
-                <td>$18000</td>
-              </tr>
-              <tr>
-                <td>foo1</td>
-                <td>$9000</td>
-                <td>bar1</td>
-                <td>$8000(-32768)</td>
-              </tr>
-              <tr>
-                <td>foo2</td>
-                <td>$9001</td>
-                <td>bar2</td>
-                <td>$8001(-32767)</td>
-              </tr>
-            </table>
-            <p>is what it becomes.</p>
-            <p>Note: _Sbseg,_Sgbseg are special symbols created by the linker.
-              These are normally symbols that point to the first address of the segment, but near segments,
-              because they are used relative to a register, are treated specially, by adding +32768($8000) to the original address.
-            </p>
-            <p>The following diagram shows _start.s main.c foo.c bar.c after they are compiled, assembled, and linked.</p>
-            <div class="codeblock">    ・            ・
-  +0・・・・・・・・←_Sbseg
-    ・    foo1    ・
-  +1・・・・・・・・
-    ・            ・
-    ・・・・・・・・
-    ・      .     ・
-    ・      .     ・
-    ・      .     ・
-    ・            ・
-    ・・・・・・・・-32768  ←・・・・Original
-    ・            ・                      ・    _Sgbseg
-    ・    Data    ・                      ・
-    ・            ・                      ・
-    ・            ・                      ・         Symbol Name   Value
-    ・・・・・・・・-32764                 ・
-    ・            ・                      ・         foo1          _Sbseg+0
-    ・            ・                      ・
-    ・    Flg     ・                      ・         foo2          _Sbseg+1
-    ・            ・                      ・         Data          -32768
-    ・・・・・・・・-32760                 ・         Flg           -32764
-    ・    Test    ・                      ・         Test(@L2)     -32760
-    ・            ・                      ・
-    ・・・・・・・・                       ・         bar1          -32756
-    ・  (.align)  ・                      ・         bar2          -32755
-    ・            ・                      ・
-    ・・・・・・・・-32756                 ・
-    ・    bar1    ・                      ・
-    ・・・・・・・・-32755                 ・
-    ・    bar2    ・                      ・
-    ・・・・・・・・                       ・
-    ・      .     ・                      ・
-    ・      .     ・                  +32768($8000)
-    ・      .     ・                      ・
-    ・            ・                      ・
+・    ・    ・+32768($8000)
+・    ・    ・・
+0・・・・・・・Actual
+・          ・ _Sgbseg
+・          ・ ($18000)</div>
+          </div>
+          <p>Translator note: I could not figure out if Notepad formatted this correctly,
+            so it is possible the format is wrong.
+          </p>
+          <p>Assuming bseg starts at $9000 and gbseg starts at $10000,</p>
+          <table>
+            <tr>
+              <th>Regular<br>Symbol Name</th>
+              <th>Value</th>
+              <th>near<br>Symbol Name</th>
+              <th>Value</th>
+            </tr>
+            <tr>
+              <td>_Sbseg</td>
+              <td>$9000</td>
+              <td>_Sgbseg</td>
+              <td>$18000</td>
+            </tr>
+            <tr>
+              <td>foo1</td>
+              <td>$9000</td>
+              <td>bar1</td>
+              <td>$8000(-32768)</td>
+            </tr>
+            <tr>
+              <td>foo2</td>
+              <td>$9001</td>
+              <td>bar2</td>
+              <td>$8001(-32767)</td>
+            </tr>
+          </table>
+          <p>is what it becomes.</p>
+          <p>Note: _Sbseg,_Sgbseg are special symbols created by the linker.
+            These are normally symbols that point to the first address of the segment, but near segments,
+            because they are used relative to a register, are treated specially, by adding +32768($8000) to the original address.
+          </p>
+          <p>The following diagram shows _start.s main.c foo.c bar.c after they are compiled, assembled, and linked.</p>
+          <div class="codeblock">    ・            ・
++0・・・・・・・・←_Sbseg
+  ・    foo1    ・
++1・・・・・・・・
+  ・            ・
+  ・・・・・・・・
+  ・      .     ・
+  ・      .     ・
+  ・      .     ・
+  ・            ・
+  ・・・・・・・・-32768  ←・・・・Original
+  ・            ・                      ・    _Sgbseg
+  ・    Data    ・                      ・
+  ・            ・                      ・
+  ・            ・                      ・         Symbol Name   Value
+  ・・・・・・・・-32764                 ・
+  ・            ・                      ・         foo1          _Sbseg+0
+  ・            ・                      ・
+  ・    Flg     ・                      ・         foo2          _Sbseg+1
+  ・            ・                      ・         Data          -32768
+  ・・・・・・・・-32760                 ・         Flg           -32764
+  ・    Test    ・                      ・         Test(@L2)     -32760
+  ・            ・                      ・
+  ・・・・・・・・                       ・         bar1          -32756
+  ・  (.align)  ・                      ・         bar2          -32755
+  ・            ・                      ・
+  ・・・・・・・・-32756                 ・
+  ・    bar1    ・                      ・
+  ・・・・・・・・-32755                 ・
+  ・    bar2    ・                      ・
+  ・・・・・・・・                       ・
+  ・      .     ・                      ・
+  ・      .     ・                  +32768($8000)
+  ・      .     ・                      ・
+  ・            ・                      ・
 gp→・・・・・・・・0       ←・・・・Actual
-    ・      .     ・                          _Sgbseg
-    ・      .     ・
-    ・      .     ・
-    ・            ・
-  
-  
+  ・      .     ・                          _Sgbseg
+  ・      .     ・
+  ・      .     ・
+  ・            ・
+
+
 main:
 # line 13
-      movhi   #hi1(foo1),zero,rg1  ;
-      ld.b    lo(foo1)(rg1),rg0    ; Normal external variable
-      movhi   #hi1(foo2),zero,rg2  ;
-      st.b    rg0,lo(foo2)(rg2)    ;
+    movhi   #hi1(foo1),zero,rg1  ;
+    ld.b    lo(foo1)(rg1),rg0    ; Normal external variable
+    movhi   #hi1(foo2),zero,rg2  ;
+    st.b    rg0,lo(foo2)(rg2)    ;
 # line  14
-      ld.b    bar1(gp),rg3         ; Becomes ld.b -32756(gp),rg3
-      st.b    rg3,bar2(gp)         ; Accesses the desired region
+    ld.b    bar1(gp),rg3         ; Becomes ld.b -32756(gp),rg3
+    st.b    rg3,bar2(gp)         ; Accesses the desired region
 # line  15
-      st.h    zero,@L2(gp)         ; The name changes for static inside a function
+    st.h    zero,@L2(gp)         ; The name changes for static inside a function
 # line   16
-      ld.w    Flg(gp),rg5          ;
-      st.w    rg5,Data(gp)         ;
-      rts</div>
-          <p><strong>Warning if you have multiple near type segments</strong><br>
-            When a near symbol that was explicitly reset is declared, multiple near type segments exist.
-            In cases like that, those segments must be assigned to consecutive regions.
-            (This is not applicable when you manipulate the gp register at execution time.)
-            When you want assign consecutive regions, specify 
-          </p>
-          <div class="codeblock">/gdseg + gbseg:nnnn (where nnnn is the address)</div>
-          <p>at link time, and set the address of the first segment in the consecutive regions
-            for the initial value of the gp register. If the segments are incorrect, they cannot be accessed correctly.
-            (_Sgdseg in the case above.)
-          </p>
-          <div class="codeblock">---- _start.s ---- *
-            ・
-            ・
-            ・
-      mov.w   #_Sgdseg,gp
-            ・
-            ・
-            ・
-       jmp     main</div>
-          <p>Furthermore, the value of the symbol is offset from the first segment, as opposed to the offset
-            from the segment the symbol is in, except for the segment used to reset the gp register.
-          </p>
-        </div>
+    ld.w    Flg(gp),rg5          ;
+    st.w    rg5,Data(gp)         ;
+    rts</div>
+        <p><strong>Warning if you have multiple near type segments</strong><br>
+          When a near symbol that was explicitly reset is declared, multiple near type segments exist.
+          In cases like that, those segments must be assigned to consecutive regions.
+          (This is not applicable when you manipulate the gp register at execution time.)
+          When you want assign consecutive regions, specify 
+        </p>
+        <div class="codeblock">/gdseg + gbseg:nnnn (where nnnn is the address)</div>
+        <p>at link time, and set the address of the first segment in the consecutive regions
+          for the initial value of the gp register. If the segments are incorrect, they cannot be accessed correctly.
+          (_Sgdseg in the case above.)
+        </p>
+        <div class="codeblock">---- _start.s ---- *
+          ・
+          ・
+          ・
+    mov.w   #_Sgdseg,gp
+          ・
+          ・
+          ・
+      jmp     main</div>
+        <p>Furthermore, the value of the symbol is offset from the first segment, as opposed to the offset
+          from the segment the symbol is in, except for the segment used to reset the gp register.
+        </p>
       </div>
     </div>
-
-    <hr>
-
-    <div class="chapter" id="ch7">
-      <h2>Chapter 7 Using the C Compiler</h2>
-      <div class="section" id="ch7-1">
-        <h3>7.1 Command Syntax</h3>
-        <p>The following is the syntax for the command</p>
-        <div class="code">FXCC [Switch] File Name [File Name...]</div>
-        <p>An explanation for the use as well as possible switches are presented below.</p>
-      </div>
-      <div class="section" id="ch7-2">
-        <h3>7.2 Option Switches</h3>
-        <p>The following are explanations of switches that can be specified when running the C compiler.</p>
-        <div class="switch-box">
-          <h4>1) -B [Directory path name]</h4>
-          <p><strong>Function</strong>: Specify the directory path of a subprogram<br>
-            <strong>Explanation</strong>: Can specify the path of the subprogram the compiler executes (preprocessor, assembler, etc.).
-            Setting the path name as the HBINPATH environment variable has the same effect.
-            Note that the compiler driver searches -B option, HBINPATH, PATH in that order for subprograms, so
-            normally setting this is not needed.<br>
-            <strong>Omission</strong>: Searches for subprograms in from HBINPATH, then PATH.
-          </p>
-        </div>
-        <div class="switch-box">
-          <h4>2) -c[File name]</h4>
-          <p><strong>Function</strong>: Prevent linking<br>
-            <strong>Explanation</strong>: Setting this switch stops the compiler from executing the linker,
-            stopping after outputting object files. If a file name is given after the switch,
-            an object file is given that name, but if not, it is given the same name as the compiled file with
-            extension ".o".<br>
-            <strong>Omission</strong>: Executes the linker and outputs an executable
-          </p>
-        </div>
-        <div class="switch-box">
-          <h4>3) -C</h4>
-          <p><strong>Function</strong>: Generate Stack Check code<br>
-            <strong>Explanation</strong>: Generates code that calls a function (name is already chosen)
-            for stack check.<br>
-            jal __stack_check<br>
-            This function must be created by the user. The __stack_check function is called
-            after allocating auto variable area and link register saving code, apd simply checks whether
-            the current SP is outside the stack area.
-          </p>
-        </div>
-        <div class="switch-box">
-          <h4>4) -D Macro Name</h4>
-          <p><strong>Function</strong>: Define a macro<br>
-            <strong>Explanation</strong>: Can define macros in the same way as #define command with this switch.<br>
-            <strong>Omission</strong>: Only macros defined with the #define command in the source code is valid.
-          </p>
-        </div>
-        <div class="switch-box">
-          <h4>5) -e *</h4>
-          <p><strong>Function</strong>: Output the assembler source file (to stdout)<br>
-            <strong>Explanation</strong>: Outputs the assembler source file to standard output.
-          </p>
-        </div>
-        <div class="switch-box">
-          <h4>6) -E</h4>
-          <p><strong>Function</strong>: Output the preprocessor file (to stdout)<br>
-            <strong>Explanation</strong>: Outputs the source that was processed with the preprocessor file to standard output.
-          </p>
-        </div>
-        <div class="switch-box">
-          <h4>7) -fm</h4>
-          <p><strong>Function</strong>: Change where messages are output<br>
-            <strong>Explanation</strong>: Changes the output location of messages to include error/warning messages<br>
-            Without -fm: stdout
-            With -fm: stderr
-          </p>
-        </div>
-        <div class="switch-box">
-          <h4>8) -g</h4>
-          <p><strong>Function</strong>: Generate code for the source code debugger<br>
-            <strong>Explanation</strong>: Setting this switch outputs debug information
-            to allow debugging at the source code level with the source code debugger.<br>
-            <strong>Omission</strong>: Does not output debug information
-          </p>
-        </div>
-        <div class="switch-box">
-          <h4>9) -i size</h4>
-          <p><strong>Function</strong>: Alignment of functions<br>
-            <strong>Explanation</strong>: Setting this switch makes functions to size-byte alignment<br>
-            <strong>Omission</strong>: Doesn't process alignment.
-          </p>
-        </div>
-        <div class="switch-box">
-          <h4>10) -I Path Name</h4>
-          <p><strong>Function</strong>: Specify Include path<br>
-            <strong>Explanation</strong>: Setting this switch with a path name sets or changes the
-            path of the include file. Include path can also be set with the VINCLUDE environment variable.<br>
-            <strong>Omission</strong>: Searches for the path set by the environment variable.
-          </p>
-        </div>
-        <div class="switch-box">
-          <h4>11) -l Library Name</h4>
-          <p><strong>Function</strong>: Specify a library<br>
-            <strong>Explanation</strong>: Uses the specified libraries in the directory
-            that is set by the VLIB environment variable. (The library extension ".a" is automatically added)<br>
-            <strong>Omission</strong>: Only uses standard libraries.
-          </p>
-        </div>
-        <div class="switch-box">
-          <h4>12) -o File Name</h4>
-          <p><strong>Function</strong>: Sets the name of the output file<br>
-            <strong>Explanation</strong>: By setting this switch and specifying a file name, the
-            file is outputted with the specified name. If -c, -P, -S optins are not set
-            and the extension is omitted, an executable with the ".ex" extension is outputted.<br>
-            <strong>Omission</strong>: Outputs an executable called "a.ex" to the current directory (assuming -c, -P, -s are not set)
-          </p>
-        </div>
-        <div class="switch-box">
-          <h4>13) -O</h4>
-          <p><strong>Function</strong>: Optimize Switch<br>
-            <strong>Explanation</strong>: Setting this switch optimizes the generated code. (Doesn't optimize the pipeline)<br>
-            <strong>Omission</strong>: Doesn't optimize the generated code.
-          </p>
-        </div>
-        <div class="switch-box">
-          <h4>14) -O2</h4>
-          <p><strong>Function</strong>: Pipeline Opimize Switch<br>
-            <strong>Explanation</strong>: Setting this switch optimizes the generated code's pipeline. (And performs the same optimization as -O)<br>
-            <strong>Omission</strong>: Doesn't optimize the generated code's pipeline
-          </p>
-        </div>
-        <div class="switch-box">
-          <h4>15) -P [File Name]</h4>
-          <p><strong>Function</strong>: Generate preprocessor file<br>
-            <strong>Explanation</strong>: Setting this switch makes the compiler stop after only the preprocessor.<br>
-            Specifying a file name after the switch creates a preprocessor file with that file name. If it is not specified,
-            it is the same name as the file that was compiled, but as a preprocessor file with a ".p" extension.<br>
-            <strong>Omission</strong>: Compiling process continues after preprocessor finishes.
-          </p>
-        </div>
-        <div class="switch-box">
-          <h4>16) -q</h4>
-          <p><strong>Function</strong>: Compresses sequences of identical characters<br>
-            <strong>Explanation</strong>: Setting this switch compresses sequences of identical characters.<br>
-            <strong>Omission</strong>: Doesn't compress sequences of identical characters.
-          </p>
-        </div>
-        <div class="switch-box">
-          <h4>17) -r</h4>
-          <p><strong>Function</strong>: Change register representation when assembler source is outputted<br>
-            <strong>Explanation</strong>: Setting this switch makes the registers in the assembler file
-            be written in NEC format (r6-r29 format).<br>
-            <strong>Omission</strong>: Uses this system's format (ra0-ra3, rg0-rg9, etc)
-          </p>
-        </div>
-        <div class="switch-box">
-          <h4>18) -S [File Name]</h4>
-          <p><strong>Function</strong>: Generate only the assembler source<br>
-            <strong>Explanation</strong>: Setting this switch makes the compiler output only the assembler source and quit.<br>
-            If a file name is specified after the switch, the assembler source is outputted with that file name. If not, it is the
-            same name as the compiled file, but as an assembler source file with the ".s" extension.<br>
-            <strong>Omission</strong>: Assembles and links, and generates an executable. The assembler source is deleted.
-          </p>
-        </div>
-        <div class="switch-box">
-          <h4>19) -u</h4>
-          <p><strong>Function</strong>: Makes char types unsigned char types<br>
-            <strong>Explanation</strong>: Setting this switch makes char types, normally processed signed, become
-            processed as unsigned char types.<br>
-            <strong>Omission</strong>: char is processed as a signed char
-          </p>
-        </div>
-        <div class="switch-box">
-          <h4>20) -U Macro Name</h4>
-          <p><strong>Function</strong>: Undefine a macro<br>
-            <strong>Explanation</strong>: Specify a macro name to undefine. Undefines a macro
-            in the same way that the #undef command does.<br>
-            <strong>Omission</strong>: Only #undef commands in the source files are used to undefine a macro.
-          </p>
-        </div>
-        <div class="switch-box">
-          <h4>21) -v</h4>
-          <p><strong>Function</strong>: Verbose Mode<br>
-            <strong>Explanation</strong>: Setting this makes the compilation process get outputted to stdout.<br>
-            <strong>Omission</strong>: Doesn't output compilation process.
-          </p>
-        </div>
-        <div class="switch-box">
-          <h4>22) -V</h4>
-          <p><strong>Function</strong>: Generate Overflow Check Code<br>
-            <strong>Explanation</strong>: Generates code that calls a function (name predetermined)
-            that checks for overflow on multiplication, division, modulus.<br>
-            __mul_overflow_check: Multiplication<br>
-            __div_overflo_check: Division, Modulus<br>=
-            Note that the function itself must be created by the user.<br>
-            The overflow check code is called when overflow occurs in multliplication or division.
-            Can inspect the address of the overflow value, and other things.
-          </p>
-        </div>
-        <div class="switch-box">
-          <h4>23) -w</h4>
-          <p><strong>Function</strong>: Suppress Warnings<br>
-            <strong>Explanation</strong>: Doesn't output warning messages.<br>
-            <strong>Omission</strong>: Outputs warning messages.
-          </p>
-        </div>
-        <div class="switch-box">
-          <h4>24) -W Level</h4>
-          <p><strong>Function</strong>: Set Warning Level<br>
-            <strong>Explanation</strong>: Set the warning le vel. Level 3 performs the strictest warning check.<br>
-            <strong>Omission</strong>: Performs checks with warning level 1.
-          </p>
-        </div>
-        <div class="switch-box">
-          <h4>25) -x</h4>
-          <p><strong>Function</strong>: Change Symbols' Address Loading<br>
-            <strong>Explanation</strong>: By setting this switch, global variables that don't have zero or far storage class modifiers
-            are considered GP relative symbols.<br>
-            <strong>Omission</strong>: Global variables without zero or far storage class modifiers are considered normal symbols.
-          </p>
-        </div>
-        <div class="switch-box">
-          <h4>26) -X Address</h4>
-          <p><strong>Function</strong>: Specify Program's Starting Address<br>
-            <strong>Explanation</strong>: Allows for specifying the program's starting address.<br>
-            <strong>Omission</strong>: Puts the program at 0x8000.
-          </p>
-        </div>
-        <div class="switch-box">
-          <h4>27) -y</h4>
-          <p><strong>Function</strong>: Change Output Method of Common Symbols<br>
-            <strong>Explanation</strong>: Change the output method of unreset symbols with external linkages.
-            In a normal C compiler, a file A and file B contain something like<br>
-            <div class="codeblock">char buffer[128]:        char buffer[256]:</div>
-            To link them, code is generated so that the symbol is the largest size (256 in the above example),
-            but in the FXCC C compiler, this throws an error when linking. Setting the -y switch makes the behavior
-            follow that of a normal C compiler.
-          </p>
-        </div>
-        <div class="switch-box">
-          <h4>28) -zC Segment Name, -zD Segment Name, -zd Segment Name -zB Segment Name, -zb Segment Name, -zZ Segment Name</h4>
-          <p><strong>Function</strong>: Specify Default Segment Name<br>
-            <strong>Explanation</strong>: If there is no segment specification #pragma seg(??) in the source,
-            code segment, data segment, GP relative data segment, BSS segment, GP relative BSS data segment, zero page segment
-            are all given the default names, cseg, dseg, gdseg, bseg, gbseg, zseg, respectively. Use this switch to use a user-defined segment name.<br>
-            <strong>Omission</strong>; For any switch not set, the default name is used.
-          </p>
-        </div>
-        <div class="switch-box">
-          <h4>29) -AS "String"</h4>
-          <p><strong>Function</strong>: Set Switches for the Assembler<br>
-            <strong>Explanation</strong>: Setting this switch, with switches in the string following, sends the switches
-            to the assembler from the C compiler.<br>
-            However, the C compiler does not check the assembler switches. Please do not set
-            the -g switch in the assembler if the -g switch is set for the compiler.<br>
-            <strong>Omission</strong>: Only sets the standard switches, -u and -o
-          </p>
-        </div>
-        <div class="switch-box">
-          <h4>30) -LK "Switch"</h4>
-          <p><strong>Function</strong>: Set Switches for the Linker<br>
-            <strong>Explanation</strong>: Setting this switch, with switches in the string following, sends the switches
-            to the linker from the C compiler.<br>
-            However, the C compiler does not check the linker switches.<br>
-            <strong>Omission</strong>: Only sets the standard switches, -p and -o
-          </p>
-        </div>
-        <div class="switch-box">
-          <h4>31) @ File Name</h4>
-          <p><strong>Function</strong>: Specify Indirect Files<br>
-            <strong>Explanation</strong>: Allows setting compiler switches writted in an indirect file.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <hr>
-
-    <div class="chapter" id="ch8">
-      <h2>Chapter 8 Error/Warning Messages</h2>
-      <div class="section" id="ch8-1">
-        <h3>8.1 Fatal Errors</h3>
-        <table>
-          <tr>
-            <td>0:</td>
-            <td>Too many identifiers</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>1:</td>
-            <td>Not enough memory</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>2:</td>
-            <td>Intermediate file error</td>
-            <td>Error when outputting intermediate file</td>
-          </tr>
-          <tr>
-            <td>3:</td>
-            <td>End of file</td>
-            <td>(), {}, "", /*, */, etc are not closed.</td>
-          </tr>
-          <tr>
-            <td>4:</td>
-            <td>Target file does not exist</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>5:</td>
-            <td>Register overflow</td>
-            <td>The expression is so complex there are not enough operation registers</td>
-          </tr>
-          <tr>
-            <td>6:</td>
-            <td>Parser stack overflow</td>
-            <td>The expression is so complex the compiler's internal stack ran out of space</td>
-          </tr>
-          <tr>
-            <td>7:</td>
-            <td>Illegal use of pragma</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>8:</td>
-            <td>Segment overflow</td>
-            <td></td>
-          </tr>
-        </table>
-      </div>
-      <div class="section" id="ch8-1">
-        <h3>8.2 Errors</h3>
-        <table>
-          <tr>
-            <td>0:</td>
-            <td>Unknown character</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>1:</td>
-            <td>Illegal preprocessor # line</td>
-            <td>A # command that was not preprocessed remained</td>
-          </tr>
-          <tr>
-            <td>2:</td>
-            <td>Comment statement error</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>3:</td>
-            <td>String is not closed</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>4:</td>
-            <td>Undefined identifier in function FunctionName : Identifier</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>5:</td>
-            <td>Number syntax error</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>6:</td>
-            <td>Expression error</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>7:</td>
-            <td>Illegal storage class: storage class identifier</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>8:</td>
-            <td>External definition error</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>9:</td>
-            <td>Illegal use of storage class</td>
-            <td>Improper storage class declaration</td>
-          </tr>
-          <tr>
-            <td>10:</td>
-            <td>Identifier duplicated : identifier</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>11:</td>
-            <td>Undefined struct/union name</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>12:</td>
-            <td>Illegal type specifier</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>13:</td>
-            <td>Too many initializer</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>14:</td>
-            <td>Declaration error</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>15:</td>
-            <td>Identifier redeclaration</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>16:</td>
-            <td>Storage class error at function</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>17:</td>
-            <td>Break statement error</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>18:</td>
-            <td>Continue statement error</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>19:</td>
-            <td>Field width overflow</td>
-            <td>Bit count in bitfield overflowed</td>
-          </tr>
-          <tr>
-            <td>20:</td>
-            <td>Field type error</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>21:</td>
-            <td>Array dimension overflow</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>22:</td>
-            <td>Element index undefined</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>23:</td>
-            <td>Undefined label: Label</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>24:</td>
-            <td>Incorrect ()</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>25:</td>
-            <td>Case statement error</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>26:</td>
-            <td>Default statement error</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>27:</td>
-            <td>Switch table overflow</td>
-            <td>Too many case statements in switch</td>
-          </tr>
-          <tr>
-            <td>28:</td>
-            <td>Multiple default statements</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>29:</td>
-            <td>Constant expression required</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>30:</td>
-            <td>Invalid operand type</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>31:</td>
-            <td>Void function</td>
-            <td>Cannot specify a return value in a void function</td>
-          </tr>
-          <tr>
-            <td>32:</td>
-            <td>Invoid expression value</td>
-            <td>A term of an expression has no value</td>
-          </tr>
-          <tr>
-            <td>33:</td>
-            <td>Invalid parameter declared</td>
-            <td>Incorrectly declaring a function prototype with an arbitrary number of parameters</td>
-          </tr>
-          <tr>
-            <td>34:</td>
-            <td>Illegal register used</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>35:</td>
-            <td>Duplicate case value</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>36:</td>
-            <td>Cannot initialize</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>37:</td>
-            <td>Mismatched number of parameters: Identifier</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>38:</td>
-            <td>Illegal structure operation</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>39:</td>
-            <td>Illegal pointer conversion</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>40:</td>
-            <td>Struct reference error</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>41:</td>
-            <td>Illegal member of structure : Indentifier</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>42:</td>
-            <td>Insufficient arguments in function call</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>43:</td>
-            <td>Too many arguments in function call</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>44:</td>
-            <td>Multiple tag names used</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>45:</td>
-            <td>Invalid storage class</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>46:</td>
-            <td>Void typed parameter declared</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>47:</td>
-            <td>Void typed identifier declared</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>48:</td>
-            <td>Undefined tag name: Tag name</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>49:</td>
-            <td>Assigned in constant identifier</td>
-            <td>Assignment to a variable with constant modifier</td>
-          </tr>
-          <tr>
-            <td>50:</td>
-            <td>Invalid indirect operator</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>51:</td>
-            <td>Invalid address operator</td>
-            <td></td>
-          </tr>
-        </table>
-      </div>
-      <div class="section" id="ch8-1">
-        <h3>8.3 Warnings</h3>
-      </div>
-    </div>
-
   </div>
-x
+
+  <hr>
+
+  <div class="chapter" id="ch7">
+    <h2>Chapter 7 Using the C Compiler</h2>
+    <div class="section" id="ch7-1">
+      <h3>7.1 Command Syntax</h3>
+      <p>The following is the syntax for the command</p>
+      <div class="code">FXCC [Switch] File Name [File Name...]</div>
+      <p>An explanation for the use as well as possible switches are presented below.</p>
+    </div>
+    <div class="section" id="ch7-2">
+      <h3>7.2 Option Switches</h3>
+      <p>The following are explanations of switches that can be specified when running the C compiler.</p>
+      <div class="switch-box">
+        <h4>1) -B [Directory path name]</h4>
+        <p><strong>Function</strong>: Specify the directory path of a subprogram<br>
+          <strong>Explanation</strong>: Can specify the path of the subprogram the compiler executes (preprocessor, assembler, etc.).
+          Setting the path name as the HBINPATH environment variable has the same effect.
+          Note that the compiler driver searches -B option, HBINPATH, PATH in that order for subprograms, so
+          normally setting this is not needed.<br>
+          <strong>Omission</strong>: Searches for subprograms in from HBINPATH, then PATH.
+        </p>
+      </div>
+      <div class="switch-box">
+        <h4>2) -c[File name]</h4>
+        <p><strong>Function</strong>: Prevent linking<br>
+          <strong>Explanation</strong>: Setting this switch stops the compiler from executing the linker,
+          stopping after outputting object files. If a file name is given after the switch,
+          an object file is given that name, but if not, it is given the same name as the compiled file with
+          extension ".o".<br>
+          <strong>Omission</strong>: Executes the linker and outputs an executable
+        </p>
+      </div>
+      <div class="switch-box">
+        <h4>3) -C</h4>
+        <p><strong>Function</strong>: Generate Stack Check code<br>
+          <strong>Explanation</strong>: Generates code that calls a function (name is already chosen)
+          for stack check.<br>
+          jal __stack_check<br>
+          This function must be created by the user. The __stack_check function is called
+          after allocating auto variable area and link register saving code, apd simply checks whether
+          the current SP is outside the stack area.
+        </p>
+      </div>
+      <div class="switch-box">
+        <h4>4) -D Macro Name</h4>
+        <p><strong>Function</strong>: Define a macro<br>
+          <strong>Explanation</strong>: Can define macros in the same way as #define command with this switch.<br>
+          <strong>Omission</strong>: Only macros defined with the #define command in the source code is valid.
+        </p>
+      </div>
+      <div class="switch-box">
+        <h4>5) -e *</h4>
+        <p><strong>Function</strong>: Output the assembler source file (to stdout)<br>
+          <strong>Explanation</strong>: Outputs the assembler source file to standard output.
+        </p>
+      </div>
+      <div class="switch-box">
+        <h4>6) -E</h4>
+        <p><strong>Function</strong>: Output the preprocessor file (to stdout)<br>
+          <strong>Explanation</strong>: Outputs the source that was processed with the preprocessor file to standard output.
+        </p>
+      </div>
+      <div class="switch-box">
+        <h4>7) -fm</h4>
+        <p><strong>Function</strong>: Change where messages are output<br>
+          <strong>Explanation</strong>: Changes the output location of messages to include error/warning messages<br>
+          Without -fm: stdout
+          With -fm: stderr
+        </p>
+      </div>
+      <div class="switch-box">
+        <h4>8) -g</h4>
+        <p><strong>Function</strong>: Generate code for the source code debugger<br>
+          <strong>Explanation</strong>: Setting this switch outputs debug information
+          to allow debugging at the source code level with the source code debugger.<br>
+          <strong>Omission</strong>: Does not output debug information
+        </p>
+      </div>
+      <div class="switch-box">
+        <h4>9) -i size</h4>
+        <p><strong>Function</strong>: Alignment of functions<br>
+          <strong>Explanation</strong>: Setting this switch makes functions to size-byte alignment<br>
+          <strong>Omission</strong>: Doesn't process alignment.
+        </p>
+      </div>
+      <div class="switch-box">
+        <h4>10) -I Path Name</h4>
+        <p><strong>Function</strong>: Specify Include path<br>
+          <strong>Explanation</strong>: Setting this switch with a path name sets or changes the
+          path of the include file. Include path can also be set with the VINCLUDE environment variable.<br>
+          <strong>Omission</strong>: Searches for the path set by the environment variable.
+        </p>
+      </div>
+      <div class="switch-box">
+        <h4>11) -l Library Name</h4>
+        <p><strong>Function</strong>: Specify a library<br>
+          <strong>Explanation</strong>: Uses the specified libraries in the directory
+          that is set by the VLIB environment variable. (The library extension ".a" is automatically added)<br>
+          <strong>Omission</strong>: Only uses standard libraries.
+        </p>
+      </div>
+      <div class="switch-box">
+        <h4>12) -o File Name</h4>
+        <p><strong>Function</strong>: Sets the name of the output file<br>
+          <strong>Explanation</strong>: By setting this switch and specifying a file name, the
+          file is outputted with the specified name. If -c, -P, -S optins are not set
+          and the extension is omitted, an executable with the ".ex" extension is outputted.<br>
+          <strong>Omission</strong>: Outputs an executable called "a.ex" to the current directory (assuming -c, -P, -s are not set)
+        </p>
+      </div>
+      <div class="switch-box">
+        <h4>13) -O</h4>
+        <p><strong>Function</strong>: Optimize Switch<br>
+          <strong>Explanation</strong>: Setting this switch optimizes the generated code. (Doesn't optimize the pipeline)<br>
+          <strong>Omission</strong>: Doesn't optimize the generated code.
+        </p>
+      </div>
+      <div class="switch-box">
+        <h4>14) -O2</h4>
+        <p><strong>Function</strong>: Pipeline Opimize Switch<br>
+          <strong>Explanation</strong>: Setting this switch optimizes the generated code's pipeline. (And performs the same optimization as -O)<br>
+          <strong>Omission</strong>: Doesn't optimize the generated code's pipeline
+        </p>
+      </div>
+      <div class="switch-box">
+        <h4>15) -P [File Name]</h4>
+        <p><strong>Function</strong>: Generate preprocessor file<br>
+          <strong>Explanation</strong>: Setting this switch makes the compiler stop after only the preprocessor.<br>
+          Specifying a file name after the switch creates a preprocessor file with that file name. If it is not specified,
+          it is the same name as the file that was compiled, but as a preprocessor file with a ".p" extension.<br>
+          <strong>Omission</strong>: Compiling process continues after preprocessor finishes.
+        </p>
+      </div>
+      <div class="switch-box">
+        <h4>16) -q</h4>
+        <p><strong>Function</strong>: Compresses sequences of identical characters<br>
+          <strong>Explanation</strong>: Setting this switch compresses sequences of identical characters.<br>
+          <strong>Omission</strong>: Doesn't compress sequences of identical characters.
+        </p>
+      </div>
+      <div class="switch-box">
+        <h4>17) -r</h4>
+        <p><strong>Function</strong>: Change register representation when assembler source is outputted<br>
+          <strong>Explanation</strong>: Setting this switch makes the registers in the assembler file
+          be written in NEC format (r6-r29 format).<br>
+          <strong>Omission</strong>: Uses this system's format (ra0-ra3, rg0-rg9, etc)
+        </p>
+      </div>
+      <div class="switch-box">
+        <h4>18) -S [File Name]</h4>
+        <p><strong>Function</strong>: Generate only the assembler source<br>
+          <strong>Explanation</strong>: Setting this switch makes the compiler output only the assembler source and quit.<br>
+          If a file name is specified after the switch, the assembler source is outputted with that file name. If not, it is the
+          same name as the compiled file, but as an assembler source file with the ".s" extension.<br>
+          <strong>Omission</strong>: Assembles and links, and generates an executable. The assembler source is deleted.
+        </p>
+      </div>
+      <div class="switch-box">
+        <h4>19) -u</h4>
+        <p><strong>Function</strong>: Makes char types unsigned char types<br>
+          <strong>Explanation</strong>: Setting this switch makes char types, normally processed signed, become
+          processed as unsigned char types.<br>
+          <strong>Omission</strong>: char is processed as a signed char
+        </p>
+      </div>
+      <div class="switch-box">
+        <h4>20) -U Macro Name</h4>
+        <p><strong>Function</strong>: Undefine a macro<br>
+          <strong>Explanation</strong>: Specify a macro name to undefine. Undefines a macro
+          in the same way that the #undef command does.<br>
+          <strong>Omission</strong>: Only #undef commands in the source files are used to undefine a macro.
+        </p>
+      </div>
+      <div class="switch-box">
+        <h4>21) -v</h4>
+        <p><strong>Function</strong>: Verbose Mode<br>
+          <strong>Explanation</strong>: Setting this makes the compilation process get outputted to stdout.<br>
+          <strong>Omission</strong>: Doesn't output compilation process.
+        </p>
+      </div>
+      <div class="switch-box">
+        <h4>22) -V</h4>
+        <p><strong>Function</strong>: Generate Overflow Check Code<br>
+          <strong>Explanation</strong>: Generates code that calls a function (name predetermined)
+          that checks for overflow on multiplication, division, modulus.<br>
+          __mul_overflow_check: Multiplication<br>
+          __div_overflo_check: Division, Modulus<br>=
+          Note that the function itself must be created by the user.<br>
+          The overflow check code is called when overflow occurs in multliplication or division.
+          Can inspect the address of the overflow value, and other things.
+        </p>
+      </div>
+      <div class="switch-box">
+        <h4>23) -w</h4>
+        <p><strong>Function</strong>: Suppress Warnings<br>
+          <strong>Explanation</strong>: Doesn't output warning messages.<br>
+          <strong>Omission</strong>: Outputs warning messages.
+        </p>
+      </div>
+      <div class="switch-box">
+        <h4>24) -W Level</h4>
+        <p><strong>Function</strong>: Set Warning Level<br>
+          <strong>Explanation</strong>: Set the warning le vel. Level 3 performs the strictest warning check.<br>
+          <strong>Omission</strong>: Performs checks with warning level 1.
+        </p>
+      </div>
+      <div class="switch-box">
+        <h4>25) -x</h4>
+        <p><strong>Function</strong>: Change Symbols' Address Loading<br>
+          <strong>Explanation</strong>: By setting this switch, global variables that don't have zero or far storage class modifiers
+          are considered GP relative symbols.<br>
+          <strong>Omission</strong>: Global variables without zero or far storage class modifiers are considered normal symbols.
+        </p>
+      </div>
+      <div class="switch-box">
+        <h4>26) -X Address</h4>
+        <p><strong>Function</strong>: Specify Program's Starting Address<br>
+          <strong>Explanation</strong>: Allows for specifying the program's starting address.<br>
+          <strong>Omission</strong>: Puts the program at 0x8000.
+        </p>
+      </div>
+      <div class="switch-box">
+        <h4>27) -y</h4>
+        <p><strong>Function</strong>: Change Output Method of Common Symbols<br>
+          <strong>Explanation</strong>: Change the output method of unreset symbols with external linkages.
+          In a normal C compiler, a file A and file B contain something like<br>
+          <div class="codeblock">char buffer[128]:        char buffer[256]:</div>
+          To link them, code is generated so that the symbol is the largest size (256 in the above example),
+          but in the FXCC C compiler, this throws an error when linking. Setting the -y switch makes the behavior
+          follow that of a normal C compiler.
+        </p>
+      </div>
+      <div class="switch-box">
+        <h4>28) -zC Segment Name, -zD Segment Name, -zd Segment Name -zB Segment Name, -zb Segment Name, -zZ Segment Name</h4>
+        <p><strong>Function</strong>: Specify Default Segment Name<br>
+          <strong>Explanation</strong>: If there is no segment specification #pragma seg(??) in the source,
+          code segment, data segment, GP relative data segment, BSS segment, GP relative BSS data segment, zero page segment
+          are all given the default names, cseg, dseg, gdseg, bseg, gbseg, zseg, respectively. Use this switch to use a user-defined segment name.<br>
+          <strong>Omission</strong>; For any switch not set, the default name is used.
+        </p>
+      </div>
+      <div class="switch-box">
+        <h4>29) -AS "String"</h4>
+        <p><strong>Function</strong>: Set Switches for the Assembler<br>
+          <strong>Explanation</strong>: Setting this switch, with switches in the string following, sends the switches
+          to the assembler from the C compiler.<br>
+          However, the C compiler does not check the assembler switches. Please do not set
+          the -g switch in the assembler if the -g switch is set for the compiler.<br>
+          <strong>Omission</strong>: Only sets the standard switches, -u and -o
+        </p>
+      </div>
+      <div class="switch-box">
+        <h4>30) -LK "Switch"</h4>
+        <p><strong>Function</strong>: Set Switches for the Linker<br>
+          <strong>Explanation</strong>: Setting this switch, with switches in the string following, sends the switches
+          to the linker from the C compiler.<br>
+          However, the C compiler does not check the linker switches.<br>
+          <strong>Omission</strong>: Only sets the standard switches, -p and -o
+        </p>
+      </div>
+      <div class="switch-box">
+        <h4>31) @ File Name</h4>
+        <p><strong>Function</strong>: Specify Indirect Files<br>
+          <strong>Explanation</strong>: Allows setting compiler switches writted in an indirect file.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="chapter" id="ch8">
+    <h2>Chapter 8 Error/Warning Messages</h2>
+    <div class="section" id="ch8-1">
+      <h3>8.1 Fatal Errors</h3>
+      <table>
+        <tr>
+          <td>0:</td>
+          <td>Too many identifiers</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>1:</td>
+          <td>Not enough memory</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>2:</td>
+          <td>Intermediate file error</td>
+          <td>Error when outputting intermediate file</td>
+        </tr>
+        <tr>
+          <td>3:</td>
+          <td>End of file</td>
+          <td>(), {}, "", /*, */, etc are not closed.</td>
+        </tr>
+        <tr>
+          <td>4:</td>
+          <td>Target file does not exist</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>5:</td>
+          <td>Register overflow</td>
+          <td>The expression is so complex there are not enough operation registers</td>
+        </tr>
+        <tr>
+          <td>6:</td>
+          <td>Parser stack overflow</td>
+          <td>The expression is so complex the compiler's internal stack ran out of space</td>
+        </tr>
+        <tr>
+          <td>7:</td>
+          <td>Illegal use of pragma</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>8:</td>
+          <td>Segment overflow</td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+    <div class="section" id="ch8-2">
+      <h3>8.2 Errors</h3>
+      <table>
+        <tr>
+          <td>0:</td>
+          <td>Unknown character</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>1:</td>
+          <td>Illegal preprocessor # line</td>
+          <td>A # command that was not preprocessed remained</td>
+        </tr>
+        <tr>
+          <td>2:</td>
+          <td>Comment statement error</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>3:</td>
+          <td>String is not closed</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>4:</td>
+          <td>Undefined identifier in function FunctionName : Identifier</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>5:</td>
+          <td>Number syntax error</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>6:</td>
+          <td>Expression error</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>7:</td>
+          <td>Illegal storage class: storage class identifier</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>8:</td>
+          <td>External definition error</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>9:</td>
+          <td>Illegal use of storage class</td>
+          <td>Improper storage class declaration</td>
+        </tr>
+        <tr>
+          <td>10:</td>
+          <td>Identifier duplicated : identifier</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>11:</td>
+          <td>Undefined struct/union name</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>12:</td>
+          <td>Illegal type specifier</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>13:</td>
+          <td>Too many initializer</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>14:</td>
+          <td>Declaration error</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>15:</td>
+          <td>Identifier redeclaration</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>16:</td>
+          <td>Storage class error at function</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>17:</td>
+          <td>Break statement error</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>18:</td>
+          <td>Continue statement error</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>19:</td>
+          <td>Field width overflow</td>
+          <td>Bit count in bitfield overflowed</td>
+        </tr>
+        <tr>
+          <td>20:</td>
+          <td>Field type error</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>21:</td>
+          <td>Array dimension overflow</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>22:</td>
+          <td>Element index undefined</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>23:</td>
+          <td>Undefined label: Label</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>24:</td>
+          <td>Incorrect ()</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>25:</td>
+          <td>Case statement error</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>26:</td>
+          <td>Default statement error</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>27:</td>
+          <td>Switch table overflow</td>
+          <td>Too many case statements in switch</td>
+        </tr>
+        <tr>
+          <td>28:</td>
+          <td>Multiple default statements</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>29:</td>
+          <td>Constant expression required</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>30:</td>
+          <td>Invalid operand type</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>31:</td>
+          <td>Void function</td>
+          <td>Cannot specify a return value in a void function</td>
+        </tr>
+        <tr>
+          <td>32:</td>
+          <td>Invoid expression value</td>
+          <td>A term of an expression has no value</td>
+        </tr>
+        <tr>
+          <td>33:</td>
+          <td>Invalid parameter declared</td>
+          <td>Incorrectly declaring a function prototype with an arbitrary number of parameters</td>
+        </tr>
+        <tr>
+          <td>34:</td>
+          <td>Illegal register used</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>35:</td>
+          <td>Duplicate case value</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>36:</td>
+          <td>Cannot initialize</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>37:</td>
+          <td>Mismatched number of parameters: Identifier</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>38:</td>
+          <td>Illegal structure operation</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>39:</td>
+          <td>Illegal pointer conversion</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>40:</td>
+          <td>Struct reference error</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>41:</td>
+          <td>Illegal member of structure : Indentifier</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>42:</td>
+          <td>Insufficient arguments in function call</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>43:</td>
+          <td>Too many arguments in function call</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>44:</td>
+          <td>Multiple tag names used</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>45:</td>
+          <td>Invalid storage class</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>46:</td>
+          <td>Void typed parameter declared</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>47:</td>
+          <td>Void typed identifier declared</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>48:</td>
+          <td>Undefined tag name: Tag name</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>49:</td>
+          <td>Assigned in constant identifier</td>
+          <td>Assignment to a variable with constant modifier</td>
+        </tr>
+        <tr>
+          <td>50:</td>
+          <td>Invalid indirect operator</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>51:</td>
+          <td>Invalid address operator</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>52:</td>
+          <td>Registered identifier invalid</td>
+          <td>Identifier with register declaration invalid</td>
+        </tr>
+        <tr>
+          <td>53:</td>
+          <td>Function call error</td>
+          <td>Calling something other than a function</td>
+        </tr>
+        <tr>
+          <td>54:</td>
+          <td>Left value required</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>55:</td>
+          <td>Cannot use floating point</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>56:</td>
+          <td>Illegal use of pointer</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>57:</td>
+          <td>Void type error in expression</td>
+          <td>Expression contains an undefined value</td>
+        </tr>
+        <tr>
+          <td>58:</td>
+          <td>Invalid structure type</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>59:</td>
+          <td>Pamareter definition error</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>60:</td>
+          <td>Parameter redeclared: Parameter name</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>61:</td>
+          <td>Invalid number of parameter</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>62:</td>
+          <td>Constant expression error</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>63:</td>
+          <td>Illegal use of tag</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>64:</td>
+          <td>Overflow during initializating</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>65:</td>
+          <td>Parameter name omitted</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>66:</td>
+          <td>Invalid declaration of type</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>67:</td>
+          <td>Invalid declaration of struct/union specifier</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>68:</td>
+          <td>Illegal use of regsave</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>69:</td>
+          <td>Redeclaration of register: Register</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>70:</td>
+          <td>Undefined identifier: Identifier</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>71:</td>
+          <td>Illegal use of zero</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>72:</td>
+          <td>Segment redeclared: Segment</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>73:</td>
+          <td>Undefined segment: Segment name</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>74:</td>
+          <td>Negative array</td>
+          <td>An array was declared with negative elements</td>
+        </tr>
+        <tr>
+          <td>75:</td>
+          <td>Invalid cast type</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>76:</td>
+          <td>Unknown sizeof value</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>99:</td>
+          <td>Syntax error</td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+    <div class="section" id="ch8-3">
+      <h3>8.3 Warnings</h3>
+      <table>
+        <tr>
+          <td>0:</td>
+          <td>Character constant exceeds max area</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>1:</td>
+          <td>Function return value mismatch</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>2:</td>
+          <td>Argument type mismatch</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>3:</td>
+          <td>Identifier too long</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>4:</td>
+          <td>Never used label defined: Label</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>5:</td>
+          <td>Parameter type mismatch</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>6:</td>
+          <td>Invalid type conversion</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>7:</td>
+          <td>Invalid pointer conversion</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>8:</td>
+          <td>Constant in comparison out of range</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>9:</td>
+          <td>Struct/union used for function argument</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>10:</td>
+          <td>Implicit declaration of function: Identifier</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>11:</td>
+          <td>Function with no prototype list called</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>12:</td>
+          <td>Illegal use of '...'</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>13:</td>
+          <td>Register is reserved register</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>14:</td>
+          <td>Non void interrupt function declared</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>15:</td>
+          <td>Unknown size</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>16:</td>
+          <td>String is too long</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>17:</td>
+          <td>Unknown pragma</td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <hr>
+
+  <h2>Copyright and Trademark Notice</h2>
+  <ul>
+    <li>
+      FXCC.EXE, FXCP.EXE, FXC0.EXE, FXC1.EXE, FXAS.EXE, AND FXCC.TXT (the Software)
+      is a part of the PC-FXGA software development toolkit. Do not use this
+      software for any purpose other than developing software for the PC-FX or PC-FXGA.
+    </li>
+    <li>
+      Hudson Soft bears no responsibility for any direct or indirect damage caused by
+      the use of this software.
+    </li>
+    <li>
+      Hudson Soft does not directly answer questions about how to use this software,
+      technical, or other questions. Please do not contact Hudson Soft.</li>
+    <li>
+      When using this software, read the “Conditions for the use of this Software”.
+    </li>
+    <li>
+      The copyright for the software is held by Hudsdon Soft.
+    </li>
+  </ul>
+
+  <p>MS-DOS is a trademark of Microsoft.<br>
+    Other named companies and software are copyrights or trademarks of their respective companies.</p>
+
+  <div class="footer">(C) 1995 HUDSON SOFT</div>
+
+
 </html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../styles/styles.css">
+  <title>AID2AIC</title>
+</head>
+
+<body>
+  <div class="heading">
+    <div>PC-FXGA Authoring Software</div>
+    <div>GMAKER Starter Kit (Ver.1.0)</div>
+    <div class="title">Explanation of "AID2AIC.EXE (Ver.1.01)"</div>
+    <div class="credits">NEC Home Electronics, Ltd.</div>
+    <div class="credits">Nov 10, 1995</div>
+    <div class="credits">Translated by Sean Aoki</div>
+  </div>
+  <a href="../">Return</a>
+
+  <h2>Name</h2>
+  <p><strong>AID2AIC</strong>: AID→AIC Converter</p>
+
+  <h2>Syntax</h2>
+  <p>AID2AIC [Switch] AID File name [AIC file name]</p>
+
+  <h2>Functionality</h2>
+  <p>
+    Converts AID Files to AIC files in command packet format.
+    The first 4 bytes of an AIC file is the size of the packet data, then the data follows.
+    The following formats can be converted:
+  <ul>
+    <li>AID_IMG_FORMAT_INDEX9</li>
+    <li>AID_IMG_FORMAT_INDEX12</li>
+    <li>AID_IMG_FORMAT_INDEX16</li>
+    <li>AID_IMG_FORMAT_UNPACK12</li>
+    <li>AID_BG_FORMAT_INDEX9</li>
+    <li>AID_BG_FORMAT_INDEX12</li>
+    <li>AID_BG_FORMAT_INDEX16</li>
+    <li>AID_BG_FORMAT_UNPACK12</li>
+  </ul>
+  The data in AID_IMG_FORMAT_INDEX9, AID_BG_FORMAT_INDEX9 are unpacked based on the
+  I-C mode in the header before converting. Also, in the current version,
+  AID_IMG_FORMAT_INDEX12, AID_BG_FORMAT_INDEX12, AID_IMG_FORMAT_FORMAT12, AID_BG_FORMAT_FORMAT12
+  are treated the same.
+  </p>
+
+  <h2>Switches</h2>
+  <div class="switch">-x(-binary)<br>
+    Outputs a binary file.
+  </div><br>
+
+  <div class="switch">-a(-ascii)<br>
+    Outputs a text file. The format is hexadecimal with a leading 0x.
+  </div><br>
+
+  <div class="switch">-b(-byte)<br>
+    When outputting a text file, outputs in bytes.
+  </div><br>
+
+  <div class="switch">-h(-half)<br>
+    When outputting a text file, outputs in half words.
+  </div><br>
+
+  <div class="switch">-w(-word)<br>
+    When outputting a text file, outputs in words.
+  </div><br>
+
+  <div class="switch">-C<br>
+    Outputs in C Array format.
+  </div><br>
+
+  <div class="switch">-S<br>
+    Outputs in assembler data definition format.
+  </div><br>
+
+  <div class="switch">-banksel<br>
+    Outputs code to choose the bank to house texture data.
+  </div><br>
+
+  <div class="switch">-nobanksel<br>
+    Doesn't output code to choose the bank to house texture data.
+  </div><br>
+
+  <div class="switch">-beef<br>
+    Outputs a command with a termination word.
+  </div><br>
+
+  <div class="switch">-nobeef<br>
+    Outputs a command without a termination word.
+  </div><br>
+
+  <div class="switch">-forcei6c3<br>
+    Outputs with IC Mode I=6, C=3, ignoring color information for the image data.
+  </div><br>
+
+  <div class="switch">-forcei5c4<br>
+    Outputs with IC Mode I=5, C=5, ignoring color information for the image data.
+  </div><br>
+
+  <div class="switch">-forcei4c5<br>
+    Outputs with IC Mode I=4, C=5, ignoring color information for the image data.
+  </div><br>
+
+  <div class="switch">-forcei3c6<br>
+    Outputs with IC Mode I=3, C=6, ignoring color information for the image data.
+  </div><br>
+
+  <div class="switch">-putdisp<br>
+    Outputs code that write image data to the frame buffer rather than the texture buffer.
+  </div><br>
+
+  <div class="switch">-z num<br>
+    Set the Z value used with the -putdisp switch.
+  </div><br>
+
+  <hr>
+
+  <h2>Copyright and Trademark Notice</h2>
+  <ul>
+    <li>
+      AID2AIC.EXE and AID2AIC.TXT（the Software）is a part of the PC-FXGA software
+      development toolkit. Do not use this software for any purpose other than developing
+      software for the PC-FX or PC-FXGA.
+    </li>
+    <li>
+      Hudson Soft bears no responsibility for any direct or indirect damage caused by
+      the use of this software.
+    </li>
+    <li>
+      Hudson Soft does not directly answer questions about how to use this software,
+      technical, or other questions. Please do not contact Hudson Soft.</li>
+    <li>
+      When using this software, read the “Conditions for the use of this Software”.
+    </li>
+  </ul>
+
+  <p>MS-DOS is a trademark of Microsoft.<br>
+    Other named companies and software are copyrights or trademarks of their respective companies.</p>
+
+  <div class="footer">(C) 1995 HUDSON SOFT</div>
+
+</body>
+
+</html>
