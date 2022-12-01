@@ -865,7 +865,7 @@
       </table>
     </div>
     <div class="section" id="ch2-4">
-      <h3>Onboard Register List</h3>
+      <h3>2.4 Onboard Register List</h3>
       <table id="table2-4">
         <th>R/W</th>
         <th>I/O and Memory<br>Access Address</th>
@@ -948,10 +948,542 @@
           <td>K Port #1<br>Data Register High IO_K1_DATA</td>
           <td colspan="16">KEY DATA D16-D31</td>
         </tr>
+        <tr>
+          <td>R/W</td>
+          <td>0000_0700<br>8000_0700</td>
+          <td>Expansion Bus Reset Register<br>IO_IO_RESET</td>
+          <td class="gray-bg" colspan="15"></td>
+          <td>ERST</td>
+        </tr>
+        <tr>
+          <td>R</td>
+          <td>0000_0C00<br>8000_0C00</td>
+          <td>HuC6270#0 Address Storage Register<br>IO_IO_7AR_A</td>
+          <td class="gray-bg" colspan="12"></td>
+          <td colspan="4">HuC6270#0 AR</td>
+        </tr>
+        <tr>
+          <td>R</td>
+          <td>0000_0C40<br>8000_0C40</td>
+          <td>HuC6270#1 Address Storage Register<br>IO_IO_7AR_B</td>
+          <td class="gray-bg" colspan="12"></td>
+          <td colspan="4">HuC6270#1 AR</td>
+        </tr>
+        <tr>
+          <td>R/W</td>
+          <td>0000_0C80<br>8000_0C80</td>
+          <td>Backup Memory/Access Allowing Register<br>IO_IO_BKUP</td>
+          <td class="gray-bg" colspan="14"></td>
+          <td>CARD</td>
+          <td>BRAM</td>
+        </tr>
+        <tr>
+          <td>R</td>
+          <td>0000_0CC0<br>8000_0CC0</td>
+          <td>μ PD65641 Version Checking Register<br>IO_IO_VERSION</td>
+          <td class="gray-bg" colspan="12"></td>
+          <td colspan="4">Version No.</td>
+        </tr>
+        <tr>
+          <td>W</td>
+          <td>0000_0E00<br>8000_0E00</td>
+          <td>Address Error Clear Register<br>IO_ADRERR_CLR</td>
+          <td colspan="16">D0-D15=(dummy) AERR Clear</td>
+        </tr>
+        <tr>
+          <td>R</td>
+          <td>0000_0E00<br>8000_0E00</td>
+          <td>Interrupt Status Register<br>IO_IRQ_STAT</td>
+          <td class="gray-bg" colspan="8"></td>
+          <td>AER</td>
+          <td>TMI</td>
+          <td>INT(<br>Extra)</td>
+          <td>INTKR</td>
+          <td>INT7A</td>
+          <td>INT72</td>
+          <td>INT7B</td>
+          <td>INT73</td>
+        </tr>
+        <tr>
+          <td>R/W</td>
+          <td>0000_0E40<br>8000_0E40</td>
+          <td>Interrupt Mask Register<br>IO_IRQ_MASK</td>
+          <td class="gray-bg" colspan="8"></td>
+          <td>AER</td>
+          <td>TMI</td>
+          <td>INT(<br>Extra)</td>
+          <td>INTKR</td>
+          <td>INT7A</td>
+          <td>INT72</td>
+          <td>INT7B</td>
+          <td>INT73</td>
+        </tr>
+        <tr>
+          <td>R/W</td>
+          <td>0000_0E80<br>8000_0E80</td>
+          <td>Interrupt Level Setting Register 0<br>IO_IRQ_LEVELL</td>
+          <td class="gray-bg" colspan="4"></td>
+          <td colspan="3">INT7A</td>
+          <td colspan="3">INT72</td>
+          <td colspan="3">INT7B</td>
+          <td colspan="3">INT73</td>
+        </tr>
+        <tr>
+          <td>R/W</td>
+          <td>0000_0EC0<br>8000_0EC0</td>
+          <td>Interrupt Level Setting Register 1<br>IO_IRQ_LEVELH</td>
+          <td class="gray-bg" colspan="7"></td>
+          <td colspan="3">INTTM</td>
+          <td colspan="3">INTEX</td>
+          <td colspan="3">INTKP</td>
+        </tr>
+        <tr>
+          <td>R/W</td>
+          <td>0000_0F00<br>8000_0F00</td>
+          <td>Timer Control/Condition Register<br>IO_TIMER_TCR</td>
+          <td class="gray-bg" colspan="13"></td>
+          <td>TIREQ</td>
+          <td>TEN</td>
+          <td>TIEN</td>
+        </tr>
+        <tr>
+          <td>R/W</td>
+          <td>0000_0F80<br>8000_0F00</td>
+          <td>Timer Initialization Register<br>IO_TIMER_TMR</td>
+          <td colspan="16">TIMER Value</td>
+        </tr>
+        <tr>
+          <td>R</td>
+          <td>0000_0FC0<br>8000_0FC0</td>
+          <td>Timer Down Counter<br>IO_TIMER_DWC</td>
+          <td colspan="16">TIMER Value</td>
+        </tr>
       </table>
     </div>
     <div class="section" id="ch2-5">
-      <h3></h3>
+      <h3>2.5 Keypad Interface</h3>
+      <p>Interface to the standard pad, etc.</p>
+      <p>It has 2 independent ports, and different kinds of devices can be attached to each. Input/output data is 32 bits with a 4-bit signature set per device, allowing for determining the connected device.</p>
+      <h4>Register Structure</h4>
+      <ol>
+        <li>K Port Control Register (IO_K0_CR/IO_K1_CR)
+          <p>The K port control register is a register for making transfer requests to the pad and other devices connected to the port.<br>
+            Simultaneously, it specifies things including the input/output direction, resetting tap selector, etc.</p> 
+          <table class="table2-5">
+            <th>R/W</th>
+            <th>I/O and Memory<br>Access Address</th>
+            <th>Register Name</th>
+            <th>D15</th>
+            <th>D14</th>
+            <th>D13</th>
+            <th>D12</th>
+            <th>D11</th>
+            <th>D10</th>
+            <th>D9</th>
+            <th>D8</th>
+            <th>D7</th>
+            <th>D6</th>
+            <th>D5</th>
+            <th>D4</th>
+            <th>D3</th>
+            <th>D2</th>
+            <th>D1</th>
+            <th>D0</th>
+            <tr>
+              <td>W</td>
+              <td>0000_0000<br>8000_0000</td>
+              <td>K Port #0 Control Register<br>IO_K0_CR</td>
+              <td class="gray-bg" colspan="13"></td>
+              <td>IOS</td>
+              <td>MOD</td>
+              <td>TRG</td>
+            </tr>
+            <tr>
+              <td>W</td>
+              <td>0000_0080<br>8000_0080</td>
+              <td>K Port #1 Control Register<br>IO_K1_CR</td>
+              <td class="gray-bg" colspan="13"></td>
+              <td>IOS</td>
+              <td>MOD</td>
+              <td>TRG</td>
+            </tr>
+          </table>
+        </li>
+        <br>
+        <li>K Port Status Register (IO_K0_SR/IO_K1_SR)
+          <p>The K port status register is a register to read out the transfer status.</p>
+          <table class="table2-5">
+            <th>R/W</th>
+            <th>I/O and Memory<br>Access Address</th>
+            <th>Register Name</th>
+            <th>D15</th>
+            <th>D14</th>
+            <th>D13</th>
+            <th>D12</th>
+            <th>D11</th>
+            <th>D10</th>
+            <th>D9</th>
+            <th>D8</th>
+            <th>D7</th>
+            <th>D6</th>
+            <th>D5</th>
+            <th>D4</th>
+            <th>D3</th>
+            <th>D2</th>
+            <th>D1</th>
+            <th>D0</th>
+            <tr>
+              <td>R</td>
+              <td>0000_0000<br>8000_0000</td>
+              <td>K Port #0 Status Register<br>IO_K0_SR</td>
+              <td class="gray-bg" colspan="12"></td>
+              <td>END</td>
+              <td>IOS</td>
+              <td>MOD</td>
+              <td>TRG</td>
+            </tr>
+            <tr>
+              <td>R</td>
+              <td>0000_0080<br>8000_0080</td>
+              <td>K Port #1 Status Register<br>IO_K1_SR</td>
+              <td class="gray-bg" colspan="12"></td>
+              <td>END</td>
+              <td>IOS</td>
+              <td>MOD</td>
+              <td>TRG</td>
+            </tr>
+          </table>
+          <br>
+          <ol type="a">
+            <li>TRG (BIT_K_TRG)<br>
+              <span style="margin-left:40px;">Transfer Request Bit. Write 1 to begin transfer. Cleared when transfer ends.</span>
+            </li><br>
+            <li>MOD (BIT_K_MOD)<br>
+              <span style="margin-left:40px;">When transferring with this bit set, the clear signal is set to tap.</span>
+            </li><br>
+            <li>IOS (BIT_K_IOS)<br>
+              <span style="margin-left:40px;">When transferring, when this bit is set it accepts input, when it is cleared, it sends output.</span>
+            </li><br>
+            <li>END (BIT_K_END)<br>
+              <span style="margin-left:40px;">Bit that signifies the transfer has finished.</span><br>
+              <span style="margin-left:40px;">Normally, when a transfer finishes, a K port transfer finished interrupt is raised, but when
+                reading from K port data register, this bit is cleared at the same time the interrupt is cleared.
+              </span>
+            </li>
+          </ol>
+          <p>Note: The control register can be written to only when the TRG and END bits of the status register are 0.</p>
+        </li>
+        <li>K Port Data Register Low (IO_K0_DL/IO_K1_DL)<br>
+          <p>Register for reading/writing the lower 16 bits of the K port input/output.</p>
+          <p>Reading out clears both the K port transfer finish interrupt and the K port status register's END bit.</p>
+          <table class="table2-5">
+            <th>R/W</th>
+            <th>I/O and Memory<br>Access Address</th>
+            <th>Register Name</th>
+            <th>D15</th>
+            <th>D14</th>
+            <th>D13</th>
+            <th>D12</th>
+            <th>D11</th>
+            <th>D10</th>
+            <th>D9</th>
+            <th>D8</th>
+            <th>D7</th>
+            <th>D6</th>
+            <th>D5</th>
+            <th>D4</th>
+            <th>D3</th>
+            <th>D2</th>
+            <th>D1</th>
+            <th>D0</th>
+            <tr>
+              <td>R/W</td>
+              <td>0000_0040<br>8000_0040</td>
+              <td>K Port #0 Data Register Low<br>IO_K0_DATA</td>
+              <td colspan="16">KEY DATA D0-D15</td>
+            </tr>
+            <tr>
+              <td>R/W</td>
+              <td>0000_00C0<br>8000_00C0</td>
+              <td>K Port #1 Data Register Low<br>IO_K1_DATA</td>
+              <td colspan="16">KEY DATA D0-D15</td>
+            </tr>
+          </table>
+        </li>
+        <br>
+        <li>K Port Data Register High (IO_K0_DH/IO_K1_DH)<br>
+          <p>Register for reading/writing the upper 16 bits of the K port input/output.</p>
+          <table class="table2-5">
+            <th>R/W</th>
+            <th>I/O and Memory<br>Access Address</th>
+            <th>Register Name</th>
+            <th>D15</th>
+            <th>D14</th>
+            <th>D13</th>
+            <th>D12</th>
+            <th>D11</th>
+            <th>D10</th>
+            <th>D9</th>
+            <th>D8</th>
+            <th>D7</th>
+            <th>D6</th>
+            <th>D5</th>
+            <th>D4</th>
+            <th>D3</th>
+            <th>D2</th>
+            <th>D1</th>
+            <th>D0</th>
+            <tr>
+              <td>R/W</td>
+              <td>0000_0042<br>8000_0042</td>
+              <td>K Port #0 Data Register High<br>IO_K0_DATA_DH</td>
+              <td colspan="16">KEY DATA D16-D31</td>
+            </tr>
+            <tr>
+              <td>R/W</td>
+              <td>0000_00C2<br>8000_00C2</td>
+              <td>K Port #1 Data Register High<br>IO_K1_DATA_DH</td>
+              <td colspan="16">KEY DATA D16-D31</td>
+            </tr>
+          </table>
+          <p>Note: The data register can only be read/written when the status register's TRG bit is 0.</p>
+        </li>
+      </ol>
+      <h4>Content of Transfer Data</h4>
+      <p>Bit D31-D28 of the data contains the device signature, allowing for determination of the device.</p>
+      <ol>
+        <li>Standard pad (signature is 15)
+          <table class="table2-5b">
+            <tr>
+              <td>Bit #</td>
+              <td>D15</td>
+              <td>D14</td>
+              <td>D13</td>
+              <td>D12</td>
+              <td>D11</td>
+              <td>D10</td>
+              <td>D9</td>
+              <td>D8</td>
+              <td>D7</td>
+              <td>D6</td>
+              <td>D5</td>
+              <td>D4</td>
+              <td>D3</td>
+              <td>D2</td>
+              <td>D1</td>
+              <td>D0</td>
+            </tr>
+            <tr>
+              <td>Contents</td>
+              <td>0</td>
+              <td>SW2</td>
+              <td>0</td>
+              <td>SW1</td>
+              <td>←</td>
+              <td>↓</td>
+              <td>→</td>
+              <td>↑</td>
+              <td>Run</td>
+              <td>Sel</td>
+              <td>VI</td>
+              <td>V</td>
+              <td>IV</td>
+              <td>III</td>
+              <td>II</td>
+              <td>I</td>
+            </tr>
+            <tr>
+              <td>Bit #</td>
+              <td>D31</td>
+              <td>D30</td>
+              <td>D29</td>
+              <td>D28</td>
+              <td>D27</td>
+              <td>D26</td>
+              <td>D25</td>
+              <td>D24</td>
+              <td>D23</td>
+              <td>D22</td>
+              <td>D21</td>
+              <td>D20</td>
+              <td>D19</td>
+              <td>D18</td>
+              <td>D17</td>
+              <td>D16</td>
+            </tr>
+            <tr>
+              <td>Contents</td>
+              <td>1</td>
+              <td>1</td>
+              <td>1</td>
+              <td>1</td>
+              <td class="gray-bg" colspan="12"></td>
+            </tr>
+          </table>
+          The shaded region indicates indefinite values.
+        </li>
+        <br>
+        <li>Mouse (signature is 13)
+          <table class="table2-5b">
+            <tr>
+              <td>Bit #</td>
+              <td>D15</td>
+              <td>D14</td>
+              <td>D13</td>
+              <td>D12</td>
+              <td>D11</td>
+              <td>D10</td>
+              <td>D9</td>
+              <td>D8</td>
+              <td>D7</td>
+              <td>D6</td>
+              <td>D5</td>
+              <td>D4</td>
+              <td>D3</td>
+              <td>D2</td>
+              <td>D1</td>
+              <td>D0</td>
+            </tr>
+            <tr>
+              <td>Contents</td>
+              <td>X7</td>
+              <td>X6</td>
+              <td>X5</td>
+              <td>X4</td>
+              <td>X3</td>
+              <td>X2</td>
+              <td>X1</td>
+              <td>X0</td>
+              <td>Y7</td>
+              <td>Y6</td>
+              <td>Y5</td>
+              <td>Y4</td>
+              <td>Y3</td>
+              <td>Y2</td>
+              <td>Y1</td>
+              <td>Y0</td>
+            </tr>
+            <tr>
+              <td>Bit #</td>
+              <td>D31</td>
+              <td>D30</td>
+              <td>D29</td>
+              <td>D28</td>
+              <td>D27</td>
+              <td>D26</td>
+              <td>D25</td>
+              <td>D24</td>
+              <td>D23</td>
+              <td>D22</td>
+              <td>D21</td>
+              <td>D20</td>
+              <td>D19</td>
+              <td>D18</td>
+              <td>D17</td>
+              <td>D16</td>
+            </tr>
+            <tr>
+              <td>Contents</td>
+              <td>1</td>
+              <td>1</td>
+              <td>0</td>
+              <td>1</td>
+              <td class="gray-bg" colspan="10"></td>
+              <td>SW R</td>
+              <td>SW L</td>
+            </tr>
+          </table>
+          The shaded region indicates indefinite values.<br>
+          <p>SW-L, SW-R Logic: "1" means the switch is pressed, "0" is default</p>
+          <p>Mouse movement directions: right is +X, left is -X, down is +Y, up is -Y</p>
+          <p>Counter Range: The range of the mouse's internal counter is as follows (for both X and Y direction):</p>
+          <table class="table2-5c">
+            <tr>
+              <td>Count</td>
+              <td>Under</td>
+              <td>-127</td>
+              <td>~</td>
+              <td>-1</td>
+              <td>0</td>
+              <td>+1</td>
+              <td>~</td>
+              <td>+127</td>
+              <td>Over</td>
+            </tr>
+            <tr>
+              <td>Data</td>
+              <td>81</td>
+              <td>81</td>
+              <td>~</td>
+              <td>FF</td>
+              <td>00</td>
+              <td>01</td>
+              <td>~</td>
+              <td>7F</td>
+              <td>7F</td>
+            </tr>
+          </table>
+        </li>
+        <br>
+        <li>Multitap (signature is 14)
+          <table class="table2-5b">
+            <tr>
+              <td>Bit #</td>
+              <td>D15</td>
+              <td>D14</td>
+              <td>D13</td>
+              <td>D12</td>
+              <td>D11</td>
+              <td>D10</td>
+              <td>D9</td>
+              <td>D8</td>
+              <td>D7</td>
+              <td>D6</td>
+              <td>D5</td>
+              <td>D4</td>
+              <td>D3</td>
+              <td>D2</td>
+              <td>D1</td>
+              <td>D0</td>
+            </tr>
+            <tr>
+              <td>Contents</td>
+              <td class="gray-bg" colspan="16"></td>
+            </tr>
+            <tr>
+              <td>Bit #</td>
+              <td>D31</td>
+              <td>D30</td>
+              <td>D29</td>
+              <td>D28</td>
+              <td>D27</td>
+              <td>D26</td>
+              <td>D25</td>
+              <td>D24</td>
+              <td>D23</td>
+              <td>D22</td>
+              <td>D21</td>
+              <td>D20</td>
+              <td>D19</td>
+              <td>D18</td>
+              <td>D17</td>
+              <td>D16</td>
+            </tr>
+            <tr>
+              <td>Contents</td>
+              <td>1</td>
+              <td>1</td>
+              <td>1</td>
+              <td>0</td>
+              <td class="gray-bg" colspan="12"></td>
+            </tr>
+          </table>
+          The shaded region indicates indefinite values.
+          <br>
+          <p>The first transfer is done with the multiltap clear mode on, and each transfer after that is done with the multitap clear mode off.<br>
+          For a tap that can connect up to 4 devices per multitap, the 5th read returns the above multitap signature ($Exxxxxxx)</p>
+        </li>
+      </ol>
     </div>
     <div class="section" id="ch2-6">
       <h3></h3>

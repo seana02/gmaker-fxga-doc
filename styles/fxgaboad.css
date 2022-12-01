@@ -24,12 +24,25 @@ table td {
   background-color: #cccccc;
 }
 
-#table2-4 td {
+#table2-4 td,
+.table2-5 td {
   text-align: center;
   padding: 2px;
 }
 
-#table2-4 tr td:nth-child(3) {
+#table2-4 tr td:nth-child(3),
+.table2-5 tr td:nth-child(3) {
   text-align: left;
   padding-right: 4px;
+}
+
+.table2-5b td {
+  padding: 2px;
+  text-align: center;
+}
+
+.table2-5c td {
+  padding: 4px;
+  text-align: center;
+  min-width: 16px;
 }
