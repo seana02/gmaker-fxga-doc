@@ -1063,12 +1063,14 @@
     <div class="section" id="ch2-5">
       <h3>2.5 Keypad Interface</h3>
       <p>Interface to the standard pad, etc.</p>
-      <p>It has 2 independent ports, and different kinds of devices can be attached to each. Input/output data is 32 bits with a 4-bit signature set per device, allowing for determining the connected device.</p>
+      <p>It has 2 independent ports, and different kinds of devices can be attached to each. Input/output data is 32
+        bits with a 4-bit signature set per device, allowing for determining the connected device.</p>
       <h4>Register Structure</h4>
       <ol>
         <li>K Port Control Register (IO_K0_CR/IO_K1_CR)
-          <p>The K port control register is a register for making transfer requests to the pad and other devices connected to the port.<br>
-            Simultaneously, it specifies things including the input/output direction, resetting tap selector, etc.</p> 
+          <p>The K port control register is a register for making transfer requests to the pad and other devices
+            connected to the port.<br>
+            Simultaneously, it specifies things including the input/output direction, resetting tap selector, etc.</p>
           <table class="table2-5">
             <th>R/W</th>
             <th>I/O and Memory<br>Access Address</th>
@@ -1156,22 +1158,27 @@
           <br>
           <ol type="a">
             <li>TRG (BIT_K_TRG)<br>
-              <span style="margin-left:40px;">Transfer Request Bit. Write 1 to begin transfer. Cleared when transfer ends.</span>
+              <span style="margin-left:40px;">Transfer Request Bit. Write 1 to begin transfer. Cleared when transfer
+                ends.</span>
             </li><br>
             <li>MOD (BIT_K_MOD)<br>
-              <span style="margin-left:40px;">When transferring with this bit set, the clear signal is set to tap.</span>
+              <span style="margin-left:40px;">When transferring with this bit set, the clear signal is set to
+                tap.</span>
             </li><br>
             <li>IOS (BIT_K_IOS)<br>
-              <span style="margin-left:40px;">When transferring, when this bit is set it accepts input, when it is cleared, it sends output.</span>
+              <span style="margin-left:40px;">When transferring, when this bit is set it accepts input, when it is
+                cleared, it sends output.</span>
             </li><br>
             <li>END (BIT_K_END)<br>
               <span style="margin-left:40px;">Bit that signifies the transfer has finished.</span><br>
-              <span style="margin-left:40px;">Normally, when a transfer finishes, a K port transfer finished interrupt is raised, but when
+              <span style="margin-left:40px;">Normally, when a transfer finishes, a K port transfer finished interrupt
+                is raised, but when
                 reading from K port data register, this bit is cleared at the same time the interrupt is cleared.
               </span>
             </li>
           </ol>
-          <p>Note: The control register can be written to only when the TRG and END bits of the status register are 0.</p>
+          <p>Note: The control register can be written to only when the TRG and END bits of the status register are 0.
+          </p>
         </li>
         <li>K Port Data Register Low (IO_K0_DL/IO_K1_DL)<br>
           <p>Register for reading/writing the lower 16 bits of the K port input/output.</p>
@@ -1480,16 +1487,158 @@
           </table>
           The shaded region indicates indefinite values.
           <br>
-          <p>The first transfer is done with the multiltap clear mode on, and each transfer after that is done with the multitap clear mode off.<br>
-          For a tap that can connect up to 4 devices per multitap, the 5th read returns the above multitap signature ($Exxxxxxx)</p>
+          <p>The first transfer is done with the multiltap clear mode on, and each transfer after that is done with the
+            multitap clear mode off.<br>
+            For a tap that can connect up to 4 devices per multitap, the 5th read returns the above multitap signature
+            ($Exxxxxxx)</p>
+          <p>Limitations:</p>
+          <ol>
+            <li>Always perform multitap clear whenever reading/writing data for software
+              that doesn't support the multitap.
+            </li>
+            <li>Always read the signature of the multitap when reading/writing for software
+              that does support the multitap (applies to all multitaps made for the PC-FX)
+            </li>
+          </ol>
         </li>
       </ol>
     </div>
     <div class="section" id="ch2-6">
-      <h3></h3>
+      <h3>Timer</h3>
+      <p>Has a 16 bit down counter, where each count is 1/30 of a system
+        clock cycle (42.95454MHz), so is 1.431818MHz. It can cause an interrupt in
+        intervals of approximately 698ns to 46ms.
+      </p>
+      <h4>Register Structure</h4>
+      <ol>
+        <li>Timer Control/Condition Register (IO_TIMER_TCR)<br>
+          This register controls the timer<br>
+          <table class="table2-5">
+            <th>R/W</th>
+            <th>I/O and Memory<br>Access Address</th>
+            <th>Register Name</th>
+            <th>D15</th>
+            <th>D14</th>
+            <th>D13</th>
+            <th>D12</th>
+            <th>D11</th>
+            <th>D10</th>
+            <th>D9</th>
+            <th>D8</th>
+            <th>D7</th>
+            <th>D6</th>
+            <th>D5</th>
+            <th>D4</th>
+            <th>D3</th>
+            <th>D2</th>
+            <th>D1</th>
+            <th>D0</th>
+            <tr>
+              <td>R/W</td>
+              <td>0000_0F00<br>8000_0F00</td>
+              <td>Timer Control/Condition Register<br>IO_TIMER_TCR</td>
+              <td colspan="13" class="gray-bg"></td>
+              <td>TIREQ</td>
+              <td>TEN</td>
+              <td>TIEN</td>
+            </tr>
+          </table>
+          <br>
+          <ol type="a">
+            <li>TIEN<br>
+              <span style="margin-left:40px;">Timer Interrupt Allowing Bit</span><br>
+              <span style="margin-left:40px;">If this bit is set to 1, whenever TIREQ becomes 1, it creates a timer
+                interrupt.
+                The initial value on reset is 0, and in this case interrupt does not happen.</span>
+            </li>
+            <li>TEN<br>
+              <span style="margin-left:40px;">Timer Count Allowing Bit</span><br>
+              <span style="margin-left:40px;">
+                If this bit is set to 1, the timer counts down.<br>
+                Changing this bit from 0 to 1 sets the timer down counter to the value in the
+                timer initialization register, and begins counting down.
+              </span>
+            </li>
+            <li>TIREQ<br>
+              <span style="margin-left:40px;">Timer Interrupt Request Bit</span><br>
+              <span style="margin-left:40px;">Is set to 1 when a borrow occurs in the timer countdown.
+                Clear this bit to clear the timer interrupt.</span>
+            </li>
+          </ol>
+          <br>
+          <span style="margin-left:80px;">Note: A timer interrupt can be caused by setting all of TIEN,TEN,TIREQ to
+            1.</span>
+        </li>
+        <br>
+        <li>Timer Initialization Register (IO_TIMER_TMR)<br>
+          Sets the timer's count. However, writing 0 instantly causes a borrow,
+          so do not do that.<br>
+          <table class="table2-5">
+            <th>R/W</th>
+            <th>I/O and Memory<br>Access Address</th>
+            <th>Register Name</th>
+            <th>D15</th>
+            <th>D14</th>
+            <th>D13</th>
+            <th>D12</th>
+            <th>D11</th>
+            <th>D10</th>
+            <th>D9</th>
+            <th>D8</th>
+            <th>D7</th>
+            <th>D6</th>
+            <th>D5</th>
+            <th>D4</th>
+            <th>D3</th>
+            <th>D2</th>
+            <th>D1</th>
+            <th>D0</th>
+            <tr>
+              <td>R/W</td>
+              <td>0000_0F80<br>8000_0F80</td>
+              <td>Timer Initialization Register<br>IO_TIMER_TMR</td>
+              <td colspan="16">TIMER Value</td>
+            </tr>
+          </table>
+        </li>
+        <br>
+        <li>Timer Down Counter (IO_TIMER_DWC)<br>
+          The down counter. Counts down when the timer control/condition register's TEN bit is set to 1.
+          When a borrow occurs as a result of down count, a count is loaded from the
+          timer initialization register and counting continues.<br>
+          Note: the output frequency is -1 count or +0 count (it will not shift in the +1 direction)<br>
+          <table class="table2-5">
+            <th>R/W</th>
+            <th>I/O and Memory<br>Access Address</th>
+            <th>Register Name</th>
+            <th>D15</th>
+            <th>D14</th>
+            <th>D13</th>
+            <th>D12</th>
+            <th>D11</th>
+            <th>D10</th>
+            <th>D9</th>
+            <th>D8</th>
+            <th>D7</th>
+            <th>D6</th>
+            <th>D5</th>
+            <th>D4</th>
+            <th>D3</th>
+            <th>D2</th>
+            <th>D1</th>
+            <th>D0</th>
+            <tr>
+              <td>R/W</td>
+              <td>0000_0FC0<br>8000_0FC0</td>
+              <td>Timer Down Counter<br>IO_TIMER_DWC</td>
+              <td colspan="16">TIMER Value</td>
+            </tr>
+          </table>
+        </li>
+      </ol>
     </div>
     <div class="section" id="ch2-7">
-      <h3></h3>
+      <h3>Interrupt Controller</h3>
     </div>
     <div class="section" id="ch2-8">
       <h3></h3>
