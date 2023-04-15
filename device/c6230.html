@@ -1,0 +1,2450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../styles/styles.css">
+  <link rel="stylesheet" href="../styles/c6230.css">
+  <title>HuC6230</title>
+</head>
+
+<body>
+  <div class="heading">
+    <div>PC-FXGA Authoring Software</div>
+    <div>GMAKER Starter Kit (Ver.1.0)</div>
+    <div class="title">Explanation of HuC6230</div>
+    <div class="credits">NEC Home Electronics, Ltd.</div>
+    <div class="credits">Nov 10, 1995</div>
+    <div class="credits">Translated by Sean Aoki</div>
+  </div>
+
+  <a href="../">Return</a>
+  <div class="contents">
+    <h2>Contents</h2>
+    <div class="contents-chapter">
+      <div class="contents-head"><a href="#ch1">Chapter 1: Introduction</a></div>
+      <div class="contents-subsection"><a href="#ch1-1">1.1: HuC6230 Summary</a></div>
+      <div class="contents-subsection"><a href="#ch1-2">1.2: HuC6230 Characteristics</a></div>
+    </div>
+    <div class="contents-chapter">
+      <div class="contents-head"><a href="#ch2">Chapter 2: Internal Registers</a></div>
+      <div class="contents-subsection"><a href="#ch2-1">2.1: Register List</a></div>
+      <div class="contents-subsubsection"><a href="#ch2-1-1">2.1.1: Registers for PSG</a></div>
+      <div class="contents-subsubsection"><a href="#ch2-1-2">2.1.2: Registers for ADPCM, PCM</a></div>
+      <div class="contents-subsection"><a href="#ch2-2">2.2: Register Functionality</a></div>
+      <div class="contents-subsubsection"><a href="#ch2-2-1">2.2.1: Registers for PSG</a></div>
+      <div class="contents-subsubsection"><a href="#ch2-2-2">2.2.2: Registers for ADPCM, PCM</a></div>
+      <div class="contents-subsection"><a href="#ch2-3">2.3: How to Setup Registers</a></div>
+    </div>
+    <div class="contents-chapter">
+      <div class="contents-head"><a href="#ch3">Chapter 3: On Reset</a></div>
+      <div class="contents-subsection"><a href="#ch3-1">3.1: System Reset</a></div>
+      <div class="contents-subsection"><a href="#ch3-2">3.2: Soft Reset</a></div>
+    </div>
+    <div class="contents-chapter">
+      <div class="contents-head"><a href="#ch4">Chapter 4: ADPCM Decompression Functionality</a></div>
+      <div class="contents-subsection"><a href="#ch4-1">4.1: ADPCM Decompress Flow</a></div>
+      <div class="contents-subsection"><a href="#ch4-2">4.2: Data Transfer Timing Between HuC6272-HuC6230</a></div>
+      <div class="contents-subsection"><a href="#ch4-3">4.3: Output Level Hold Function</a></div>
+      <div class="contents-subsection"><a href="#ch4-4">4.4: When Sound Output is Disabled</a></div>
+      <div class="contents-subsection"><a href="#ch4-5">4.5: PCM Value Calculation Limitations</a></div>
+    </div>
+    <div class="contents-chapter">
+      <div class="contents-head"><a href="#ch5">Chapter 5: Sampling Frequency Change Functionality</a></div>
+      <div class="contents-subsection"><a href="#ch5-1">5.1: List of Sampling Frequencies</a></div>
+      <div class="contents-subsection"><a href="#ch5-2">5.2: Output Frequency Interpolation Function</a></div>
+    </div>
+    <div class="contents-chapter">
+      <div class="contents-head"><a href="#ch6">Chapter 6: 4 Channel (ADPCM2 Channel, LINE, PSG) Mixing Output
+          Functionality</a></div>
+    </div>
+    <div class="contents-chapter">
+      <div class="contents-head"><a href="#ch7">Chapter 7: PSG</a></div>
+      <div class="contents-subsection"><a href="#ch7-1">7.1: Summary</a></div>
+      <div class="contents-subsection"><a href="#ch7-2">7.2: Functionality</a></div>
+      <div class="contents-subsubsection"><a href="#ch7-2-1">7.2.1: System Reset</a></div>
+      <div class="contents-subsubsection"><a href="#ch7-2-2">7.2.2: Internal D/A Converter</a></div>
+      <div class="contents-subsubsection"><a href="#ch7-2-3">7.2.3: Block Diagram</a></div>
+      <div class="contents-subsubsection"><a href="#ch7-2-4">7.2.4: Creating Wave Data</a></div>
+      <div class="contents-subsubsection"><a href="#ch7-2-5">7.2.5: Adjusting Sound</a></div>
+      <div class="contents-subsubsection"><a href="#ch7-2-6">7.2.6: Setting Frequency</a></div>
+      <div class="contents-subsubsection"><a href="#ch7-2-7">7.2.7: Setting LFO Frequency</a></div>
+      <div class="contents-subsubsection"><a href="#ch7-2-8">7.2.8: Setting Noise Frequency</a></div>
+    </div>
+  </div>
+  <div class="contents-chapter">
+    <div class="contents-head"><a href="#ch8">Reference Documents</a></div>
+    <ul>
+      <li>ADPCM Compression Flow</li>
+      <li>Warnings Regarding ADPCM Data Compression Calculations</li>
+      <li>ADPCM Data vs Change Rate, Level Value Correspondence Table</li>
+      <li>Scale Level Table</li>
+      <li>Pitch Chart</li>
+    </ul>
+  </div>
+
+  <div class="chapter" id="ch1">
+    <h2>Chapter 1: Introduction</h2>
+    <div class="section" id="ch1-1">
+      <h3>1.1 HuC6230 Summary</h3>
+      <p>The HuC6230 is a sound processing LSI. Its functionality includes
+        ADPCM code decompression and playback, electronic volume, mixing 4 channels made up of the PSG,
+        two ADPCM sound output channels, PSG output and CD-ROM internal PCM output.
+      </p>
+      <p>All control of the HuC6230 is done with signals from HuC6272 and the CPU</p>
+    </div> <!-- Section 1.1 -->
+
+    <div class="section" id="ch1-2">
+      <h3>1.2 HuC6230 Characteristics</h3>
+      <ul>
+        <li>ADPCM Code Decompression and Playback Functionality<br>
+          Takes data that has been properly converted to ADPCM code, regenerates
+          PCM data based on the preset transfer rate, and outputs to SLOUT, SROUT as sound output.
+          This LSI has two channels for this, each of which can be manipulated individually.
+        </li><br>
+        <li>Sampling Rate Changing Functionality<br>
+          Depending on the frequency at the time of PCM data sampling, the sampling frequency
+          can be set to 31.47, 15.73, 7.87, 3.93 KHz. For 15.73, 7.87, and 3.93 KHz,
+          whether to perform line interpolation can be specified via a register.
+        </li><br>
+        <li>PSG Functionality<br>
+          Sound sources use the waveform memory format, and can generate several types
+          of sounds using the software's controls. It can also create several
+          sound effects using the two built-in noise generator channels and one built-in low-frequency
+          oscillator channel.
+        </li><br>
+        <li>Four Channel Mixing Functionality<br>
+          Can output stereo output after mixing the four channels, made up of
+          2 channels of ADPCM, PSG output channel, and CD-ROM internal PCM output channel.
+        </li><br>
+        <li>Electronic Volume Functionality<br>
+          The left and right of the 2 ADPCM channels and the left and right of
+          the PCM input route each has a electronic volume. For the ADPCM, it supports
+          52.5dB at 1.5dB intervals, and the PCM can be switched between the internal
+          VCA and an external VCA control device.<br>
+          By controlling the HuC6230's electronic volume register with the CUP, each
+          individual sound input level can be adjusted, and effects like fade-in and fade-out can
+          be created.
+        </li><br>
+        <li>ADPCM Output Level Hold Functionality<br>
+          Data is transferred to HuC6230 based on the transfer rate set in the HuC6272, but
+          if it cannot be sent at a regular frequency, the HuC6230 automatically
+          makes a decision, and holds the level of the last sent data.<br>
+          Because of this, to stop the sound, simply stop transferring data to the HuC6230.
+        </li>
+      </ul>
+    </div> <!-- Section 1.2 -->
+  </div> <!-- Chapter 1-->
+
+  <hr>
+
+  <div class="chapter" id="ch2">
+    <h2>Chapter 2: Internal Registers</h2>
+    <div class="section" id="ch2-1">
+      <h3>2.1 Register List</h3>
+      <p>The HuC6230 has the following registers. The address is selected from A0-A4.</p>
+      <div class="subsection" id="ch2-1-1">
+        <h4>2.1.1 Registers for PSG</h4>
+        <p>In general, each register in the chart below is built in to each channel.
+          The register address is chosen from A0-A4. However, while the addresses of R00, R01, R08, R09
+          are specified by A0-A4 only, the address for R02-R07 are specified by both A0-A4 and
+          the channel data written to R00.
+        </p>
+        <h3>Register List</h3>
+        <table id="table2-1a">
+          <tr>
+            <th></th>
+            <th>ch1</th>
+            <th>ch2</th>
+            <th>ch3</th>
+            <th>ch4</th>
+            <th>ch5</th>
+            <th>ch6</th>
+          </tr>
+          <tr>
+            <td>R00</td>
+            <td colspan="6">Only one overall.
+              Selected regardless of the value of R00.
+              ch(annel) SELECT
+            </td>
+          </tr>
+          <tr>
+            <td>R01</td>
+            <td colspan="6">Only one overall.
+              Selected regardless of the value of R00.
+              M(ain) A(mplitude Level) (LMAL,RMAL)
+            </td>
+          </tr>
+          <tr>
+            <td>R02</td>
+            <td>FRQ LOW</td>
+            <td>FRQ LOW</td>
+            <td>FRQ LOW</td>
+            <td>FRQ LOW</td>
+            <td>FRQ LOW</td>
+            <td>FRQ LOW</td>
+          </tr>
+          <tr>
+            <td>R03</td>
+            <td>FRQ HI</td>
+            <td>FRQ HI</td>
+            <td>FRQ HI</td>
+            <td>FRQ HI</td>
+            <td>FRQ HI</td>
+            <td>FRQ HI</td>
+          </tr>
+          <tr>
+            <td>R04</td>
+            <td>ON DDA AL</td>
+            <td>ON DDA AL</td>
+            <td>ON DDA AL</td>
+            <td>ON DDA AL</td>
+            <td>ON DDA AL</td>
+            <td>ON DDA AL</td>
+          </tr>
+          <tr>
+            <td>R05</td>
+            <td>LAL RAL</td>
+            <td>LAL RAL</td>
+            <td>LAL RAL</td>
+            <td>LAL RAL</td>
+            <td>LAL RAL</td>
+            <td>LAL RAL</td>
+          </tr>
+          <tr>
+            <td>R06</td>
+            <td>WAVE DATA</td>
+            <td>WAVE DATA</td>
+            <td>WAVE DATA</td>
+            <td>WAVE DATA</td>
+            <td>WAVE DATA</td>
+            <td>WAVE DATA</td>
+          </tr>
+          <tr>
+            <td>R07</td>
+            <td colspan="4" class="gray-bg"></td>
+            <td>NE NOISE FRQ</td>
+            <td>NE NOISE FRQ</td>
+          </tr>
+          <tr>
+            <td>R08</td>
+            <td colspan="6">Only one overall.
+              Control ch1 using ch2 data.
+              LFOFRQ
+            </td>
+          </tr>
+          <tr>
+            <td>R09</td>
+            <td colspan="6">Only one overall.
+              Control ch1 using ch2 data.
+              LF TRG,LF CTL
+            </td>
+          </tr>
+        </table>
+        <br>
+        <h3>Register Functions</h3>
+        <table id="table2-1b">
+          <tr>
+            <th>Register<br>Address</th>
+            <th>Function</th>
+            <th>D7</th>
+            <th>D6</th>
+            <th>D5</th>
+            <th>D4</th>
+            <th>D3</th>
+            <th>D2</th>
+            <th>D1</th>
+            <th>D0</th>
+          </tr>
+          <tr>
+            <td>R00&emsp;00H</td>
+            <td>PSG Channel Selector</td>
+            <td colspan="5" class="gray-bg"></td>
+            <td colspan="3">ch SEL</td>
+          </tr>
+          <tr>
+            <td>R01&emsp;01H</td>
+            <td>PSG Main Volume Control</td>
+            <td colspan="4">LMAL</td>
+            <td colspan="4">RMAL</td>
+          </tr>
+          <tr>
+            <td>R02&emsp;02H</td>
+            <td>Fine Frequency Adjustment</td>
+            <td colspan="8">FRQ LOW</td>
+          </tr>
+          <tr>
+            <td>R03&emsp;03H</td>
+            <td>Coarse Frequency Adjustment</td>
+            <td colspan="4" class="gray-bg"></td>
+            <td colspan="4">FRQ HIGH</td>
+          </tr>
+          <tr>
+            <td>R04&emsp;04H</td>
+            <td>Channel On, DDA, Channel Volume</td>
+            <td>ON</td>
+            <td>DDA</td>
+            <td class="gray-bg"></td>
+            <td colspan="6">AL</td>
+          </tr>
+          <tr>
+            <td>R05&emsp;05H</td>
+            <td>L,R Volume</td>
+            <td colspan="4">LAL</td>
+            <td colspan="4">RAL</td>
+          </tr>
+          <tr>
+            <td>R06&emsp;06H</td>
+            <td>Waveform</td>
+            <td colspan="3" class="gray-bg"></td>
+            <td colspan="5">WAVE DATA</td>
+          </tr>
+          <tr>
+            <td>R07&emsp;07H</td>
+            <td>Noise Enable, Noise Frequency</td>
+            <td>NE</td>
+            <td colspan="3" class="gray-bg"></td>
+            <td colspan="5">NOISE FRQ</td>
+          </tr>
+          <tr>
+            <td>R08&emsp;08H</td>
+            <td>LFO Frequency</td>
+            <td colspan="8">LFO FRQ</td>
+          </tr>
+          <tr>
+            <td>R09&emsp;09H</td>
+            <td>LFO Control</td>
+            <td>LF TRG</td>
+            <td colspan="5" class="gray-bg"></td>
+            <td colspan="2">LF CTL</td>
+          </tr>
+        </table>
+      </div> <!-- Subsection 2.1.1 -->
+
+      <div class="subsection" id="ch2-1-2">Registers for ADPCM, PCM
+        <h4>2.1.2 Register Functions</h4>
+        <table id="table2-1c">
+          <tr>
+            <th>Register<br>Address</th>
+            <th>Function</th>
+            <th>D7</th>
+            <th>D6</th>
+            <th>D5</th>
+            <th>D4</th>
+            <th>D3</th>
+            <th>D2</th>
+            <th>D1</th>
+            <th>D0</th>
+          </tr>
+          <tr>
+            <td>R10&emsp;10H</td>
+            <td>ADPCM #2/#1 Reset,<br>Change Sampling Frequency</td>
+            <td colspan="2" class="gray-bg"></td>
+            <td>RST<br>#2</td>
+            <td>RST<br>#1</td>
+            <td>Interpolate<br>#2</td>
+            <td>Interpolate<br>#1</td>
+            <td>DIV<br>1</td>
+            <td>DIV<br>0</td>
+          </tr>
+          <tr>
+            <td>R11&emsp;11H</td>
+            <td>ADPCM#1 L Volume</td>
+            <td colspan="2" class="gray-bg"></td>
+            <td colspan="6">VOL L</td>
+          </tr>
+          <tr>
+            <td>R12&emsp;12H</td>
+            <td>ADPCM#1 R Volume</td>
+            <td colspan="2" class="gray-bg"></td>
+            <td colspan="6">VOL R</td>
+          </tr>
+          <tr>
+            <td>R13&emsp;13H</td>
+            <td>ADPCM#2 L Volume</td>
+            <td colspan="2" class="gray-bg"></td>
+            <td colspan="6">VOL L</td>
+          </tr>
+          <tr>
+            <td>R14&emsp;14H</td>
+            <td>ADPCM#2 R Volume</td>
+            <td colspan="2" class="gray-bg"></td>
+            <td colspan="6">VOL R</td>
+          </tr>
+          <tr>
+            <td>R15H&emsp;15H</td>
+            <td>PCM L VOlume</td>
+            <td colspan="2" class="gray-bg"></td>
+            <td colspan="6">VOL L</td>
+          </tr>
+          <tr>
+            <td>R16&emsp;16H</td>
+            <td>PCM R Volume</td>
+            <td colspan="2" class="gray-bg"></td>
+            <td colspan="6">VOL R</td>
+          </tr>
+        </table>
+        Note: #1 is ADPCM#1, #2 is ADPCM#2, and PCM is the Direct I/O Line
+      </div> <!-- Subsection 2.1.2 -->
+
+    </div> <!-- Ch2.1 -->
+    <br>
+    <div class="section" id="ch2-2">
+      <h3>2.2 Register Functionality</h3>
+      <h4>2.2.1 Registers for PSG</h4>
+      <ol>
+        <li>PSG Channel Selection Register [R00] (Write)<br>
+          <table>
+            <tr>
+              <th>D7</th>
+              <th>D6</th>
+              <th>D5</th>
+              <th>D4</th>
+              <th>D3</th>
+              <th>D2</th>
+              <th>D1</th>
+              <th>D0</th>
+            </tr>
+            <tr>
+              <td>Unused</td>
+              <td>Unused</td>
+              <td>Unused</td>
+              <td>Unused</td>
+              <td>Unused</td>
+              <td>ch SEL 2</td>
+              <td>ch SEL 1</td>
+              <td>ch SEL 0</td>
+            </tr>
+          </table><br>
+          Functions as a part of the address. In other words, when addressing
+          registers R02-R07 that exist in each channel, first set the channel address in R00,
+          then specify R02-R07 using A4-A0. The register structure of R00 is as written above,
+          and the value represented by D2-D0 is the channel address.<br>
+          For example, if you set 011b=3p to D2-D0 of R00, the selected channel
+          address is 3, and access to registers R02-R07 are done only for ch4.
+        </li><br>
+        <li>PSG Main Volume Adjustment Register [R01] (Write)<br>
+          <table>
+            <tr>
+              <th>D7</th>
+              <th>D6</th>
+              <th>D5</th>
+              <th>D4</th>
+              <th>D3</th>
+              <th>D2</th>
+              <th>D1</th>
+              <th>D0</th>
+            </tr>
+            <tr>
+              <td>LMAL 3</td>
+              <td>LMAL 2</td>
+              <td>LMAL 1</td>
+              <td>LMAL 0</td>
+              <td>RMAL 3</td>
+              <td>RMAL 2</td>
+              <td>RMAL 1</td>
+              <td>RMAL 0</td>
+            </tr>
+          </table><br>
+          Controls the amplitude level of the overall sound after each channel's sound is mixed.
+          LMAL adjusts the left-side output amplitude level, and RMAL adjusts the right-side.
+          Maximum volume is obtained from setting the 4-bit data of both LMAL and RMAL
+          to x0F. Decreasing the register value by 1 corresponds to a decrease of approximately 3dB in the output.
+        </li><br>
+        <li>Frequency Fine Adjustment Register [R02] (Write)<br>
+          <table>
+            <tr>
+              <th>D7</th>
+              <th>D6</th>
+              <th>D5</th>
+              <th>D4</th>
+              <th>D3</th>
+              <th>D2</th>
+              <th>D1</th>
+              <th>D0</th>
+            </tr>
+            <tr>
+              <th>FRQ LOW 7</th>
+              <th>FRQ LOW 6</th>
+              <th>FRQ LOW 5</th>
+              <th>FRQ LOW 4</th>
+              <th>FRQ LOW 3</th>
+              <th>FRQ LOW 2</th>
+              <th>FRQ LOW 1</th>
+              <th>FRQ LOW 0</th>
+            </tr>
+          </table><br>
+          Register for fine-tuning the frequency. Works with R03 to decide output frequency.
+        </li><br>
+        <li>Frequency Coarse Adjustment Register [R03] (Write)<br>
+          Register for coarse adjustments to the frequency. Works with R02 to decide output frequency.<br>
+          <p>Waveform Output Frequency Setting<br>
+            Set using each channel's R02 and R03.
+            First, we form a 12-bit frequency data by connecting R02 and R03. Let this be f.
+          </p>
+          <img src="../images/6230image1.png" alt="Frequency Formula Image">
+          <p>Note: Setting f to 0 is not allowed as the internal counter's behavior
+            is undefined.
+          </p>
+          <p>Translator note: I couldn't figure out what this is supposed to mean, so I took
+            the screenshot directly from the text, but with translated text.
+          </p>
+        </li><br>
+        <li>Channel ON, DDA, Channel Volume Register [R04] (Write)<br>
+          <table>
+            <tr>
+              <th>D7</th>
+              <th>D6</th>
+              <th>D5</th>
+              <th>D4</th>
+              <th>D3</th>
+              <th>D2</th>
+              <th>D1</th>
+              <th>D0</th>
+            </tr>
+            <tr>
+              <td>ch ON</td>
+              <td>DDA</th>
+              <td>Unused</td>
+              <td>AL 4</td>
+              <td>AL 3</td>
+              <td>AL 2</td>
+              <td>AL 1</td>
+              <td>AL 0</td>
+            </tr>
+          </table><br>
+          Bit 7 is the channel's output (mixing) controller and wave form register
+          writing controller. Bit 6 is the direct D/A controller. The lowest 5 bits
+          control the channel's output level.<br>
+          <ol>
+            <li>Top 2 Bit Controllers<br>
+              When bit 7 is 1, the channel's sounds will be output (mixed).
+              However, if it is 0, the output sounds are turned off, and writing to
+              the waveform register R06 is enabled. Bit 6 controls DDA (direct D/A) mode.
+              Setting this bit to 1 resets the address counter of the waveform register and
+              makes data signals be sent directly to the D/A converter.<br>
+              The behavior is given in the following chart.
+              <table>
+                <tr>
+                  <th>chON</th>
+                  <th>DDA</th>
+                  <th>Mode</th>
+                  <th>Behavior</th>
+                </tr>
+                <tr>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>Waveform register<br>writing mode</td>
+                  <td>The register address is incremented<br>after every write.</td>
+                </tr>
+                <tr>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>Waveform register<br>writing mode</td>
+                  <td>Resets the waveform<br>register address counter.</td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>Mixing mode<br>(sound output)</td>
+                  <td>Waveform register addressed at the frequency<br>specified by the frequency register</td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>Direct D/A Mode</td>
+                  <td>Address counter is reset, and data is<br>transferred to the D/A converter on write.</td>
+                </tr>
+              </table>
+            </li><br>
+            <li>Sound Adjustment Behavior<br>
+              The lowest 5 bits sets the sound output level of the channel.
+              The maximum value can be obtained by setting it to x1F, and every decrease
+              by 1 decreases the output signal by approximately 1.5dB.
+            </li>
+          </ol>
+        </li><br>
+        <li>L,R Sound Volume Register [R05] (Write)<br>
+          <table>
+            <tr>
+              <th>D7</th>
+              <th>D6</th>
+              <th>D5</th>
+              <th>D4</th>
+              <th>D3</th>
+              <th>D2</th>
+              <th>D1</th>
+              <th>D0</th>
+            </tr>
+            <tr>
+              <td>LAL 3</td>
+              <td>LAL 2</td>
+              <td>LAL 1</td>
+              <td>LAL 0</td>
+              <td>RAL 3</td>
+              <td>RAL 2</td>
+              <td>RAL 1</td>
+              <td>RAL 0</td>
+            </tr>
+          </table><br>
+          Register for dividing the sound into left and right.<br>
+          LAL controls the amplitude level of the left side output, and RAL controls the right side.
+          Maximum value can be obtained by setting both 4-bit data to x0F. Decreasing the register
+          value by 1 decreases the output by approximately 3dB.
+        </li><br>
+        <li>Waveform Register [R06] (Write)<br>
+          <table style="text-align: center;">
+            <tr>
+              <th style="width: 40px;"></th>
+              <th style="width: 40px;">7</th>
+              <th style="width: 40px;">6</th>
+              <th style="width: 40px;">5</th>
+              <th style="width: 40px;">4</th>
+              <th style="width: 40px;">3</th>
+              <th style="width: 40px;">2</th>
+              <th style="width: 40px;">1</th>
+              <th style="width: 40px;">0</th>
+              <th>Internal Register</th>
+            </tr>
+            <tr>
+              <td rowspan="6">R06</td>
+              <td colspan="3" class="gray-bg"></td>
+              <td colspan="5">WAVE DATA</td>
+              <td>0H</td>
+            </tr>
+            <tr>
+              <td colspan="3" class="gray-bg"></td>
+              <td colspan="5">↑</td>
+              <td>1H</td>
+            </tr>
+            <tr>
+              <td colspan="3" class="gray-bg"></td>
+              <td colspan="5">↑</td>
+              <td>2H</td>
+            </tr>
+            <tr>
+              <td colspan="3" class="gray-bg"></td>
+              <td colspan="5">↑</td>
+              <td>3H<br>|<br>1DH</td>
+            </tr>
+            <tr>
+              <td colspan="3" class="gray-bg"></td>
+              <td colspan="5">↑</td>
+              <td>1EH</td>
+            </tr>
+            <tr>
+              <td colspan="3" class="gray-bg"></td>
+              <td colspan="5">↑</td>
+              <td>1FH</td>
+            </tr>
+          </table><br>
+          The waveform register is a register that records the waveform.
+          Each channel contains 32 words of 5 bits each, which
+        </li><br>
+        <li>Noise Enable, Noise Frequency Register [R07] (Write)<br>
+          <table>
+            <tr>
+              <th>D7</th>
+              <th>D6</th>
+              <th>D5</th>
+              <th>D4</th>
+              <th>D3</th>
+              <th>D2</th>
+              <th>D1</th>
+              <th>D0</th>
+            </tr>
+            <tr>
+              <td>NE</td>
+              <td>Unused</td>
+              <td>Unused</td>
+              <td>NOISE<br>FRQ 4</td>
+              <td>NOISE<br>FRQ 3</td>
+              <td>NOISE<br>FRQ 2</td>
+              <td>NOISE<br>FRQ 1</td>
+              <td>NOISE<br>FRQ 0</td>
+            </tr>
+          </table><br>
+          Bit 7 controls whether it is playing noise sounds or tonal sounds. Setting
+          D7 to 1 enables noise and disables tones. The lower 5 bits control the
+          noise frequency, and controls clock signal sent to the noise generator.
+          Data x00 is the lowest pitch and x1F is the highest.
+        </li><br>
+        <li>LFO Frequency Register [R08] (Write)<br>
+          <table>
+            <tr>
+              <th>D7</th>
+              <th>D6</th>
+              <th>D5</th>
+              <th>D4</th>
+              <th>D3</th>
+              <th>D2</th>
+              <th>D1</th>
+              <th>D0</th>
+            </tr>
+            <tr>
+              <td>LFO<br>FRQ 7</td>
+              <td>LFO<br>FRQ 6</td>
+              <td>LFO<br>FRQ 5</td>
+              <td>LFO<br>FRQ 4</td>
+              <td>LFO<br>FRQ 3</td>
+              <td>LFO<br>FRQ 2</td>
+              <td>LFO<br>FRQ 1</td>
+              <td>LFO<br>FRQ 0</td>
+            </tr>
+          </table><br>
+          Controls the frequency of the Low Frequency Oscillator (LFO).
+          When using the LFO, channel 2's music frequency counter is connected
+          to the low frequency oscillator. The LFO frequency is controlled with
+          this R08 register and R02 and R03 of channel 2. The addressing speed
+          of channel 2's waveform data is controlled by this LFO frequency.<br>
+          Note: Setting the register to x00 is not allowed.
+        </li><br>
+        <li>LFO Control Register [R09] (Write)<br>
+          <table>
+            <tr>
+              <th>D7</th>
+              <th>D6</th>
+              <th>D5</th>
+              <th>D4</th>
+              <th>D3</th>
+              <th>D2</th>
+              <th>D1</th>
+              <th>D0</th>
+            </tr>
+            <tr>
+              <td>LF TRG</td>
+              <td>Unused</td>
+              <td>Unused</td>
+              <td>Unused</td>
+              <td>Unused</td>
+              <td>Unused</td>
+              <td>LF CTL 1</td>
+              <td>LF CTL 0</td>
+            </tr>
+          </table><br>
+          <ol>
+            <li>LF TRG<br>
+              Writing to LF TRG resets the LFO to its initial value.
+              Modulation stops when the contents of channel 2's waveform register address "0"
+              is outputted as frequency modulation data.
+            </li><br>
+            <li>LF CTL<br>
+              The lowest 2 bits control the degree of modulation of the
+              frequency using the LFO.<br>
+              Using channel 2's waveform register data written with the LFO frequency,
+              the frequency of the sound in channel 1 is modulated. (It will be addressed
+              by the waveform register according to the LFO frequency.) The
+              value of channel 2's waveform data is added or subtracted from
+              the value of channel 1's waveform data, the result of which is used
+              as channel 1's sound frequency to perform modulation on.
+              Here, the highest-valued bit of channel 2's waveform data is
+              used as a sign bit, where "1" means to add and "0" means to subtract.
+              This implies that modulation can be performed on the continuous
+              image of the waveform data at the time of writing.<br>
+              Warning: <em>Only usable when both channel 1 and channel 2 is ON.<br>
+                In this case, channel 2's amplitude control register (AL, or LAL/RAR)
+                are also active, so if the value of channel 2's amplitude control register
+                is such that channel 2's sound can be outputted, a waveform is outputted
+                to channel 2 with the LFO frequency. Thus, in general, use the value
+                of this register under channel 2 as the minimum. This is so that
+                channel 2 sounds can be outputted as an alternate use case. If channel 2's
+                sound is outputted while using LFO, a sound different from using LFO normally
+                can be created.
+              </em>
+            </li>
+          </ol>
+        </li>
+      </ol><br>
+      <h4>2.2.2 ADPCM, PCM Register</h4>
+      <ol>
+        <li>ADPCM #2/#1 Reset, Sampling Frequency Switching Register [R10] (Write)<br>
+          <table>
+            <tr>
+              <th>D7</th>
+              <th>D6</th>
+              <th>D5</th>
+              <th>D4</th>
+              <th>D3</th>
+              <th>D2</th>
+              <th>D1</th>
+              <th>D0</th>
+            </tr>
+            <tr>
+              <td>Unused</td>
+              <td>Unused</td>
+              <td>RST<br>APDCM#2</td>
+              <td>RST<br>ADPCM#1</td>
+              <td>Interpolation #2</td>
+              <td>Interpolation #1</td>
+              <td>DIV 1</td>
+              <td>DIV 0</td>
+            </tr>
+          </table><br>
+          <div>
+            Interpolation #2/#1: When the sampling frequency is not 31.47kHz, sets whether
+            direct interpolation is performed.<br>
+            &emsp;1: Perform Direct Interpolation<br>
+            &emsp;0: No Direct Interpolation
+          </div><br>
+          <div>
+            RST ADPCM#2/#1: Soft Reset for ADPCM#2/#1<br>
+            &emsp;1: Reset State<br>
+            &emsp;2: Reset Inactive State
+          </div><br>
+          <div>
+            DIV1/DIV0: Sampling Frequency Mode<br>
+            <table>
+              <tr>
+                <th>Sampling<br>Frequency fs</th>
+                <th>DIV1</th>
+                <th>DIV0</th>
+              </tr>
+              <tr>
+                <td>31.47kHz</td>
+                <td>0</td>
+                <td>0</td>
+              </tr>
+              <tr>
+                <td>15.73kHz</td>
+                <td>0</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>7.87kHz</td>
+                <td>1</td>
+                <td>0</td>
+              </tr>
+              <tr>
+                <td>3.93kHz</td>
+                <td>1</td>
+                <td>1</td>
+              </tr>
+            </table>
+            Formula is below (DIV1,0=0/1/2/3)<br>
+            <img src="../images/6230image2.png" alt="fs Formula">
+          </div>
+        </li><br>
+        <li>ADPCM#1 L Volume [R11] (Write)<br>
+          <table>
+            <tr>
+              <th>D7</th>
+              <th>D6</th>
+              <th>D5</th>
+              <th>D4</th>
+              <th>D3</th>
+              <th>D2</th>
+              <th>D1</th>
+              <th>D0</th>
+            </tr>
+            <tr>
+              <td>Unused</td>
+              <td>Unused</td>
+              <td>ADPCM#1<br>VOL L5</td>
+              <td>ADPCM#1<br>VOL L4</td>
+              <td>ADPCM#1<br>VOL L3</td>
+              <td>ADPCM#1<br>VOL L2</td>
+              <td>ADPCM#1<br>VOL L1</td>
+              <td>ADPCM#1<br>VOL L0</td>
+            </tr>
+          </table>
+        </li><br>
+        <li>ADPCM#1 R Volume [R12] (Write)<br>
+          <table>
+            <tr>
+              <th>D7</th>
+              <th>D6</th>
+              <th>D5</th>
+              <th>D4</th>
+              <th>D3</th>
+              <th>D2</th>
+              <th>D1</th>
+              <th>D0</th>
+            </tr>
+            <tr>
+              <td>Unused</td>
+              <td>Unused</td>
+              <td>ADPCM#1<br>VOL R5</td>
+              <td>ADPCM#1<br>VOL R4</td>
+              <td>ADPCM#1<br>VOL R3</td>
+              <td>ADPCM#1<br>VOL R2</td>
+              <td>ADPCM#1<br>VOL R1</td>
+              <td>ADPCM#1<br>VOL R0</td>
+            </tr>
+          </table>
+        </li><br>
+        <li>ADPCM#2 L Volume [R13] (Write)<br>
+          <table>
+            <tr>
+              <th>D7</th>
+              <th>D6</th>
+              <th>D5</th>
+              <th>D4</th>
+              <th>D3</th>
+              <th>D2</th>
+              <th>D1</th>
+              <th>D0</th>
+            </tr>
+            <tr>
+              <td>Unused</td>
+              <td>Unused</td>
+              <td>ADPCM#2<br>VOL L5</td>
+              <td>ADPCM#2<br>VOL L4</td>
+              <td>ADPCM#2<br>VOL L3</td>
+              <td>ADPCM#2<br>VOL L2</td>
+              <td>ADPCM#2<br>VOL L1</td>
+              <td>ADPCM#2<br>VOL L0</td>
+            </tr>
+          </table>
+        </li><br>
+        <li>ADPCM#2 R Volume [R14] (Write)<br>
+          <table>
+            <tr>
+              <th>D7</th>
+              <th>D6</th>
+              <th>D5</th>
+              <th>D4</th>
+              <th>D3</th>
+              <th>D2</th>
+              <th>D1</th>
+              <th>D0</th>
+            </tr>
+            <tr>
+              <td>Unused</td>
+              <td>Unused</td>
+              <td>ADPCM#2<br>VOL R5</td>
+              <td>ADPCM#2<br>VOL R4</td>
+              <td>ADPCM#2<br>VOL R3</td>
+              <td>ADPCM#2<br>VOL R2</td>
+              <td>ADPCM#2<br>VOL R1</td>
+              <td>ADPCM#2<br>VOL R0</td>
+            </tr>
+          </table>
+        </li><br>
+        <li>PCM L Volume [R15] (Write)<br>
+          <table>
+            <tr>
+              <th>D7</th>
+              <th>D6</th>
+              <th>D5</th>
+              <th>D4</th>
+              <th>D3</th>
+              <th>D2</th>
+              <th>D1</th>
+              <th>D0</th>
+            </tr>
+            <tr>
+              <td>Unused</td>
+              <td>Unused</td>
+              <td>PCM<br>VOL L5</td>
+              <td>PCM<br>VOL L4</td>
+              <td>PCM<br>VOL L3</td>
+              <td>PCM<br>VOL L2</td>
+              <td>PCM<br>VOL L1</td>
+              <td>PCM<br>VOL L0</td>
+            </tr>
+          </table>
+        </li><br>
+        <li>PCM R Volume [R16] (Write)<br>
+          <table>
+            <tr>
+              <th>D7</th>
+              <th>D6</th>
+              <th>D5</th>
+              <th>D4</th>
+              <th>D3</th>
+              <th>D2</th>
+              <th>D1</th>
+              <th>D0</th>
+            </tr>
+            <tr>
+              <td>Unused</td>
+              <td>Unused</td>
+              <td>PCM<br>VOL R5</td>
+              <td>PCM<br>VOL R4</td>
+              <td>PCM<br>VOL R3</td>
+              <td>PCM<br>VOL R2</td>
+              <td>PCM<br>VOL R1</td>
+              <td>PCM<br>VOL R0</td>
+            </tr>
+          </table>
+        </li>
+      </ol>
+      For the volume of 2. to 5., the maximum output can be obtained by
+      setting D5-D0 to x3F, with a decrease in approximately 1.5dB decrease per
+      decrease in hex value.<br>
+      The maximum attenuation if -52.5dB. Anything -54dB and below is considered
+      negative infinity, and results in no sound. The value of the register in this
+      case is between x00 and x1B.
+      The volume of 6. and 7. is controlled using the VCA (external or internal), and
+      is different from the volume of ADPCM. The following is the explanation for that.<br>
+      <ul>
+        <li>PCM Input Volume (VCA)<br>
+          If the volume registers of R15, R16 are rewritten, the output changes in
+          the following way. The change in output per x01 change in input is 16 steps.
+          When the signal's peak level is divided into 1023 parts, one step denotes
+          one of those parts. Changes from x00 and x01, as well as from x3F to x3F
+          have special changes, but in general it is 16 steps.<br>
+          <br>
+          Additionally, the response time for 1 step changes depending on the register's data.
+          This is because the relationship between time and change in volume is logarithmic.<br>
+          <br>
+          ex1) Rewriting from x3F to x00<br>
+          The level is 201og (0/1023) = -∞ dB<br>
+          The time to get to -∞ is:
+          T=1.49×512+2.98×256+5.96×128+11.92×64+23.84×32+47.68×16+2956.16=7.53 mS<br>
+          <br>
+          ex2) Rewriting from x3D to x3F<br>
+          The level is 201og (1023/991) = 0.27 dB<br>
+          The time to increase by 0.27 dB is
+          T=1.49×(1023-991)=47.68 μS<br>
+          <br>
+          The following chart shows the relationship described above:<br>
+          <table id="table2-2steps">
+            <tr>
+              <th>Register<br>Value</th>
+              <th>Increase<br>Steps</th>
+              <th>Decrease<br>Steps</th>
+              <th>Speed<br>(μS)</th>
+              <th>Register<br>Value</th>
+              <th>Increase<br>Steps</th>
+              <th>Decrease<br>Steps</th>
+              <th>Speed<br>(μS)</th>
+            </tr>
+            <tr>
+              <td>00</td>
+              <td>0</td>
+              <td>0</td>
+              <td>2956.16</td>
+              <td>20</td>
+              <td>527</td>
+              <td>512</td>
+              <td>1.49</td>
+            </tr>
+            <tr>
+              <td>03</td>
+              <td>31</td>
+              <td>16</td>
+              <td>47.68</td>
+              <td>21</td>
+              <td>543</td>
+              <td>528</td>
+              <td>"</td>
+            </tr>
+            <tr>
+              <td>02</td>
+              <td>47</td>
+              <td>32</td>
+              <td>23.84</td>
+              <td>22</td>
+              <td>559</td>
+              <td>544</td>
+              <td>"</td>
+            </tr>
+            <tr>
+              <td>03</td>
+              <td>63</td>
+              <td>48</td>
+              <td>"</td>
+              <td>23</td>
+              <td>575</td>
+              <td>560</td>
+              <td>"</td>
+            </tr>
+            <tr>
+              <td>04</td>
+              <td>79</td>
+              <td>64</td>
+              <td>11.92</td>
+              <td>24</td>
+              <td>591</td>
+              <td>576</td>
+              <td>"</td>
+            </tr>
+            <tr>
+              <td>05</td>
+              <td>95</td>
+              <td>80</td>
+              <td>"</td>
+              <td>25</td>
+              <td>607</td>
+              <td>592</td>
+              <td>"</td>
+            </tr>
+            <tr>
+              <td>06</td>
+              <td>111</td>
+              <td>96</td>
+              <td>"</td>
+              <td>26</td>
+              <td>623</td>
+              <td>608</td>
+              <td>"</td>
+            </tr>
+            <tr>
+              <td>07</td>
+              <td>127</td>
+              <td>112</td>
+              <td>"</td>
+              <td>27</td>
+              <td>639</td>
+              <td>624</td>
+              <td>"</td>
+            </tr>
+            <tr>
+              <td>08</td>
+              <td>143</td>
+              <td>128</td>
+              <td>5.96</td>
+              <td>28</td>
+              <td>655</td>
+              <td>640</td>
+              <td>"</td>
+            </tr>
+            <tr>
+              <td>09</td>
+              <td>159</td>
+              <td>144</td>
+              <td>"</td>
+              <td>29</td>
+              <td>671</td>
+              <td>656</td>
+              <td>"</td>
+            </tr>
+            <tr>
+              <td>0A</td>
+              <td>175</td>
+              <td>160</td>
+              <td>"</td>
+              <td>2A</td>
+              <td>687</td>
+              <td>672</td>
+              <td>"</td>
+            </tr>
+            <tr>
+              <td>0B</td>
+              <td>191</td>
+              <td>176</td>
+              <td>"</td>
+              <td>2B</td>
+              <td>703</td>
+              <td>688</td>
+              <td>"</td>
+            </tr>
+            <tr>
+              <td>0C</td>
+              <td>207</td>
+              <td>192</td>
+              <td>"</td>
+              <td>2C</td>
+              <td>719</td>
+              <td>704</td>
+              <td>"</td>
+            </tr>
+            <tr>
+              <td>0D</td>
+              <td>223</td>
+              <td>208</td>
+              <td>"</td>
+              <td>2D</td>
+              <td>735</td>
+              <td>720</td>
+              <td>"</td>
+            </tr>
+            <tr>
+              <td>0E</td>
+              <td>239</td>
+              <td>224</td>
+              <td>"</td>
+              <td>2E</td>
+              <td>751</td>
+              <td>736</td>
+              <td>"</td>
+            </tr>
+            <tr>
+              <td>0F</td>
+              <td>255</td>
+              <td>240</td>
+              <td>"</td>
+              <td>2F</td>
+              <td>767</td>
+              <td>752</td>
+              <td>"</td>
+            </tr>
+            <tr>
+              <td>10</td>
+              <td>271</td>
+              <td>256</td>
+              <td>2.98</td>
+              <td>30</td>
+              <td>783</td>
+              <td>768</td>
+              <td>"</td>
+            </tr>
+            <tr>
+              <td>11</td>
+              <td>287</td>
+              <td>272</td>
+              <td>"</td>
+              <td>31</td>
+              <td>799</td>
+              <td>784</td>
+              <td>"</td>
+            </tr>
+            <tr>
+              <td>12</td>
+              <td>303</td>
+              <td>288</td>
+              <td>"</td>
+              <td>32</td>
+              <td>815</td>
+              <td>800</td>
+              <td>"</td>
+            </tr>
+            <tr>
+              <td>13</td>
+              <td>319</td>
+              <td>304</td>
+              <td>"</td>
+              <td>33</td>
+              <td>831</td>
+              <td>816</td>
+              <td>"</td>
+            </tr>
+            <tr>
+              <td>14</td>
+              <td>335</td>
+              <td>320</td>
+              <td>"</td>
+              <td>34</td>
+              <td>847</td>
+              <td>832</td>
+              <td>"</td>
+            </tr>
+            <tr>
+              <td>15</td>
+              <td>351</td>
+              <td>336</td>
+              <td>"</td>
+              <td>35</td>
+              <td>863</td>
+              <td>848</td>
+              <td>"</td>
+            </tr>
+            <tr>
+              <td>16</td>
+              <td>367</td>
+              <td>352</td>
+              <td>"</td>
+              <td>36</td>
+              <td>879</td>
+              <td>864</td>
+              <td>"</td>
+            </tr>
+            <tr>
+              <td>17</td>
+              <td>383</td>
+              <td>368</td>
+              <td>"</td>
+              <td>37</td>
+              <td>895</td>
+              <td>880</td>
+              <td>"</td>
+            </tr>
+            <tr>
+              <td>18</td>
+              <td>399</td>
+              <td>384</td>
+              <td>"</td>
+              <td>38</td>
+              <td>911</td>
+              <td>896</td>
+              <td>"</td>
+            </tr>
+            <tr>
+              <td>19</td>
+              <td>415</td>
+              <td>400</td>
+              <td>"</td>
+              <td>39</td>
+              <td>927</td>
+              <td>912</td>
+              <td>"</td>
+            </tr>
+            <tr>
+              <td>1A</td>
+              <td>431</td>
+              <td>416</td>
+              <td>"</td>
+              <td>3A</td>
+              <td>943</td>
+              <td>928</td>
+              <td>"</td>
+            </tr>
+            <tr>
+              <td>1B</td>
+              <td>447</td>
+              <td>432</td>
+              <td>"</td>
+              <td>3B</td>
+              <td>959</td>
+              <td>944</td>
+              <td>"</td>
+            </tr>
+            <tr>
+              <td>1C</td>
+              <td>463</td>
+              <td>448</td>
+              <td>"</td>
+              <td>3C</td>
+              <td>975</td>
+              <td>960</td>
+              <td>"</td>
+            </tr>
+            <tr>
+              <td>1D</td>
+              <td>479</td>
+              <td>464</td>
+              <td>"</td>
+              <td>3D</td>
+              <td>991</td>
+              <td>976</td>
+              <td>"</td>
+            </tr>
+            <tr>
+              <td>1E</td>
+              <td>495</td>
+              <td>480</td>
+              <td>"</td>
+              <td>3E</td>
+              <td>1007</td>
+              <td>992</td>
+              <td>"</td>
+            </tr>
+            <tr>
+              <td>1F</td>
+              <td>511</td>
+              <td>496</td>
+              <td>"</td>
+              <td>3F</td>
+              <td>1023</td>
+              <td>1023</td>
+              <td>"</td>
+            </tr>
+          </table>
+        </li>
+      </ul>
+    </div> <!-- Ch2.2 -->
+    <br>
+
+    <div class="section" id="ch2-3">
+      <h3>2.3 How to Setup Registers</h3>
+      All internal registers of the HuC6230 is set with the CPU.<br>
+      Below is a basic chart with the timing. However, R10's functions
+      must be synchronized, so it will be active on -HSYNC (fall time) immediately
+      after register setting completes.
+      <br>
+      Additionally, for the same reason, if R10 is written to twice or more
+      in one horizontal sync period, only the data written immediately after the fall time of
+      -HSYNC will be valid.<br>
+      <img src="../images/6230image3.png" alt="Timing Diagram">
+    </div> <!-- Ch2.3 -->
+  </div> <!-- Chapter 2 -->
+  <hr>
+
+  <div class="chapter" id="ch3">
+    <h2>Chapter 3: On Reset</h2>
+    <div class="section" id="ch3-1">
+      <h3>3.1 System Reset</h3>
+      The LSI system can be reset by entering "0" into the HuC6230 terminal -RESET.
+      Below shows the state of the registers and basic actions on system reset. Please
+      perform at least once on system boot.<br>
+      <br>
+      <table id="table3-1registers">
+        <tr>
+          <th>Register Num</th>
+          <th>Address (Hex)</th>
+          <th>Register Val (Hex)</th>
+          <th>Register Num</th>
+          <th>Address (Hex)</th>
+          <th>Register Val (Hex)</th>
+        </tr>
+        <tr>
+          <td>R00</td>
+          <td>x00</td>
+          <td>xXX</td>
+          <td>R10</td>
+          <td>x10</td>
+          <td>x00</td>
+        </tr>
+        <tr>
+          <td>R01</td>
+          <td>x01</td>
+          <td>xXX</td>
+          <td>R11</td>
+          <td>x11</td>
+          <td>x00</td>
+        </tr>
+        <tr>
+          <td>R02</td>
+          <td>x02</td>
+          <td>xXX</td>
+          <td>R12</td>
+          <td>x12</td>
+          <td>x00</td>
+        </tr>
+        <tr>
+          <td>R03</td>
+          <td>x03</td>
+          <td>xXX</td>
+          <td>R13</td>
+          <td>x13</td>
+          <td>x00</td>
+        </tr>
+        <tr>
+          <td>R04</td>
+          <td>x04</td>
+          <td>xXX *</td>
+          <td>R14</td>
+          <td>x14</td>
+          <td>x00</td>
+        </tr>
+        <tr>
+          <td>R05</td>
+          <td>x05</td>
+          <td>xXX</td>
+          <td>R15</td>
+          <td>x15</td>
+          <td>x00</td>
+        </tr>
+        <tr>
+          <td>R06</td>
+          <td>x06</td>
+          <td>xXX</td>
+          <td>R16</td>
+          <td>x16</td>
+          <td>x00</td>
+        </tr>
+        <tr>
+          <td>R07</td>
+          <td>x07</td>
+          <td>xXX</td>
+          <td class="gray-bg" colspan="3" rowspan="3"></td>
+        </tr>
+        <tr>
+          <td>R08</td>
+          <td>x08</td>
+          <td>xXX</td>
+        </tr>
+        <tr>
+          <td>R09</td>
+          <td>x09</td>
+          <td>xXX</td>
+        </tr>
+      </table><br>
+      <ul>
+        <li>PSG<br>
+          The PSG's registers are not cleared on system reset.<br>
+          * However, so that sound is not outputted, the MSB of R04, or D7,
+          will bet set to "0" (channel off).
+        </li>
+        <li>Other Information<br>
+          <ul>
+            <li>The PSG's sound output is stopped</li>
+            <li>The ADPCM's soft reset will be set to the Reset Inactive state</li>
+            <li>The ADPCM's linear interpolation mode will be set to no interpolation</li>
+            <li>The sampling rate mode will be set to 31.47 KHz</li>
+            <li>ADPCM, PCM volume will be set to -∞</li>
+            <li>The ADPCM's conversion circuit will be on hold
+              using the data hold functionality, and be waiting for data input from the HuC6272</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="section" id="ch3-2">
+      <h3>3.2 Soft Reset</h3>
+      ADPCM#2/#1 can be individually reset by manipulating internal register R10.
+      However, because it is synchronized, it is only active after the first falling time of
+      -HSYNC after setting up registers.
+      Below is the internal function when soft resetting.
+      <ul>
+        <li>Basic Functionality<br>
+          The only circuit reset with this is the ADPCM decompression circuit. Internal registers
+          and the PSG are not affected in any way.
+          <br>
+          <table>
+            <tr>
+              <th>D5</th>
+              <th>D4</th>
+              <th>Affected Circuits</th>
+            </tr>
+            <tr>
+              <td>0</td>
+              <td>0</td>
+              <td>ADPCM#2/#1 Reset Inactive State</td>
+            </tr>
+            <tr>
+              <td>0</td>
+              <td>1</td>
+              <td>ADPCM#1 Reset State</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>0</td>
+              <td>ADPCM #2 Reset State</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>1</td>
+              <td>ADPCM #2/#1 Reset State</td>
+            </tr>
+          </table>
+        </li>
+        <li>Coefficient Initial Values<br>
+          We list the initial values of the coefficients needed by the ADPCM
+          decompression circuit. Calculations after reset start from these values.
+          <table>
+            <tr>
+              <td>PCM Value</td>
+              <td>[P(N)]</td>
+              <td>x200</td>
+            </tr>
+            <tr>
+              <td>Scale Value</td>
+              <td>[S(N)]</td>
+              <td>16</td>
+            </tr>
+            <tr>
+              <td>Scale Level</td>
+              <td>[S'(N)]</td>
+              <td>0</td>
+            </tr>
+          </table>
+        </li>
+        <li>Warnings<br>
+          When changing the sampling frequency or whether linear interpolation is used,
+          always ensure that the soft reset is on the reset state.<br>
+          Additionally, when the soft reset is in the inactive state,
+          changing interpolation, sampling frequency is not allowed. (Proper functionality
+          cannot be guaranteed)
+        </li>
+      </ul>
+    </div>
+  </div> <!-- Chapter 3 -->
+  <hr>
+
+  <div class="chapter" id="ch4">
+    <h2>Chapter 4: ADPCM Decompression Functionality</h2>
+    <div class="section" id="ch4-1">
+      <h3>4.1 ADPCM Decompress Flow</h3>
+      <img src="../images/6230image4.png" alt="Decompression Flow Chart">
+    </div> <!-- Ch4.1 -->
+    <br>
+
+    <div class="section" id="ch4-2">
+      <h3>4.2 Data Transfer Timing Between HuC6272-HuC6230</h3>
+      The HuC6230 receives data from the HuC6272 under the following conditions:
+      <ol>
+        <li>Once HuC6230 reset is inactive, it is in output level hold mode, holding
+          output level AGND x200 until the first data is sent.
+        </li><br>
+        <li>The transfer cycle is determined when data is first transferred from the HuC6272.
+          This cycle is maintained until a soft or hard reset.<br>
+          Additional, this cycle is the same for both ADPCM#2 and #1
+          (i.e. it is not possible to shift a cycle).<br>
+          When changing the transfer cycle on a soft reset, reset #1 and #2 at the same time
+          (only resetting one will not change the cycle).
+        </li><br>
+        <li>The transfer cycle will not change even if output level hold mode starts.</li><br>
+        <li>Only 2 bytes of data (4 ADPCM data blocks worth) can be written to the same channel
+          in one transfer cycle. Anything besides the last 2 bytes of data written
+          at the start of the transfer cycle (-HSYNC fall time) is invalid.<br>
+          If data is written at the same time, a race condition occurs, potentially
+          causing data mismatch.
+        </li><br>
+        <li>-CS0, 1 distinguishes ADPCM#2/#1. Therefore, the order of writing to #2/#1 does not matter.
+          However, the data must be sent to each channel 2 bytes at a time. (i.e.
+          the data cannot be split across two transfer cycles)
+        </li><br>
+        <li>Right after reset (using -RESET, or simultaneous soft resets), the transfer cycle changes.
+          The first data transfer is started at the next -HSYNC, so 4 bytes of data
+          (or 2 bytes if only one channel) must complete transfer during one horizontal sync period.
+        </li><br>
+        <li>The correspondence between -CS0/1 and ADPCM#2/#1 is given below:
+          <table>
+            <tr>
+              <th>-CS1</th>
+              <th>-CS0</th>
+              <th>Channel</th>
+            </tr>
+            <tr>
+              <td>0</td>
+              <td>0</td>
+              <td>NO ACCESS</td>
+            </tr>
+            <tr>
+              <td>0</td>
+              <td>1</td>
+              <td>ADPCM#1</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>0</td>
+              <td>ADPCM#2</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>1</td>
+              <td>NO ACCESS</td>
+            </tr>
+          </table>
+        </li><br>
+        <li>The structure of the ADPCM data contained in the K-RAM<br>
+          <img src="../images/6230image5.jpg" alt="Data Structure Diagram"><br>
+          The 8-bit input data bus contains 2 sets of data. The lower 4 bits (D3-D0)
+          is first, the upper 4 bits (D7-D4) are second.<br>
+          The upper-most bit of each section is the sign bit, where 0 means plus and 1 means minus<br>
+          The bottom three bits of each section forms the data.<br>
+          Please close ADPCM data in the K-RAM at 16-bit boundaries.<br>
+          The lower 4 bits of data is transferred from the HuC6272 first, then the upper 4 bits.<br>
+          HuC6230 distinguishes the upper and lower bytes using RH/-L registers.<br>
+          When RH/-L="High", lower bytes; when RH/-L="Low", upper bytes.
+        </li><br>
+        <li>HuC6230 Timing (if 31.47KHz)<br>
+          <img src="../images/6230image6.jpg" alt="HuC6230 Timing Diagram">
+        </li>
+      </ol>
+    </div> <!-- Ch4.2 -->
+    <br>
+
+    <div class="section" id="ch4-3">
+      <h3>4.3 Output Level Hold Function</h3>
+      <p>A key feature of this LSI, the output level hold functionality, is explained below.</p>
+      <ul>
+        <li>Output Level Hold Function<br>
+          The output level hold function sets the level hold status of the ADPCM output
+          based on the data most recently sent from the HuC6272 if transfer stops for a
+          certain amount of time.<br>
+          To restart playback, start transferring data from the HuC6272 again. However,
+          the registers of the ADPCM circuit will be holding the previous data. When restarting,
+          either soft reset once, or let the data creation method be continuous data.<br>
+          Additionally, if the D.C level when stopped is not around analog ground (2.5V),
+          creating a sudden signal change by resetting can result in an abnormal noise,
+          so it is advised to set the volume to -∞ before a reset.
+        </li><br>
+        <li>Minimum Requirements for Data Transfer<br>
+          When transferring data: always transfer at least 2 bytes of data within 1 transfer cycle.<br>
+          To level hold: don't send data to the channel that you want to hold.
+          In addition, If only 1 byte was transferred per channel, it will be determined
+          that no data was transferred and be considered level hold mode.
+        </li><br>
+        <li>Criteria for HuC6272 Data Transferring/Stopping<br>
+          Data transfer changes based on the sampling rate frequency. Below lists
+          the mapping and the criteria for transfer stopping. Note that the below
+          criteria is for a specific frequency (see 4.2).<br>
+          <table>
+            <tr>
+              <td>Sampling Rate<br>Frequency</td>
+              <td>Transfer<br>Cycle</td>
+              <td>Data Transfer Format<br>(Per 1 Channel)</td>
+              <td>Transfer Stop Condition</td>
+            </tr>
+            <tr>
+              <td>31.47kHz</td>
+              <td>2H</td>
+              <td>8 bits×2 (4×4)</td>
+              <td>When transfer stops for a period of 2H</td>
+            </tr>
+            <tr>
+              <td>15.73kHz</td>
+              <td>4H</td>
+              <td>8 bits×2 (4×4)</td>
+              <td>When transfer stops for a period of 4H</td>
+            </tr>
+            <tr>
+              <td>7.87kHz</td>
+              <td>8H</td>
+              <td>8 bits×2 (4×4)</td>
+              <td>When transfer stops for a period of 8H</td>
+            </tr>
+            <tr>
+              <td>3.93kHz</td>
+              <td>16H</td>
+              <td>8 bits×2 (4×4)</td>
+              <td>When transfer stops for a period of 16H</td>
+            </tr>
+          </table>
+        </li><br>
+        <li>Stopping Channel (#2/#1) Determination<br>
+          This function can independently control ADPCM #2/#1 using the -CS0, 1 register signals.
+          However, because of the relation to the output rate, it will be played back
+          at the same time as #2/#1.
+        </li><br>
+        <li>External Synchronization Level Hold<br>
+          If an external synchronization function is used, the -HSYNC signal may stop
+          temporarily. In that case, the output will automatically be in level hold mode.
+          When data transfer from the HuC6272 starts again, it will continue to play back
+          the continuous data. However, to realize this functionality, the data transfer from
+          the HuC6272 must follow the HuC6230 transfer cycle rules. (number of -HSYNC signals)
+        </li>
+      </ul>
+    </div> <!-- Ch4.3 -->
+    <br>
+
+    <div class="section" id="ch4-4">
+      <h3>4.4 When Sound Output is Disabled</h3>
+      <p>If the ADPCM output is set to -∞ attenuation with the electronic volume,
+        sound output will stop, but the internal ADPCM conversion will continue
+        as long as data is being transferred. From this, fade-in and fade-out effects are possible.<br>
+        After turning the volume on, if you want to start the output over, perform a reset.
+      </p>
+    </div> <!-- Ch4.4 -->
+    <br>
+
+    <div class="section" id="ch4-5">
+      <h3>4.5 PCM Value Calculation Limitations</h3>
+      The coefficients, as well as the initial values of the intermediate calculations,
+      of the computation of the PCM value from the ADPCM value is as follows.
+      <table>
+        <tr>
+          <th>Coefficient</th>
+          <th></th>
+        </tr>
+        <tr>
+          <td>Scale Level</td>
+          <td style="text-align:left;">Initial=0 Minimum=0 Maximum=48<br>
+            <br>
+            If a value mathematically goes below the minimum, scale level = 0<br>
+            If a value mathematically goes above the maximum, scale level = 48<br>
+            In other words, it handles underflow/overflow.
+          </td>
+        </tr>
+        <tr>
+          <td>PCM value</td>
+          <td style="text-align:left;">
+            PCM Data before compression&emsp; 12-Bit Offset Binary Code<br>
+            Intermediate Value Accuracy&emsp; 18 bits (3 decimal bits)<br>
+            D/A Data Accepted Bits&emsp; Higher-valued are accepted (A)<br>
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Lower bits are discarded.<br>
+            <br>
+            Initial=x800<br>
+            Maximum=xFFF&emsp; When playback PCM value is 12 bits<br>
+            Minimum=x000&emsp; Handles overflow/underflow
+          </td>
+        </tr>
+      </table><br>
+      <img src="../images/6230image7.jpg" alt="">
+    </div>
+    <br>
+
+  </div> <!-- Chapter 4 -->
+  <hr>
+
+  <div class="chapter" id="ch5">
+    <h2>Chapter 5: Sampling Frequency Change Functionality</h2>
+    <p>This LSI, having a basic sampling frequency of 31.47KHz, supports
+      interpolating lower frequencies to be 31.47KHz. Whether this is performed
+      can be decided via an internal register.
+    </p>
+    <div class="section" id="ch5-1">
+      <h3>5.1 List of Sampling Frequencies</h3>
+      <table>
+        <tr>
+          <th>Sampling Frequency</th>
+          <th>HuC6272 Data Transfer Cycle<br>(Per Channel)</th>
+          <th>Addend when Interpolating (1 Step)</th>
+        </tr>
+        <tr>
+          <td>31.47KHz</td>
+          <td>2 bytes in 2H period</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>15.73KHz</td>
+          <td>2 bytes in 4H period</td>
+          <td>d(n)/2</td>
+        </tr>
+        <tr>
+          <td>7.87KHz</td>
+          <td>2 bytes in 8H period</td>
+          <td>d(n)/4</td>
+        </tr>
+        <tr>
+          <td>3.93KHz</td>
+          <td>2 bytes in 16H period</td>
+          <td>d(n)/8</td>
+        </tr>
+      </table>
+      Note: d(n) is the ADPCM data uncompressed value at n time (difference)
+    </div> <!-- Ch5.1 -->
+    <br>
+
+    <div class="section" id="ch5-2">
+      <h3>5.2 Output Frequency Interpolation Function</h3>
+      <p>Interpolation is performed when the sampling frequency is anything other
+        than 31.47KHz. When the sampling frequency is 31.47KHz,
+        the interpolation on register will be ignored.
+        For the amount added on for each sampling frequency, see the above chart.
+      </p>
+      <p>The linearity compared to the theoretical is ±1LSB caused by
+        computation errors.
+      </p>
+      <br>
+      8KHz Linear Interpolation Example<br>
+      <img src="../images/6230image8.png" alt="8KHz Linear Interpolation example image">
+    </div> <!-- Ch5.2 -->
+  </div> <!-- Chapter 5 -->
+  <hr>
+
+  <div class="chapter" id="ch6">
+    <h2>Chapter 6: 4 Channel (ADPCM2 Channel, LINE, PSG) Mixing Output Functionality</h2>
+    <h3>Description</h3>
+    <p>It can accept the sound outputs from ADPCM2 channels, line input channel, and internal PSG channel (total
+      of 4 channels), mix them, then output it.<br>
+      The left and right are mixed independently.
+    </p>
+    <ul>
+      <li>Mixing Ratio (ADPCM#1 : ADPCM#2 : LINE : PSG)<br>
+        1 : 1 : 1 : 2 (Note: PSG is 6 channels-worth)
+      </li><br>
+      <li>Mixing Block Diagram<br>
+        <img src="../images/6230image9.jpg" alt="Mixing block diagram">
+      </li>
+    </ul>
+  </div> <!-- Chapter 6 -->
+  <hr>
+
+  <div class="chapter" id="ch7">
+    <h2>Chapter 7: PSG</h2>
+    <div class="section" id="ch7-1">
+      <h3>7.1 Summary</h3>
+      <p>The sounds use waveform memory format, so
+        several different kinds of sounds can be created
+        using the control of software.<br>
+        Furthermore, it internally contains a noise generator that
+        can be used for rhythm sounds and sound effects.<br>
+        Finally, there is 1 channel of a low frequency oscillator
+        that can be used for sound effects or vibrato.
+      </p>
+      <br>
+      Characteristics:
+      <ul>
+        <li>Monolithic CMOS Programmer Sound Generator</li>
+        <li>Sound Production Format: Waveform Memory Format (1 cycle 32 addresses)</li>
+        <li>Sound Production Channel Count: Waveform generator, sound generators (6 channels), square wave noise
+          generator (2 channels)</li>
+        <li>Combinations of Waveform Generators and Noise Generators: 6 Sound to 4 Sound + 2 Noise</li>
+        <li>Volume Control: Wide Dynamic Range Control using 5-bit logarithmic transformation</li>
+        <li>Supports Stereo Sound Production</li>
+        <li>Supports Onomatopoeia (imitative sounds?) Production: (Using the mode that sends data directly to the D/A
+          Converter)</li>
+        <li>LFO Built-in</li>
+      </ul>
+    </div> <!-- Ch7.1 -->
+    <br>
+
+    <div class="section" id="ch7-2">
+      <h3>7.2 Functionality</h3>
+      <p>All of the PSG's functionality can be controlled by writing data to
+        the register inside the PSG. In other words, the sound produced depends on the data
+        in this register. (Except i DDA-Direct D/A Mode)
+      </p>
+      <ul>
+        <li>Waveform Generator: Waveforms are produced based on the contents of the
+          waveform register (5 bits × 32 words per waveform cycle) for each channel.
+        </li>
+        <li>Noise Generator: Creates pseudorandom waveforms as square waves.</li>
+        <li>Volume Control: Amplitude is controlled by the register's set data.</li>
+        <li>Low Frequency Oscillator: For modulation. Uses Channel 2's waveform data to modulate
+          the sound in Channel 1.
+        </li>
+      </ul>
+
+      <div class="subsection" id="ch7-2-1">
+        <h4>7.2.1 System Reset</h4>
+        <p>By setting -RESET to "L" level, the highest bit in R04, all channels' ON register,
+          can be reset, and the PSG will be reset so that it will not produce sound.<br>
+          The other registers' contents are unspecified. Therefore, the other registers must each be
+          reset before producing sound.
+        </p>
+      </div> <!-- Subsection 7.2.1 -->
+
+      <div class="subsection" id="ch7-2-2">
+        <h4>7.2.2 Internal D/A Converter</h4>
+        The PSG has two types of D/A converters built in:
+        <ol>
+          <li>Maximum Amplitude Adjustment D/A Converter<br>
+            This is the D/A converter for 5-bit logarithmic transformation.<br>
+            Natural fade out is achieved by changing the output volume in 1.5dB steps.
+          </li>
+          <li>Waveform Generator D/A Converter<br>
+            This is the D/A convertor for 5-bit linear transformation.<br>
+            Converts waveform data to amplitudes.
+          </li>
+        </ol>
+      </div> <!-- Subsection 7.2.2 -->
+
+      <div class="subsection" id="ch7-2-3">
+        <h4>7.2.3 Block Diagram</h4>
+        <img src="../images/6230image10.png" alt="Diagram">
+      </div> <!-- Subsection 7.2.3 -->
+
+      <div class="subsection" id="ch7-2-4">
+        <h4>7.2.4 Creating Wave Data</h4>
+        <p>Using a device such as a synchronoscope to match the size of the internal waveform data register,
+          convert the waveform data to be outputted to digital data. Each channel has
+          32 words of 5-bit data.<br>
+          Therefore, split the amplitude axis to 5 bit data, and the time axis to 32
+          for one waveform cycle to assign to each word.<br>
+          For writing to the waveform registers, refer to <a href="#ch2-2">2.2: Register Functionality</a>
+        </p><br>
+        Amplitude (5 bit, hexadecimal)<br>
+        <img src="../images/6230image11.png" alt="Example">
+        <span style="text-align:right;">Time (word, hexadecimal)</span><br>
+        Example conversion of sin wave.<br>
+        The relationship between the register data and amplitude is as follows.<br>
+        <img src="../images/6230image12.png" alt=""><br>
+        <p>As shown above, one cycle worth of sound is replaced with 5 bit data in time.<br>
+          In this example, the WAVE DATA value increases by 1 per address value.
+        </p><br>
+        <br>
+        <p>Writing to WAVE DATA<br>
+          Writing is performed as follows, in line with the explanation of R04.</p>
+        <ol>
+          <li>Standard Write<br>
+            After setting to ch ON=0, DDA=0 (waveform register write mode), access R06 and
+            repeat data write operations 32 words at a time. That concludes WAVE register writing.<br>
+            Afterwards, set ch ON=1, DDA=0, and setting MAL, AL, LAL, RAL produces sound.
+            When using this writing method, it is not possible to specify the address
+            in WAVE DATA to start writing.
+          </li><br>
+          <li>If specifying waveform data address<br>
+            After setting to ch ON=0, DDA=1, set to ch ON=0, DDA=0.<br>
+            In this state, the address counter of WAVE DATA will be set to 0. Afterwards,
+            write 32 words in a row to WAVE DATA. The data will be written in order from x00 to x1F.<br>
+            Afterwards, just as in 1. Standard Write, set ch ON=1, DDA=0, then set MAL, AL, LAL, RAL
+            to produce sound.
+          </li><br>
+          <li>Direct D/A (DDA)
+            This mode allows sending data directly to the D/A converter.<br>
+            First set ch ON=0, DDA=1, then write R06=x00 to the WAVE DATA register.<br>
+            Then, set to ch ON=1, DDA=1 to finish preparations.<br>
+            Next, repeatedly write to the WAVE DATA register. With this, for each write,
+            data is transferred to the D/A converter, and sound output is produced. (In this case,
+            although it appears as if data is sent to the WAVE DATA, the contents are not affected.)
+          </li><br>
+          <br>
+          Warning: In case 1. and 2., for ch2 only, waveform writing will not be performed
+          if a value at least x80 is written to R09.
+        </ol>
+      </div> <!-- Subsection 7.2.4 -->
+
+      <div class="subsection" id="ch7-2-5">
+        <h4>7.2.5 Adjusting Sound</h4>
+        <p>Sound adjustment is done using registers LMAL/RMAL (R01), AL (R04),
+          LAL/RAL (R05). Each channel has an R04 and R05, and adjusts the output sound level
+          for the specific channel. R01 adjusts the output level of the combined sound.<br>
+          For R01 and R05, each step changes output by 3dB. For R04, each step changes output
+          by 1.5dB. However, since the PSG's dynamic range is about 45dB from the circuitry,
+          sound will not play if the volume is set 45dB below the maximum. (In actuality,
+          due to variations in the elements, there may be a miniscule output.) Therefore,
+          if any of R01, R04, R05 are "0", or the sum of the differences between
+          the value "x0F" and each of R01, R05, and the top 4 bits of AL register (bottom 5 bits of R04)
+          is greater than "x0F", that channel's sound will not be outputted. (See image below).
+        </p>
+        <img src="../images/6230image13.png" alt="Example Image">
+        <p>For the left side sound, from (1), (3), (4),<br>
+          (1) + (3) + (4) = 3+1+0=4 (12dB below max volume)</p>
+        <p>For the right side sound, from (2), (3), (5),<br>
+          (2) + (3) + (5) = 7+1+7=15 (45dB below max volume = no output)</p>
+        <p>R01 can be used for overall sound fade-in, fade-out, shifting left/right.
+          R04 can be used for controlling a specific channel's sound, as well as controlling envelope.
+          R05 can be used for distributing sound to left/right, as well as channel-specific output level adjustment.
+        </p>
+      </div> <!-- Subsection 7.2.5 -->
+
+      <div class="subsection" id="ch7-2-6">
+        <h4>7.2.6 Setting Frequency</h4>
+        <p>Waveform output frequency is specified using R02 and R03 for each channel.<br>
+          A 12-bit frequency value (F) is obtained from concatenating R02 and R03.
+        </p>
+        <img src="../images/6230image14.png" alt="Diagram"><br>
+        Output frequency fOUT is:<br>
+        fmaster fOUT = 2×32×F<br>
+        <p>It takes 21.48MHz from the HuC6271, and generates fmaster=7.16MHz from it. F is expressed as a decimal
+          value. (During calculation).
+        </p>
+        <p>Note: Do not set F to 0, as it causes unpredictable behavior in internal counters.</p>
+      </div> <!-- Subsection 7.2.6 -->
+
+      <div class="subsection" id="ch7-2-7">
+        <h4>7.2.7 Setting LFO Frequency</h4>
+        <p>The LFO frequency decides the modulation frequency.<br>
+          The LFO is turned on and active when the lower 2 bits of the LF CTL register (R09) are 1, 2, 3.
+          The frequency is decided based on the following.
+        </p>
+        <p>LFO frequency is generated from connecting the channel 2 frequency counter to
+          the LFO frequency counter.
+        </p>
+        <p>LFO frequency fLFO is:<br>
+          fmaster fLFO = 2×32×f2×fLF, &ensp;where<br>
+          f2: F data (decimal) from channel 2's R02, R03<br>
+          fLF: LFO FRQ register data (decimal)
+        </p>
+        <p>Note: fLFO is the frequency at which every register in one cycle in the waveform registers (32 addresses)
+          is addressed. fLF=0, f2=0 are not allowed.
+        </p>
+      </div> <!-- Subsection 7.2.7 -->
+
+      <div class="subsection" id="ch7-2-8">
+        <h4>7.2.8 Setting Noise Frequency</h4>
+        <p>The noise frequency can be changed by changing the noise frequency register (R07).<br>
+          The NOISE FRQ register controls the frequency of the input clock to the noise generator.
+          The input clock frequency (fNCL) is based on the following formula:<br>
+          fmaster fNCL=2×32×f2×NF<br>
+          NF: NOISE FRQ data's compliment (swap 0s and 1s)<br>
+        </p>
+        <p>Note: When NF=9, fNCL is unpredictable, so noise that is different from normal will be produced.</p>
+        <img src="../images/6230image16.png" alt="">
+        <p>Only channel 5 and channel 6 have R07.</p>
+        <ul>
+          <li>Relationship between LFO and Frequency Modulation<br>
+            <img src="../images/6230image17.png" alt="">
+          </li><br>
+          <li>Relationship between waveform data value and the amount added/subtracted
+            to the frequency data when used with LFO<br>
+            <table>
+              <tr>
+                <th>Wave<br>form<br>Data<br>(Hex)</th>
+                <th>Wave<br>form<br>Bit<br>Data<br>(Bin)</th>
+                <th>LFO<br>Data<br>(Hex)</th>
+                <th>Wave<br>form<br>Data<br>(Hex)</th>
+                <th>Wave<br>form<br>Bit<br>Data<br>(Bin)</th>
+                <th>LFO<br>Data<br>(Hex)</th>
+                <th>Wave<br>form<br>Data<br>(Hex)</th>
+                <th>Wave<br>form<br>Bit<br>Data<br>(Bin)</th>
+                <th>LFO<br>Data<br>(Hex)</th>
+                <th>Wave<br>form<br>Data<br>(Hex)</th>
+                <th>Wave<br>form<br>Bit<br>Data<br>(Bin)</th>
+                <th>LFO<br>Data<br>(Hex)</th>
+              </tr>
+              <tr>
+                <td>1F</td>
+                <td>11111</td>
+                <td>+F</td>
+                <td>17</td>
+                <td>10111</td>
+                <td>+7</td>
+                <td>F</td>
+                <td>01111</td>
+                <td>-1</td>
+                <td>7</td>
+                <td>00111</td>
+                <td>-9</td>
+              </tr>
+              <tr>
+                <td>1E</td>
+                <td>11110</td>
+                <td>+E</td>
+                <td>16</td>
+                <td>10110</td>
+                <td>+6</td>
+                <td>E</td>
+                <td>01110</td>
+                <td>-2</td>
+                <td>6</td>
+                <td>00110</td>
+                <td>-A</td>
+              </tr>
+              <tr>
+                <td>1D</td>
+                <td>11101</td>
+                <td>+D</td>
+                <td>15</td>
+                <td>10101</td>
+                <td>+5</td>
+                <td>D</td>
+                <td>01101</td>
+                <td>-3</td>
+                <td>5</td>
+                <td>00101</td>
+                <td>-B</td>
+              </tr>
+              <tr>
+                <td>1C</td>
+                <td>11100</td>
+                <td>+C</td>
+                <td>14</td>
+                <td>10100</td>
+                <td>+4</td>
+                <td>C</td>
+                <td>01100</td>
+                <td>-4</td>
+                <td>4</td>
+                <td>00100</td>
+                <td>-C</td>
+              </tr>
+              <tr>
+                <td>1B</td>
+                <td>11011</td>
+                <td>+B</td>
+                <td>13</td>
+                <td>10011</td>
+                <td>+3</td>
+                <td>B</td>
+                <td>01011</td>
+                <td>-5</td>
+                <td>3</td>
+                <td>00011</td>
+                <td>-D</td>
+              </tr>
+              <tr>
+                <td>1A</td>
+                <td>11010</td>
+                <td>+A</td>
+                <td>12</td>
+                <td>10010</td>
+                <td>+2</td>
+                <td>A</td>
+                <td>01010</td>
+                <td>-6</td>
+                <td>2</td>
+                <td>00010</td>
+                <td>-E</td>
+              </tr>
+              <tr>
+                <td>19</td>
+                <td>11001</td>
+                <td>+9</td>
+                <td>11</td>
+                <td>10001</td>
+                <td>+1</td>
+                <td>9</td>
+                <td>01001</td>
+                <td>-7</td>
+                <td>1</td>
+                <td>00001</td>
+                <td>-F</td>
+              </tr>
+              <tr>
+                <td>18</td>
+                <td>11000</td>
+                <td>+8</td>
+                <td>10</td>
+                <td>10000</td>
+                <td>0</td>
+                <td>8</td>
+                <td>01000</td>
+                <td>-8</td>
+                <td>0</td>
+                <td>0000</td>
+                <td>-10</td>
+              </tr>
+            </table><br>
+            Note: + means the frequency moves to be later
+          </li><br>
+          <li>Relationship between LF CTL 2-bit data and LFO Control<br>
+            <table>
+              <tr>
+                <th>LF CTL</th>
+                <th>Functionality Description</th>
+              </tr>
+              <tr>
+                <td>0</td>
+                <td>Sets to LFO OFF. Normal sound output is done.</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>Frequency is determined from the 4 bits of channel 1's FRQ register
+                  as shown in Diagram (A), and the 4 bits of waveform data from channel 2.</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Channel 1's output frequency is determined from the 4 bits of channel 1's FRQ register
+                  as shown in Diagram (B), and the 4 bits of waveform data from channel 2.</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Channel 1's output frequency is determined from the 4 bits of channel 1's FRQ register
+                  as shown in Diagram (B), and the 4 bits of waveform data from channel 2.</td>
+              </tr>
+            </table><br>
+            <p>(A) Case: LF CTL 1<br>
+              <img src="../images/6230image18.png" alt="">
+            </p><br>
+            <p>(B) Case: LF CTL 2<br>
+              <img src="../images/6230image19.png" alt="">
+            </p><br>
+            <p>(C) Case: LF CTL 3<br>
+              <img src="../images/6230image20.png" alt="">
+            </p>
+          </li>
+        </ul>
+      </div> <!-- Subsection 7.2.8 -->
+
+    </div> <!-- Ch7.2 -->
+  </div> <!-- Chapter 7 -->
+
+  <hr>
+
+  <div class="chapter" id="#ch8">
+    <h2>Reference Documents</h2>
+    <ul>
+      <li>ADPCM Compression Flow<br>
+        <img src="../images/6230image21.png" alt="">
+      </li><br>
+      <li>Warnings Regarding ADPCM Data Compression Calculations<br>
+        <p>When producing compressed software using the "ADPCM Compression Flow", please
+          calculate with these warnings in mind:
+        </p>
+        <ol>
+          <li>Difference Calculation of PCM Value<br>
+            dt = P (N) - P (N-1),<br>
+            P (N): Input data at time (N)<br>
+            P (N-1): Decompressed data at time (N-1)<br>
+            For the above calculation, compute up to 3 digits after the decimal point.
+          </li><br>
+          <li>ADPCM Compression Calculation<br>
+            A (N) = (dt'×8) / S (N-1) - 1<br>
+            <p>For the above calculation, compute up to
+              3 digits after the decimal point, then round to the nearest whole number at the end.</p>
+          </li>
+          <li>Warnings when calculation decompression data required for computing compression data<br>
+            Calculate up to 3 places after the decimal place when computing dt' for "4.1 ADPCM Decompression Flow"<br>
+            Furthermore, decompressed data has maximum value of 4095.875 and minimum value of 0. If it exceeds
+            the maximum or is less than the minimum, it becomes this value.
+          </li>
+        </ol>
+      </li><br>
+      <li>ADPCM Data vs Change Rate, Level Value Correspondence Table<br>
+        <table>
+          <tr>
+            <th>ADPCM Data<br>(No Sign)</th>
+            <th>Change</th>
+            <th>Level Inc/Dec</th>
+          </tr>
+          <tr>
+            <td>0 0 0</td>
+            <td>1</td>
+            <td>-1</td>
+          </tr>
+          <tr>
+            <td>0 0 1</td>
+            <td>2</td>
+            <td>-1</td>
+          </tr>
+          <tr>
+            <td>0 1 0</td>
+            <td>3</td>
+            <td>-1</td>
+          </tr>
+          <tr>
+            <td>0 1 1</td>
+            <td>4</td>
+            <td>-1</td>
+          </tr>
+          <tr>
+            <td>1 0 0</td>
+            <td>5</td>
+            <td>+2</td>
+          </tr>
+          <tr>
+            <td>1 0 1</td>
+            <td>6</td>
+            <td>+4</td>
+          </tr>
+          <tr>
+            <td>1 1 0</td>
+            <td>7</td>
+            <td>+6</td>
+          </tr>
+          <tr>
+            <td>1 1 1</td>
+            <td>8</td>
+            <td>+8</td>
+          </tr>
+        </table>
+      </li><br>
+      <li>Scale Level Table<br>
+        <table id="table-scale-level">
+          <tr>
+            <th>Scale Level</th>
+            <th>Scale Value</th>
+            <th>Scale Level</th>
+            <th>Scale Value</th>
+            <th>Scale Level</th>
+            <th>Scale Value</th>
+          </tr>
+          <tr>
+            <td>0</td>
+            <td>16</td>
+            <td>17</td>
+            <td>80</td>
+            <td>34</td>
+            <td>408</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>17</td>
+            <td>18</td>
+            <td>88</td>
+            <td>35</td>
+            <td>449</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>19</td>
+            <td>19</td>
+            <td>97</td>
+            <td>36</td>
+            <td>494</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>21</td>
+            <td>20</td>
+            <td>107</td>
+            <td>37</td>
+            <td>544</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>23</td>
+            <td>21</td>
+            <td>118</td>
+            <td>38</td>
+            <td>598</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>25</td>
+            <td>22</td>
+            <td>130</td>
+            <td>39</td>
+            <td>658</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>28</td>
+            <td>23</td>
+            <td>143</td>
+            <td>40</td>
+            <td>724</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>31</td>
+            <td>24</td>
+            <td>157</td>
+            <td>41</td>
+            <td>796</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>34</td>
+            <td>25</td>
+            <td>173</td>
+            <td>42</td>
+            <td>876</td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>37</td>
+            <td>26</td>
+            <td>190</td>
+            <td>43</td>
+            <td>963</td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td>41</td>
+            <td>27</td>
+            <td>209</td>
+            <td>44</td>
+            <td>1060</td>
+          </tr>
+          <tr>
+            <td>11</td>
+            <td>45</td>
+            <td>28</td>
+            <td>230</td>
+            <td>45</td>
+            <td>1166</td>
+          </tr>
+          <tr>
+            <td>12</td>
+            <td>50</td>
+            <td>29</td>
+            <td>253</td>
+            <td>46</td>
+            <td>1282</td>
+          </tr>
+          <tr>
+            <td>13</td>
+            <td>55</td>
+            <td>30</td>
+            <td>279</td>
+            <td>47</td>
+            <td>1411</td>
+          </tr>
+          <tr>
+            <td>14</td>
+            <td>60</td>
+            <td>31</td>
+            <td>307</td>
+            <td>48</td>
+            <td>1552</td>
+          </tr>
+          <tr>
+            <td>15</td>
+            <td>66</td>
+            <td>32</td>
+            <td>337</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>16</td>
+            <td>73</td>
+            <td>33</td>
+            <td>371</td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+      </li><br>
+      <li>Pitch Chart<br>
+        Relationship between 12-tone equal temperament and PSG output (fmaster=7.16MHz)<br>
+        <img src="../images/6230image22.png" alt="">
+      </li>
+    </ul>
+  </div> <!-- Chapter 8 -->
+
+  <hr>
+
+  Copyright and Trademark Notice
+  <ul>
+    <li>This document is a part of the PC-FXGA Software Development Kit. Please do not
+      use this for any other purpose than PC-FX/PC-FXGA software development
+    </li>
+    <li>
+      Hudson Soft bears no responsibility for any direct or indirect damage caused by
+      the use of this document.
+    </li>
+    <li>
+      Hudson Soft does not directly answer questions about how the contents of this document,
+      or other questions. Please do not contact Hudson Soft.</li>
+    <li>
+      When using this document, read the “Conditions for the use of this Software”.
+    </li>
+    <li>Hudson Soft holds the copyright for this document.</li>
+  </ul>
+
+  <div class="footer">(C) 1995 HUDSON SOFT</div>
+
+
+
+</body>
+
+</html>

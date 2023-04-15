@@ -43,7 +43,7 @@
 }
 
 h3::before {
-  content: '■ ';
+  content: "■ ";
 }
 
 .codeblock {
@@ -95,9 +95,28 @@ details summary {
 }
 
 .arrow-left {
-  border-right:5px solid black; 
+  border-right: 5px solid black;
 }
 
 .arrow-down {
   border-top: 5px solid black;
+}
+
+.gray-bg {
+  background-color: #cccccc;
+}
+
+table,
+table * {
+  border: 3px solid black;
+  border-collapse: collapse;
+}
+
+table th {
+  padding: 4px;
+  text-align: center;
+}
+
+table td {
+  padding: 8px;
 }
