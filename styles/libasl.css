@@ -1,0 +1,6 @@
+.contents-table,
+.contents-table * {
+  width: 50%;
+  font-size: 1.2rem;
+  border: none;
+}
