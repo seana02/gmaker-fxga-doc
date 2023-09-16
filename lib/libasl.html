@@ -155,10 +155,101 @@
     </div>
   </div>
 
+  <div class="chapter" id="ch3">
+    <h2>Chapter 3: Table Writing Functions</h2>
+    <div class="section" id="ch3-1">
+      <h3>3.1: Set Sprite Control Table</h3>
+      <p><strong>Name</strong></p>
+      <p>ASLSetSpriteTable</p>
+      <p><strong>Format</strong></p>
+      <div class="codeblock">#include &lt;farl.h&gt;
+#include &lt;asl.h&gt;
+void ASLSetSpriteTable(int bank, int sctNo, int num, ASLSct *sct)</div>
+      <p><strong>Parameters</strong></p>
+      <p>bank: The bank number of the texture buffer to write the SCT to<br>
+      sctNo: The first SCT number in the bank of the SCT being executed
+      (0-2047)<br>
+      num: Number of SCT to write<br>
+      sct: The pointer to the buffer storing the SCT (or the first SCT, if
+      multiple)
+      </p>
+      <p><strong>Explanation</strong></p>
+      <p>Writes num SCTs pointed to by sct to the texture buffer. The bank
+      number to write to can be specified with bank parameter and the SCT
+      number in the bank that the first SCT is to be written to can be
+      specified with sctNo parameter.<br>
+      <br>
+      One bank in the texture buffer is 64K bytes and each SCT entry is 32
+      Bytes, so each bank can hold 2048 SCT entries. The SCT number can be
+      specified to be any of the 2048 indices, from 0-2047.<br>
+      <br>
+      You cannot write past the bank boundaries (sctNo + num <= 2048).
+      </p>
+      <p><strong>Return Value</strong></p>
+      <p>None</p>
+    </div>
+    <div class="section" id="ch3-2">
+      <p><strong>Name</strong></p>
+      <p>ASLSetParameterTable</p>
+      <p><strong>Format</strong></p>
+      <div class="codeblock">#include &lt;farl.h&gt;
+#include &lt;asl.h&gt;
+void ASLSetParameterTable(int ptBank, int ptOffAddr, int num, ASLPt *pt)</div></p>
+      <p><strong>Parameters</strong>
+      <p>ptBank: The bank number of the texture buffer to write the scan
+      parameter table<br>
+      ptOffAddr: The first address to write the scan parameter table<br>
+      num: The size of the scan parameter table (parameter count)<br>
+      pt: The pointer to the buffer storing the scan parameter table
+      </p>
+      <p><strong>Explanation</strong></p>
+      <p>Writes the scan parameter table, which is formed from the num
+      parameter (parameter set count represented by the ASLPt structure) shown
+      by pt, to the texture buffer. The bank number to write to can be
+      specified by ptBank, and the address in the bank to write the first
+      parameter is specified by ptOffAddr.<br>
+      <br>
+      The ptOffAddr parameter must be an address in the 16 byte boundary. One
+      bank in a texture buffer is 64K bytes, so the values 0x0000-0xfff0 can be
+      specified for ptOffAddr.<br>
+      <br>
+      The scan parameter table is 88 Bytes per parameter, so each bank can have
+      a parameter set of 8192 parameters.<br>
+      <br>
+      You cannot write past the bank boundaries (ptOffADdr + 8 * num <
+      0x10000)
+      </p>
+      <p><strong>Return</strong></p>
+      <p>None</p>
+    </div>
+  </div>
+
   <div class="chapter" id="ch4">
-    <h2>Chapter 1: Introduction</h2>
+    <h2>Chapter 4: Other Functions</h2>
     <div class="section" id="ch4-6">
-      <p><strong></strong></p>
+      <h3>4.6: Set Sprite Clip Window</h3>
+      <p><strong>Name</strong></p>
+      <p>ASLSetSpriteWindow</p>
+      <p><strong>Format</strong></p>
+      <div class="codeblock">#include &lt;farl.h&gt;
+#include &lt;asl.h&gt;
+void ASLSetSpriteWindow(unsigned short left, unsigned short top,
+                        unsigned short right, unsigned short bottom)</div>
+      <p><strong>Parameters</strong></p>
+      <p>left: The X coordinate of the top left of the rectangular window<br>
+      top: The Y coordinate of the top left of the rectangular window<br>
+      right: The X coordinate of the bottom right of the rectangular window<br>
+      bottom: The X coordinate of the bottom right of the rectangular window</p>
+      <p><strong>Explanation</strong></p>
+      <p>Sets the rectangular window represented by left, top, right, bottom
+      to the sprite window clip register. The sprite will only be displayed
+      within this set window.</p>
+      <p>※ If you define the symbol ASL_USE_MACRO before including asl.h, this
+      function will be a macro instead. Using it as a function takes overhead
+      to call the function and return, so it is recommended to use the macro
+      whenever possible.</p>
+      <p><strong>Return Value</strong></p>
+      <p>None</p>
     </div>
   </div>
 
