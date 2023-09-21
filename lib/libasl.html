@@ -226,6 +226,29 @@ void ASLSetParameterTable(int ptBank, int ptOffAddr, int num, ASLPt *pt)</div></
 
   <div class="chapter" id="ch4">
     <h2>Chapter 4: Other Functions</h2>
+    <div class="section" id="ch4-1">
+      <h3>4.1: Change H and V Flip Flag</h3>
+      <p><strong>Name</strong></p>
+      <p>ASLChangeHVFlip</p>
+      <p><strong>Format</strong></p>
+      <div class="codeblock">#include &lt;farl.h&gt;
+        #include &lt;asl.h&gt;
+        void ASLChangeHVFlip(ASLSct *sct, Bool flipH, Bool flipV)</div>
+      <p><strong>Parameters</strong></p>
+      <p>sct: A pointer to buffer where the SCT is stored<br>
+      flipH: The horizontal flip flag (False or True)<br>
+      flipV: The vertical flip flag (False or True)</p>
+      <p><strong>Explanation</strong></p>
+      <p>Rewrites the horizontal and vertical flags of the SCT indicated by sct.
+        If necessary, set this flag in this function after the SCT is created.
+        Functions that generate the SCT do not set this flag.</p>
+      <p>※ If you define the symbol ASL_USE_MACRO before including asl.h, this
+        function will be a macro instead. Using it as a function takes overhead
+        to call the function and return, so it is recommended to use the macro
+        whenever possible.</p>
+      <p><strong>Return Value</strong></p>
+      <p>None</p>
+    </div>
     <div class="section" id="ch4-6">
       <h3>4.6: Set Sprite Clip Window</h3>
       <p><strong>Name</strong></p>
