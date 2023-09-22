@@ -235,13 +235,50 @@ void ASLSetParameterTable(int ptBank, int ptOffAddr, int num, ASLPt *pt)</div></
         #include &lt;asl.h&gt;
         void ASLChangeHVFlip(ASLSct *sct, Bool flipH, Bool flipV)</div>
       <p><strong>Parameters</strong></p>
-      <p>sct: A pointer to buffer where the SCT is stored<br>
-      flipH: The horizontal flip flag (False or True)<br>
-      flipV: The vertical flip flag (False or True)</p>
+      <p>sct: Pointer to buffer where the SCT is stored<br>
+      flipH: Horizontal flip flag (False or True)<br>
+      flipV: Vertical flip flag (False or True)</p>
       <p><strong>Explanation</strong></p>
       <p>Rewrites the horizontal and vertical flags of the SCT indicated by sct.
         If necessary, set this flag in this function after the SCT is created.
-        Functions that generate the SCT do not set this flag.</p>
+        Functions that create the SCT do not set this flag.</p>
+      <p>Please note that the inversion performed by this function is not centered
+        on the ASLSource structures x_hot and y_hot.</p>
+      <p>※ If you define the symbol ASL_USE_MACRO before including asl.h, this
+        function will be a macro instead. Using it as a function takes overhead
+        to call the function and return, so it is recommended to use the macro
+        whenever possible.</p>
+      <p><strong>Return Value</strong></p>
+      <p>None</p>
+    </div>
+    <p class="section" id="ch4-2">
+      <h3>4.2: Change Z Value</h3>
+      <p><strong>Name</strong></p>
+      <p>ASLChangeZ</p>
+      <p><strong>Format</strong></p>
+      <div class="codeblock">#include &lt;farl.h&gt;
+        #include &lt;asl.h&gt;
+        void ASLChangeZ(ASLSct *sct, Bool zcmp, Bool zwen, unsigned short zval)</div>
+      <p><strong>Parameters</strong></p>
+      <p>sct: Pointer to buffer where the SCT is stored<br>
+      zcmp: Flag indicating whether or not Z-value comparison is performed (False or True)<br>
+      zwen: Flag to allow the writing of Z-values (False or True)<br>
+      zval: The Z-value to be written (0x0000 to 0xffff)</p>
+      <p><strong>Explanation</strong></p>
+      <p>Rewrites the Z value and Z operation flags of the SCT indicated by sct. Functions that create the SCT
+        other than ASLMakeSpriteWithZ do not set these parameters in the SCT. If necessary, set them in this
+        function after the SCT is created.</p>
+
+        <p>Like the ASLMakeSpriteWithZ function, zval, zcmp, and zwen are set in the SCT. When
+        drawing a sprite using the SCT generated here, the following behavior occurs.</p>
+        
+        <p>If zcmp is True, zval is compared with the Z value already written to the Z buffer.
+        If zcmp is False, the pixel value and zvalue are not written. If False, the pixel
+        and z-values are written unconditionally without comparison.</p>
+        
+        <p>zwen determines whether the z-value is actually written to the z-buffer. The pixel
+        value is written to the display buffer, and the z-value zval is written to the z-buffer.
+        If false, no value is written.</p>
       <p>※ If you define the symbol ASL_USE_MACRO before including asl.h, this
         function will be a macro instead. Using it as a function takes overhead
         to call the function and return, so it is recommended to use the macro
