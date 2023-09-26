@@ -272,13 +272,13 @@ void ASLChangeZ(ASLSct *sct, Bool zcmp, Bool zwen, unsigned short zval)</div>
         <p>Like the ASLMakeSpriteWithZ function, zval, zcmp, and zwen are set in the SCT. When
         drawing a sprite using the SCT generated here, the following behavior occurs.</p>
         
-        <p>If zcmp is True, zval is compared with the Z value already written to the Z buffer.
-        If zcmp is False, the pixel value and zvalue are not written. If False, the pixel
+        <p>If zcmp is True, then zval is compared with the Z value already written to the Z buffer.
+        If zval is smaller, then the pixel value and zvalue are not written. If False, then the pixel
         and z-values are written unconditionally without comparison.</p>
         
-        <p>zwen determines whether the z-value is actually written to the z-buffer. The pixel
-        value is written to the display buffer, and the z-value zval is written to the z-buffer.
-        If false, no value is written.</p>
+        <p>zwen determines whether the z-value is actually written to the z-buffer. If zwen is true, 
+          then the pixel value is written to the display buffer, and the z-value zval is written to
+          the z-buffer. If False, then no value is written.</p>
       <p>※ If you define the symbol ASL_USE_MACRO before including asl.h, this
         function will be a macro instead. Using it as a function takes overhead
         to call the function and return, so it is recommended to use the macro
