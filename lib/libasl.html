@@ -251,7 +251,7 @@ void ASLChangeHVFlip(ASLSct *sct, Bool flipH, Bool flipV)</div>
       <p><strong>Return Value</strong></p>
       <p>None</p>
     </div>
-    <p class="section" id="ch4-2">
+    <div class="section" id="ch4-2">
       <h3>4.2: Change Z Value</h3>
       <p><strong>Name</strong></p>
       <p>ASLChangeZ</p>
@@ -279,6 +279,52 @@ void ASLChangeZ(ASLSct *sct, Bool zcmp, Bool zwen, unsigned short zval)</div>
         <p>zwen determines whether the z-value is actually written to the z-buffer. If zwen is true, 
           then the pixel value is written to the display buffer, and the z-value zval is written to
           the z-buffer. If False, then no value is written.</p>
+      <p>※ If you define the symbol ASL_USE_MACRO before including asl.h, this
+        function will be a macro instead. Using it as a function takes overhead
+        to call the function and return, so it is recommended to use the macro
+        whenever possible.</p>
+      <p><strong>Return Value</strong></p>
+      <p>None</p>
+    </div>
+    <div class="section" id="ch4-3">
+      <h3>4.3: Change Collision Detection Flag</h3>
+      <p><strong>Name</strong></p>
+      <p>ASLChangeCollisionDetection, ASLChangeCD</p>
+      <p><strong>Format</strong></p>
+      <div class="codeblock">#include &lt;farl.h&gt;
+#include &lt;asl.h&gt;
+void ASLChangeCollisionDetection(ASLSct *sct, Bool enable, Bool index,
+                 unsigned short set_bits, unsigned short check_mask)
+
+void ASLChangeCD(ASLSct *sct, Bool enable, Bool index,
+                 unsigned short set_bits, unsigned short check_mask)</div>
+      <p><strong>Parameters</strong></p>
+      <p>sct: Pointer to buffer where the SCT is stored<br>
+      enable: Flag indicating whether or not collision detection is performed (False or True)<br>
+      index: Field to store the result data (4bit) of collision detection (0 to 7)<br>
+      set_bits: Bit pattern to be written to the collision detection surface (4bits)<br>
+      check_mask: Mask pattern when performing collision detection (4bits)</p>
+      <p><strong>Explanation</strong></p>
+      <p>Functions that create the SCT
+        other than ASLMakeSpriteWithZ do not set these parameters in the SCT. If necessary, set them in this
+        function after the SCT is created.</p>
+
+        <p>set_bits is a 4-bit bit pattern that is written to the collision detection bit surface of the
+          display buffer along with the pixels. Bits in this bit pattern that are 0's are not written,
+          only bits that are 1's. When using the HiddenClear function or an overlay surface, etc.,
+          the bits that conflict with them must be set to 0.</p>
+        
+        <p>enable is a flag that selects whether or not collision detection is performed for pixels
+          already written to the display buffer when drawing this sprite. If enable is False, then no
+          detection is performed. If True, then detection is performed.</p>
+        
+        <p>check_mask is the mask pattern for the bit pattern read from the collision detection bit
+          surface when performing collision detection.</p>
+
+        <p>index is a number from 0 to 7 that determines in which field (CDRST0[3..0]-CDRST7[3..0]) to
+          store the result data of collision detection.</p>
+
+      <p>※ ASLChangeCD is a replacement for ASLChangeCollisionDetection macro.</p>
       <p>※ If you define the symbol ASL_USE_MACRO before including asl.h, this
         function will be a macro instead. Using it as a function takes overhead
         to call the function and return, so it is recommended to use the macro
