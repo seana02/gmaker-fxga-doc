@@ -346,7 +346,7 @@ void ASLClearCDResult(int index, unsigned short value)</div>
       <p>index: Field of CD result register to be cleared (0-7)<br>
         value: value to be used for clearing</p>
       <p><strong>Explanation</strong></p>
-      <p>Clears one field in CD Result register 0,1 that stores the result of the sprite collision judgment.
+      <p>Clears one field in CD result register 0,1 that stores the result of the sprite collision judgment.
         index specifies which field (CDRST0[3..0]~CDRST7[3..0]) to clear. The field (CDRST0[3..0]-CDRST7[3..0])
         to be cleared is specified by a number from 0 to 7.</p>
 
@@ -371,7 +371,7 @@ unsigned short ASLSenseCDResult(int index)</div>
       <p><strong>Parameters</strong></p>
       <p>index: index: Field of CD result register to be read (0-7)</p>
       <p><strong>Explanation</strong></p>
-      <p>Reads one field in CD Result register 0,1 where the result of the sprite collision judgment is stored.
+      <p>Reads one field in CD result register 0,1 where the result of the sprite collision judgment is stored.
         index specifies which field (CDRST0[3..0]~CDRST7[3..0]) to read. The field (CDRST0[3..0]-CDRST7[3..0])
         to be read is specified by a number from 0 to 7.</p>
 
@@ -381,7 +381,7 @@ unsigned short ASLSenseCDResult(int index)</div>
         to call the function and return, so it is recommended to use the macro
         whenever possible.</p>
       <p><strong>Return Value</strong></p>
-      <p>The result of the read of the field specified by index</p>
+      <p>The read result of the field specified by the index of the CD result register</p>
     </div>
     <div class="section" id="ch4-6">
       <h3>4.6: Set Sprite Clip Window</h3>
