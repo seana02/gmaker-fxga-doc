@@ -17,7 +17,7 @@
     <div class="title">Explanation of LIBASL.A</div>
     <div class="credits">NEC Home Electronics, Ltd.</div>
     <div class="credits">Nov 10, 1995</div>
-    <div class="credits">Translated by Sean Aoki</div>
+    <div class="credits">Translated by Sean Aoki and Taiki Aiba</div>
   </div>
 
   <a href="../">Return</a>
@@ -301,7 +301,7 @@ void ASLChangeCD(ASLSct *sct, Bool enable, Bool index,
       <p><strong>Parameters</strong></p>
       <p>sct: Pointer to buffer where the SCT is stored<br>
       enable: Flag indicating whether or not collision detection is performed (False or True)<br>
-      index: Field to store the result data (4bit) of collision detection (0 to 7)<br>
+      index: Field to store the result data (4bit) of collision detection (0-7)<br>
       set_bits: Bit pattern to be written to the collision detection surface (4bits)<br>
       check_mask: Mask pattern when performing collision detection (4bits)</p>
       <p><strong>Explanation</strong></p>
@@ -324,7 +324,58 @@ void ASLChangeCD(ASLSct *sct, Bool enable, Bool index,
         <p>index is a number from 0 to 7 that determines in which field (CDRST0[3..0]-CDRST7[3..0]) to
           store the result data of collision detection.</p>
 
-      <p>※ ASLChangeCD is a replacement for ASLChangeCollisionDetection macro.</p>
+      <p>※ ASLChangeCD is a replacement for the ASLChangeCollisionDetection macro.</p>
+      <p>※ If you define the symbol ASL_USE_MACRO before including asl.h, this
+        function will be a macro instead. Using it as a function takes overhead
+        to call the function and return, so it is recommended to use the macro
+        whenever possible.</p>
+      <p><strong>Return Value</strong></p>
+      <p>None</p>
+    </div>
+    <div class="section" id="ch4-4">
+      <h3>4.4: Clear Collision Detection Result</h3>
+      <p><strong>Name</strong></p>
+      <p>ASLClearCollisionDetectionResult, ASLClearCDResult</p>
+      <p><strong>Format</strong></p>
+      <div class="codeblock">#include &lt;farl.h&gt;
+#include &lt;asl.h&gt;
+void ASLClearCollisionDetectionResult(int index, unsigned short value)
+
+void ASLClearCDResult(int index, unsigned short value)</div>
+      <p><strong>Parameters</strong></p>
+      <p>index: Field of CD result register to be cleared (0-7)<br>
+        value: value to be used for clearing</p>
+      <p><strong>Explanation</strong></p>
+      <p>Clears one field in CD Result register 0,1 that stores the result of the sprite collision judgment.
+        index specifies which field (CDRST0[3..0]~CDRST7[3..0]) to clear. The field (CDRST0[3..0]-CDRST7[3..0])
+        to be cleared is specified by a number from 0 to 7.</p>
+
+      <p>※ ASLClearCDResult is a replacement for the ASLClearCollisionDetectionResult macro.</p>
+      <p>※ If you define the symbol ASL_USE_MACRO before including asl.h, this
+        function will be a macro instead. Using it as a function takes overhead
+        to call the function and return, so it is recommended to use the macro
+        whenever possible.</p>
+      <p><strong>Return Value</strong></p>
+      <p>None</p>
+    </div>
+    <div class="section" id="ch4-5">
+      <h3>4.5: Sense Collision Detection Result</h3>
+      <p><strong>Name</strong></p>
+      <p>ASLSenseCollisionDetectionResult, ASLSenseCDResult</p>
+      <p><strong>Format</strong></p>
+      <div class="codeblock">#include &lt;farl.h&gt;
+#include &lt;asl.h&gt;
+unsigned short ASLSenseCollisionDetectionResult(int index)
+
+unsigned short ASLSenseCDResult(int index)</div>
+      <p><strong>Parameters</strong></p>
+      <p>index: index: Field of CD result register to be read (0-7)</p>
+      <p><strong>Explanation</strong></p>
+      <p>Reads one field in CD Result register 0,1 where the result of the sprite collision judgment is stored.
+        index specifies which field (CDRST0[3..0]~CDRST7[3..0]) to read. The field (CDRST0[3..0]-CDRST7[3..0])
+        to be read is specified by a number from 0 to 7.</p>
+
+      <p>※ ASLSenseCDResult is a replacement for the ASLSenseCollisionDetectionResult macro.</p>
       <p>※ If you define the symbol ASL_USE_MACRO before including asl.h, this
         function will be a macro instead. Using it as a function takes overhead
         to call the function and return, so it is recommended to use the macro
