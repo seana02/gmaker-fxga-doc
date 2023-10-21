@@ -34,11 +34,7 @@
 
 .contents-subsubsection {
   font-size: 1.1rem;
-  margin-left: 16px;
-}
-
-.contents-table div {
-  width: 100%;
+  margin-left: 24px;
 }
 
 .contents-table,
@@ -46,6 +42,11 @@
   width: 50%;
   font-size: 1.2rem;
   border: none;
+  padding: 0;
+}
+
+.contents-table div {
+  width: 100%;
 }
 
 .underline {
