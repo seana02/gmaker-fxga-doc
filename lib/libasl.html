@@ -455,6 +455,30 @@ void ASLSync()</div>
     <p><strong>Return Value</strong></p>
     <p>None</p>
   </div>
+  <div class="section" id="ch4-9">
+    <h3>4.9: Wait for Swap</h3>
+    <p><strong>Name</strong></p>
+    <p>ASLWaitForSwap</p>
+    <p><strong>Format</strong></p>
+    <div class="codeblock">#include &lt;farl.h&gt;
+#include &lt;asl.h&gt;
+void ASLWaitForSwap()</div>
+    <p><strong>Parameters</strong></p>
+    <p>None</p>
+    <p><strong>Explanation</strong></p>
+    <p>Waits for the HuC6273 to finish its swap operation.</p>
+    <p>Since the 3D engine and the sprite engine operate asynchronously in the HuC6273,
+      the HuC6273 waits for the end of the swap operation of the HuC6273. After issuing a command
+      to swap buffers, the HuC6273 waits for the swap and clear operations to start drawing sprites
+      for the next frame. After issuing a command to swap buffers, it is necessary to wait until the
+      swap and clear operations are completed before starting to draw the next frame's sprite.</p>
+    <p>※ If you define the symbol ASL_USE_MACRO before including asl.h, this
+    function will be a macro instead. Using it as a function takes overhead
+    to call the function and return, so it is recommended to use the macro
+    whenever possible.</p>
+    <p><strong>Return Value</strong></p>
+    <p>None</p>
+  </div>
 </div>
 
 
