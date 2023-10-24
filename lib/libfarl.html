@@ -1,489 +1,1029 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../styles/styles.css" />
-    <title>LIBFARL</title>
-  </head>
-  <body>
-    <div class="heading">
-      <div>PC-FXGA Authoring Software</div>
-      <div>GMAKER Starter Kit (Ver.1.0)</div>
-      <div class="title">Explanation of LIBASL.A</div>
-      <div class="credits">NEC Home Electronics, Ltd.</div>
-      <div class="credits">Nov 10, 1995</div>
-      <div class="credits">Translated by Sean Aoki and Taiki Aiba</div>
-    </div>
 
-    <a href="../">Return</a>
-    <div class="contents">
-      <h2>Contents</h2>
-      <div class="contents-chapter">
-        <div class="contents-head">
-          <a href="#ch1">Chapter 1: FARL Introduction</a>
-          <div class="contents-subsection"><a href="#ch1-1">Functions and Macros</a></div>
-          <div class="contents-subsection"><a href="#ch1-2">Segments</a></div>
-        </div>
-      </div>
-      <div class="contents-chapter">
-        <div class="contents-head"><a href="#ch2">Chapter 2: Farl Function Summary</a></div>
-        <div class="contents-subsection">
-          <a href="#ch2-1">2.1: Basic Functions</a>
-        </div>
-        <table class="contents-table">
-          <tr>
-            <td>
-              <div class="contents-subsubsection"><a href="#ch2-1-1">2.1.1 HuC6273 Initialization</a></div>
-            </td>
-            <td>FarlInit</td>
-          </tr>
-          <tr>
-            <td>
-              <div class="contents-subsubsection"><a href="#ch2-1-2">2.1.2 HuC6273 Reset</a></div>
-            </td>
-            <td>FarlReset</td>
-          </tr>
-          <tr>
-            <td>
-              <div class="contents-subsubsection"><a href="#ch2-1-3">2.1.3 Setting Memory Mapped Registers</a></div>
-            </td>
-            <td>FarlSetMemReg</td>
-          </tr>
-          <tr>
-            <td>
-              <div class="contents-subsubsection"><a href="#ch2-1-4">2.1.4 Reading Memory Mapped Registers</a></div>
-            </td>
-            <td>FarlGetMemReg</td>
-          </tr>
-          <tr>
-            <td>
-              <div class="contents-subsubsection"><a href="#ch2-1-5">2.1.5 Setting TE Registers</a></div>
-            </td>
-            <td>FarlSetTEReg</td>
-          </tr>
-          <tr>
-            <td>
-              <div class="contents-subsubsection"><a href="#ch2-1-6">2.1.6 Reading TE Registers</a></div>
-            </td>
-            <td>FarlGetTEReg</td>
-          </tr>
-          <tr>
-            <td>
-              <div class="contents-subsubsection"><a href="#ch2-1-7">2.1.7 Setting PE Registers</a></div>
-            </td>
-            <td>FarlSetPEReg</td>
-          </tr>
-          <tr>
-            <td>
-              <div class="contents-subsubsection"><a href="#ch2-1-8">2.1.8 Reading PE Registers</a></div>
-            </td>
-            <td>FarlGetPEReg</td>
-          </tr>
-          <tr>
-            <td>
-              <div class="contents-subsubsection"><a href="#ch2-1-9">2.1.9 Writing to Texture Buffer (Pack Mode)</a></div>
-            </td>
-            <td>FarlWriteTxt</td>
-          </tr>
-          <tr>
-            <td>
-              <div class="contents-subsubsection"><a href="#ch2-1-10">2.1.10 Writing to Texture Buffer (Unpack Mode)</a></div>
-            </td>
-            <td>FarlWriteTxtUnpk</td>
-          </tr>
-          <tr>
-            <td>
-              <div class="contents-subsubsection"><a href="#ch2-1-11">2.1.11 Writing to Texture Buffer (Pack Mode)</a></div>
-            </td>
-            <td>FarlWriteTxtXY</td>
-          </tr>
-          <tr>
-            <td>
-              <div class="contents-subsubsection"><a href="#ch2-1-12">2.1.12 Writing to Texture Buffer (Unpack Mode)</a></div>
-            </td>
-            <td>FarlWriteTxtXYUnpk</td>
-          </tr>
-          <tr>
-            <td>
-              <div class="contents-subsubsection"><a href="#ch2-1-13">2.1.13 Writing to FIFO (16bit)</a></div>
-            </td>
-            <td>FarlWriteFifoH</td>
-          </tr>
-          <tr>
-            <td>
-              <div class="contents-subsubsection"><a href="#ch2-1-14">2.1.14 Writing to FIFO (32bit)</a></div>
-            </td>
-            <td>FarlWriteFifoW</td>
-          </tr>
-          <tr>
-            <td>
-              <div class="contents-subsubsection"><a href="#ch2-1-15">2.1.15 Writing to FIFO (16bit)</a></div>
-            </td>
-            <td>FarlWriteFifoHA</td>
-          </tr>
-          <tr>
-            <td>
-              <div class="contents-subsubsection"><a href="#ch2-1-16">2.1.16 Writing to FIFO (32bit)</a></div>
-            </td>
-            <td>FarlWriteFifoWA</td>
-          </tr>
-          <tr>
-            <td>
-              <div class="contents-subsubsection"><a href="#ch2-1-17">2.1.17 Setting Overlay LUT</a></div>
-            </td>
-            <td>FarlSetLut</td>
-          </tr>
-          <tr>
-            <td>
-              <div class="contents-subsubsection"><a href="#ch2-1-18">2.1.18 Reading Overlay LUT Value</a></div>
-            </td>
-            <td>FarlGetLut</td>
-          </tr>
-          <tr>
-            <td>
-              <div class="contents-subsubsection"><a href="#ch2-1-19">2.1.19 Setting Light Vector</a></div>
-            </td>
-            <td>FarlSetLight</td>
-          </tr>
-        </table>
-        <div class="contents-subsection"><a href="#ch2-2">2.2 Command Functions</a></div>
-        <table class="contents-table">
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-1">2.2.1 Reading Display/Z Buffer</a></div></td>
-            <td>FarlReadPixelDZ</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-2">2.2.2 Reading Texture Buffer</a></div></td>
-            <td>FarlReadPixelTxt</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-3">2.2.3 Setting TE Object Matrix</a></div></td>
-            <td>FarlSetTEObjMatrix</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-4">2.2.4 Setting TE Normal Matrix</a></div></td>
-            <td>FarlSetTENrmMatrix</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-5">2.2.5 Setting TE Light1 Vector</a></div></td>
-            <td>FarlSetLight1</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-6">2.2.6 Setting TE Light2 Vector</a></div></td>
-            <td>FarlSetLight2</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-7">2.2.7 Setting TE Light Coefficient</a></div></td>
-            <td>FarlSetLightCoef</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-8">2.2.8 Setting TE Control Register</a></div></td>
-            <td>FarlSetTEControlReg</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-9">2.2.9 Setting TE Window Clip Register</a></div></td>
-            <td>FarlSetWindowClipReg</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-10">2.2.10 Setting TE Window Scale Register</a></div></td>
-            <td>FarlSetWindowScaleReg</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-11">2.2.11 Setting TE Mesh Pattern Register</a></div></td>
-            <td>FarlSetTEMeshPatternReg</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-12">2.2.12 Setting TE Source Matrix Register (4x4)</a></div></td>
-            <td>Farl Set Src Matrix</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-13">2.2.13 Setting TE Source Matrix Register (3x3)</a></div></td>
-            <td>FarlSetSrcMatrix3x3</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-14">2.2.14 Setting TE Source Matrix Register (3x1)</a></div></td>
-            <td>FarlSetSrcMatrix3x1</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-15">2.2.15 Setting TE Source Matrix Register (6)</a></div></td>
-            <td>FarlSetSrcMatrix6</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-16">2.2.16 Setting TE uv Offset Register</a></div></td>
-            <td>FarlSetUVOffsetReg</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-17">2.2.17 Setting TE Default Color Register</a></div></td>
-            <td>FarlSetDefColorReg</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-18">2.2.18 Setting PE Texture Select Register</a></div></td>
-            <td>FarlSetPETextureReg</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-19">2.2.19 Setting PE Target Register</a></div></td>
-            <td>FarlSetPETargetReg</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-20">2.2.20 Setting PE Mask Register</a></div></td>
-            <td>FarlSetPEMaskReg</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-21">2.2.21 Setting PE Control Register</a></div></td>
-            <td>FarlSetPEControlReg</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-22">2.2.22 Setting PE Clear Z Value Register</a></div></td>
-            <td>FarlSetPEClearZReg</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-23">2.2.23 Setting PE Frame Control Register</a></div></td>
-            <td>FarlSetPEFrameCtrlReg</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-24">2.2.24 Setting PE Clear Color value Register</a></div></td>
-            <td>FarlSetPECleaerColorReg</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-25">2.2.25 Setting PE IC Mask Register</a></div></td>
-            <td>FarlSetPEICMaskReg</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-26">2.2.26 Setting PE Flash IC value Register</a></div></td>
-            <td>FarlSetPEFlashICReg</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-27">2.2.27 Setting PE Clear Texture Select Register</a></div></td>
-            <td>FarlSetPEClearTextureReg</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-28">2.2.28 Setting PE Clear Mask Register</a></div></td>
-            <td>FarlSetPEClearMaskReg</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-29">2.2.29 Setting PE CWT X Offset Register</a></div></td>
-            <td>FarlSetPECwtXOffReg</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-30">2.2.30 Setting PE CWT Y Offset Register</a></div></td>
-            <td>FarlSetPECwtYOffReg</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-31">2.2.31 Fill Buffer Command</a></div></td>
-            <td>FarlFillBuffer</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-32">2.2.32 Vertex Test Command</a></div></td>
-            <td>FarlVertexTest</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-33">2.2.33 TE Sync Command</a></div></td>
-            <td>FarlTESync</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-34">2.2.34 Vector-Matrix Multiplication(1.8.7)</a></div></td>
-            <td>FarlMul3x1V1015</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-35">2.2.35 4x4 Matrix Multiplication (1.0.15)</a></div></td>
-            <td>FarlMul4x4M1015</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-36">2.2.36 3x3 Matrix Multiplication (1.0.15)</a></div></td>
-            <td>FarlMul3x3M1015</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-37">2.2.37 4x4 Matrix Multiplication (1.8.7)</a></div></td>
-            <td>FarlMul4x4M187</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-38">2.2.38 3x3 Matrix Multiplication (1.8.7)</a></div></td>
-            <td>FarlMul3x3M187</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-39">2.2.39 Matrix Copy (DST &#8594; SRC/4x4)</a></div></td>
-            <td>FarlCopyDstToSrc</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-40">2.2.40 Matrix Copy (DST &#8594; OBJ/4x4)</a></div></td>
-            <td>FarlCopyDstToObj</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-41">2.2.41 Matrix Copy (DST &#8594; NRM/3x3)</a></div></td>
-            <td>FarlCopyDstToNrm</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-42">2.2.42 Matrix Copy (DST &#8594; RST/16)</a></div></td>
-            <td>FarlCopyDstToRst</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-43">2.2.43 Matrix Copy (SRC &#8594; RST/6)</a></div></td>
-            <td>FarlCopySrcToRst</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-44">2.2.44 Matrix Copy (RST &#8594; SRC/4x4)</a></div></td>
-            <td>FarlCopyRstToSrc</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-45">2.2.45 Light Vector Copy (DST &#8594; LGT1/3)</a></div></td>
-            <td>FarlCopyDstToLgt1</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-46">2.2.46 Light Vector Copy (DST &#8594; LGT2/3)</a></div></td>
-            <td>FarlCopyDstToLgt2</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-47">2.2.47 Setting Overlay LUT[1]</a></div></td>
-            <td>FarlSetLut1</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-48">2.2.48 Setting Overlay LUT[2]</a></div></td>
-            <td>FarlSetLut2</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-49">2.2.49 Setting Overlay LUT[3]</a></div></td>
-            <td>FarlSetLut3</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-50">2.2.50 Draw Triangle Strip</a></div></td>
-            <td>FarlTriangleStrip</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-51">2.2.51 Draw Triangle List</a></div></td>
-            <td>FarlTriangleList</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-52">2.2.52 Draw Poly Line</a></div></td>
-            <td>FarlPolyLine</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-53">2.2.53 Draw Line List</a></div></td>
-            <td>FarlLineList</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-54">2.2.54 Draw Point List</a></div></td>
-            <td>FarlPointList</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-55">2.2.55 Download Image</a></div></td>
-            <td>FarlPutImage</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-56">2.2.56 Download Image (With Z)</a></div></td>
-            <td>FarlPutDZImage</td>
-          </tr>
-          <tr>
-            <td><div class="contents-subsubsection"><a href="#ch2-2-57">2.2.57 Download Texture</a></div></td>
-            <td>FarlPutTextureImage</td>
-          </tr>
-        </table>
-        <div class="contents-subsection"><a href="#ch2-3">2.3 Utility Functions</a></div>
-      </div>
-      <div class="contents-chapter">
-        <div class="contents-head">
-          <a href="#ch3">Chapter 3: How the C Compiler Works</a>
-        </div>
-      </div>
-      <div class="contents-chapter">
-        <div class="contents-head">
-          <a href="#ch4">Chapter 4: C Compiler Processing</a>
-        </div>
-        <div class="contents-subsection">
-          <a href="#ch4-1">4.1: Preprocessor</a>
-        </div>
-        <div class="contents-subsection"><a href="#ch4-2">4.2: Parser</a></div>
-        <div class="contents-subsection">
-          <a href="#ch4-3">4.3: Global Code Optimizer</a>
-        </div>
-        <div class="contents-subsection">
-          <a href="#ch4-4">4.4: Code Creator</a>
-        </div>
-        <div class="contents-subsection">
-          <a href="#ch4-5">4.5: Local Code Optimizer</a>
-        </div>
-        <div class="contents-subsection">
-          <a href="#ch4-6">4.6: Processing Flow</a>
-        </div>
-      </div>
-      <div class="contents-chapter">
-        <div class="contents-head">
-          <a href="#ch5">Chapter 5: How Registers are Used</a>
-        </div>
-      </div>
-      <div class="contents-chapter">
-        <div class="contents-head">
-          <a href="#ch6">Chapter 6: Language Specifications</a>
-        </div>
-        <div class="contents-subsection">
-          <a href="#ch6-1">6.1: Preprocessor Commands</a>
-        </div>
-        <div class="contents-subsection">
-          <a href="#ch6-2">6.2: Types of Data</a>
-        </div>
-        <div class="contents-subsection">
-          <a href="#ch6-3">6.3: Type Conversion</a>
-        </div>
-        <div class="contents-subsection">
-          <a href="#ch6-4">6.4: Special Specifications</a>
-        </div>
-        <div class="contents-subsubsection">
-          <a href="#ch6-4-1">6.4.1: Setting a Register Use Limit</a>
-        </div>
-        <div class="contents-subsubsection">
-          <a href="#ch6-4-2">6.4.2: Variable Register Assignment</a>
-        </div>
-        <div class="contents-subsubsection">
-          <a href="#ch6-4-3">6.4.3: Saving Registers</a>
-        </div>
-        <div class="contents-subsubsection">
-          <a href="#ch6-4-4">6.4.4: Direct Register Addressing</a>
-        </div>
-        <div class="contents-subsubsection">
-          <a href="#ch6-4-5">6.4.5: I/O Port Access Syntax</a>
-        </div>
-        <div class="contents-subsubsection">
-          <a href="#ch6-4-6">6.4.6: Interrupt Functions</a>
-        </div>
-        <div class="contents-subsubsection">
-          <a href="#ch6-4-7">6.4.7: zero Storage Class Modifiers</a>
-        </div>
-        <div class="contents-subsubsection">
-          <a href="#ch6-4-8">6.4.8: near Storage Class Modifiers</a>
-        </div>
-        <div class="contents-subsubsection">
-          <a href="#ch6-4-9">6.4.9: far Storage Class Modifiers</a>
-        </div>
-        <div class="contents-subsubsection">
-          <a href="#ch6-4-10"
-            >6.4.10: About near Type (GP register relative) Symbols</a
-          >
-        </div>
-      </div>
-      <div class="contents-chapter">
-        <div class="contents-head">
-          <a href="#ch7">Chapter 7: Using the C Compiler</a>
-        </div>
-        <div class="contents-subsection">
-          <a href="#ch7-1">7.1: Command Syntax</a>
-        </div>
-        <div class="contents-subsection">
-          <a href="#ch7-2">7.2: Option Switches</a>
-        </div>
-      </div>
-      <div class="contents-chapter">
-        <div class="contents-head">
-          <a href="#ch8">Chapter 8: Error/Warning Messages</a>
-        </div>
-        <div class="contents-subsection">
-          <a href="#ch8-1">8.1: Fatal Errors</a>
-        </div>
-        <div class="contents-subsection"><a href="#ch8-2">8.2: Errors</a></div>
-        <div class="contents-subsection">
-          <a href="#ch8-3">8.3: Warnings</a>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../styles/styles.css" />
+  <title>LIBFARL</title>
+</head>
+
+<body>
+  <div class="heading">
+    <div>PC-FXGA Authoring Software</div>
+    <div>GMAKER Starter Kit (Ver.1.0)</div>
+    <div class="title">Explanation of LIBASL.A</div>
+    <div class="credits">NEC Home Electronics, Ltd.</div>
+    <div class="credits">Nov 10, 1995</div>
+    <div class="credits">Translated by Sean Aoki and Taiki Aiba</div>
+  </div>
+
+  <a href="../">Return</a>
+  <div class="contents">
+    <h2>Contents</h2>
+    <div class="contents-chapter">
+      <div class="contents-head">
+        <a href="#ch1">Chapter 1: FARL Introduction</a>
+        <div class="contents-subsection"><a href="#ch1-1">Functions and Macros</a></div>
+        <div class="contents-subsection"><a href="#ch1-2">Segments</a></div>
       </div>
     </div>
-  </body>
+    <div class="contents-chapter">
+      <div class="contents-head"><a href="#ch2">Chapter 2: Farl Function Summary</a></div>
+      <div class="contents-subsection">
+        <a href="#ch2-1">2.1: Basic Functions</a>
+      </div>
+      <table class="contents-table">
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-1-1">2.1.1 HuC6273 Initialization</a></div>
+          </td>
+          <td>FarlInit</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-1-2">2.1.2 HuC6273 Reset</a></div>
+          </td>
+          <td>FarlReset</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-1-3">2.1.3 Setting Memory Mapped Registers</a></div>
+          </td>
+          <td>FarlSetMemReg</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-1-4">2.1.4 Reading Memory Mapped Registers</a></div>
+          </td>
+          <td>FarlGetMemReg</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-1-5">2.1.5 Setting TE Registers</a></div>
+          </td>
+          <td>FarlSetTEReg</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-1-6">2.1.6 Reading TE Registers</a></div>
+          </td>
+          <td>FarlGetTEReg</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-1-7">2.1.7 Setting PE Registers</a></div>
+          </td>
+          <td>FarlSetPEReg</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-1-8">2.1.8 Reading PE Registers</a></div>
+          </td>
+          <td>FarlGetPEReg</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-1-9">2.1.9 Writing to Texture Buffer (Pack Mode)</a></div>
+          </td>
+          <td>FarlWriteTxt</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-1-10">2.1.10 Writing to Texture Buffer (Unpack Mode)</a>
+            </div>
+          </td>
+          <td>FarlWriteTxtUnpk</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-1-11">2.1.11 Writing to Texture Buffer (Pack Mode)</a>
+            </div>
+          </td>
+          <td>FarlWriteTxtXY</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-1-12">2.1.12 Writing to Texture Buffer (Unpack Mode)</a>
+            </div>
+          </td>
+          <td>FarlWriteTxtXYUnpk</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-1-13">2.1.13 Writing to FIFO (16bit)</a></div>
+          </td>
+          <td>FarlWriteFifoH</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-1-14">2.1.14 Writing to FIFO (32bit)</a></div>
+          </td>
+          <td>FarlWriteFifoW</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-1-15">2.1.15 Writing to FIFO (16bit)</a></div>
+          </td>
+          <td>FarlWriteFifoHA</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-1-16">2.1.16 Writing to FIFO (32bit)</a></div>
+          </td>
+          <td>FarlWriteFifoWA</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-1-17">2.1.17 Setting Overlay LUT</a></div>
+          </td>
+          <td>FarlSetLut</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-1-18">2.1.18 Reading Overlay LUT Value</a></div>
+          </td>
+          <td>FarlGetLut</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-1-19">2.1.19 Setting Light Vector</a></div>
+          </td>
+          <td>FarlSetLight</td>
+        </tr>
+      </table>
+      <div class="contents-subsection"><a href="#ch2-2">2.2 Command Functions</a></div>
+      <table class="contents-table">
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-1">2.2.1 Reading Display/Z Buffer</a></div>
+          </td>
+          <td>FarlReadPixelDZ</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-2">2.2.2 Reading Texture Buffer</a></div>
+          </td>
+          <td>FarlReadPixelTxt</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-3">2.2.3 Setting TE Object Matrix</a></div>
+          </td>
+          <td>FarlSetTEObjMatrix</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-4">2.2.4 Setting TE Normal Matrix</a></div>
+          </td>
+          <td>FarlSetTENrmMatrix</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-5">2.2.5 Setting TE Light1 Vector</a></div>
+          </td>
+          <td>FarlSetLight1</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-6">2.2.6 Setting TE Light2 Vector</a></div>
+          </td>
+          <td>FarlSetLight2</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-7">2.2.7 Setting TE Light Coefficient</a></div>
+          </td>
+          <td>FarlSetLightCoef</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-8">2.2.8 Setting TE Control Register</a></div>
+          </td>
+          <td>FarlSetTEControlReg</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-9">2.2.9 Setting TE Window Clip Register</a></div>
+          </td>
+          <td>FarlSetWindowClipReg</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-10">2.2.10 Setting TE Window Scale Register</a></div>
+          </td>
+          <td>FarlSetWindowScaleReg</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-11">2.2.11 Setting TE Mesh Pattern Register</a></div>
+          </td>
+          <td>FarlSetTEMeshPatternReg</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-12">2.2.12 Setting TE Source Matrix Register (4x4)</a>
+            </div>
+          </td>
+          <td>Farl Set Src Matrix</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-13">2.2.13 Setting TE Source Matrix Register (3x3)</a>
+            </div>
+          </td>
+          <td>FarlSetSrcMatrix3x3</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-14">2.2.14 Setting TE Source Matrix Register (3x1)</a>
+            </div>
+          </td>
+          <td>FarlSetSrcMatrix3x1</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-15">2.2.15 Setting TE Source Matrix Register (6)</a>
+            </div>
+          </td>
+          <td>FarlSetSrcMatrix6</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-16">2.2.16 Setting TE uv Offset Register</a></div>
+          </td>
+          <td>FarlSetUVOffsetReg</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-17">2.2.17 Setting TE Default Color Register</a></div>
+          </td>
+          <td>FarlSetDefColorReg</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-18">2.2.18 Setting PE Texture Select Register</a></div>
+          </td>
+          <td>FarlSetPETextureReg</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-19">2.2.19 Setting PE Target Register</a></div>
+          </td>
+          <td>FarlSetPETargetReg</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-20">2.2.20 Setting PE Mask Register</a></div>
+          </td>
+          <td>FarlSetPEMaskReg</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-21">2.2.21 Setting PE Control Register</a></div>
+          </td>
+          <td>FarlSetPEControlReg</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-22">2.2.22 Setting PE Clear Z Value Register</a></div>
+          </td>
+          <td>FarlSetPEClearZReg</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-23">2.2.23 Setting PE Frame Control Register</a></div>
+          </td>
+          <td>FarlSetPEFrameCtrlReg</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-24">2.2.24 Setting PE Clear Color value Register</a>
+            </div>
+          </td>
+          <td>FarlSetPECleaerColorReg</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-25">2.2.25 Setting PE IC Mask Register</a></div>
+          </td>
+          <td>FarlSetPEICMaskReg</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-26">2.2.26 Setting PE Flash IC value Register</a></div>
+          </td>
+          <td>FarlSetPEFlashICReg</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-27">2.2.27 Setting PE Clear Texture Select Register</a>
+            </div>
+          </td>
+          <td>FarlSetPEClearTextureReg</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-28">2.2.28 Setting PE Clear Mask Register</a></div>
+          </td>
+          <td>FarlSetPEClearMaskReg</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-29">2.2.29 Setting PE CWT X Offset Register</a></div>
+          </td>
+          <td>FarlSetPECwtXOffReg</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-30">2.2.30 Setting PE CWT Y Offset Register</a></div>
+          </td>
+          <td>FarlSetPECwtYOffReg</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-31">2.2.31 Fill Buffer Command</a></div>
+          </td>
+          <td>FarlFillBuffer</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-32">2.2.32 Vertex Test Command</a></div>
+          </td>
+          <td>FarlVertexTest</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-33">2.2.33 TE Sync Command</a></div>
+          </td>
+          <td>FarlTESync</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-34">2.2.34 Vector-Matrix Multiplication(1.8.7)</a></div>
+          </td>
+          <td>FarlMul3x1V1015</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-35">2.2.35 4x4 Matrix Multiplication (1.0.15)</a></div>
+          </td>
+          <td>FarlMul4x4M1015</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-36">2.2.36 3x3 Matrix Multiplication (1.0.15)</a></div>
+          </td>
+          <td>FarlMul3x3M1015</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-37">2.2.37 4x4 Matrix Multiplication (1.8.7)</a></div>
+          </td>
+          <td>FarlMul4x4M187</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-38">2.2.38 3x3 Matrix Multiplication (1.8.7)</a></div>
+          </td>
+          <td>FarlMul3x3M187</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-39">2.2.39 Matrix Copy (DST &#8594; SRC/4x4)</a></div>
+          </td>
+          <td>FarlCopyDstToSrc</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-40">2.2.40 Matrix Copy (DST &#8594; OBJ/4x4)</a></div>
+          </td>
+          <td>FarlCopyDstToObj</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-41">2.2.41 Matrix Copy (DST &#8594; NRM/3x3)</a></div>
+          </td>
+          <td>FarlCopyDstToNrm</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-42">2.2.42 Matrix Copy (DST &#8594; RST/16)</a></div>
+          </td>
+          <td>FarlCopyDstToRst</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-43">2.2.43 Matrix Copy (SRC &#8594; RST/6)</a></div>
+          </td>
+          <td>FarlCopySrcToRst</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-44">2.2.44 Matrix Copy (RST &#8594; SRC/4x4)</a></div>
+          </td>
+          <td>FarlCopyRstToSrc</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-45">2.2.45 Light Vector Copy (DST &#8594; LGT1/3)</a>
+            </div>
+          </td>
+          <td>FarlCopyDstToLgt1</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-46">2.2.46 Light Vector Copy (DST &#8594; LGT2/3)</a>
+            </div>
+          </td>
+          <td>FarlCopyDstToLgt2</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-47">2.2.47 Setting Overlay LUT[1]</a></div>
+          </td>
+          <td>FarlSetLut1</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-48">2.2.48 Setting Overlay LUT[2]</a></div>
+          </td>
+          <td>FarlSetLut2</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-49">2.2.49 Setting Overlay LUT[3]</a></div>
+          </td>
+          <td>FarlSetLut3</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-50">2.2.50 Draw Triangle Strip</a></div>
+          </td>
+          <td>FarlTriangleStrip</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-51">2.2.51 Draw Triangle List</a></div>
+          </td>
+          <td>FarlTriangleList</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-52">2.2.52 Draw Poly Line</a></div>
+          </td>
+          <td>FarlPolyLine</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-53">2.2.53 Draw Line List</a></div>
+          </td>
+          <td>FarlLineList</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-54">2.2.54 Draw Point List</a></div>
+          </td>
+          <td>FarlPointList</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-55">2.2.55 Download Image</a></div>
+          </td>
+          <td>FarlPutImage</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-56">2.2.56 Download Image (With Z)</a></div>
+          </td>
+          <td>FarlPutDZImage</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-2-57">2.2.57 Download Texture</a></div>
+          </td>
+          <td>FarlPutTextureImage</td>
+        </tr>
+      </table>
+      <div class="contents-subsection"><a href="#ch2-3">2.3 Utility Functions</a></div>
+      <table class="contents-table">
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-1">Dump Triangle Strip Command</a></div>
+          </td>
+          <td>FarlDumpTriangleStrip</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-2">Dump Triangle List Command</a></div>
+          </td>
+          <td>FarlDumpTriangleList</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-3">Dump Poly Line Command</a></div>
+          </td>
+          <td>FarlDumpPolyLine</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-4">Dump Line List Command</a></div>
+          </td>
+          <td>FarlDumpLineList</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-5">Dump Point List Command</a></div>
+          </td>
+          <td>FarlDumpPointList</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-6">Get Triangle Strip Command Size</a></div>
+          </td>
+          <td>FarlGetTriangleStripSize</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-7">Get Triangle List Command Size</a></div>
+          </td>
+          <td>FarlGetTriangleListSize</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-8">Get Poly Line Command Size</a></div>
+          </td>
+          <td>FarlGetPolyLineSize</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-9">Get Line List Command Size</a></div>
+          </td>
+          <td>FarlGetLineListSize</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-10">Get Point List Command Size</a></div>
+          </td>
+          <td>FarlGetPointListSize</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-11">Multiply Fixed Decimal Data (1.0.15)</a></div>
+          </td>
+          <td>FarlFixMul1015</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-12">Multiply Fixed Decimal Data (1.8.7)</a></div>
+          </td>
+          <td>FarlFixMul187</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-13">Set Unit Matrix (SRC/1.0.15)</a></div>
+          </td>
+          <td>FarlSetUnitMatrix1015</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-14">Set Unit Matrix (src/1.8.7)</a></div>
+          </td>
+          <td>FarlSetUnitMatrix187</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-15">Multiplying Rotation Matrix Around X-Axis
+                (1.10.5)</a></div>
+          </td>
+          <td>FarlRotateX3x3M1015</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-16">Multiplying Rotation Matrix Around Y-Axis
+                (1.10.5)</a></div>
+          </td>
+          <td>FarlRotateY3x3M1015</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-17">Multiplying Rotation Matrix Around Z-Axis
+                (1.10.5)</a></div>
+          </td>
+          <td>FarlRotateZ3x3M1015</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-18">Multiplying Rotation Matrix Around X-Axis(1.8.7)</a>
+            </div>
+          </td>
+          <td>FarlRotateX4x4M187</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-19">Multiplying Rotation Matrix Around Y-Axis
+                (1.8.7)</a></div>
+          </td>
+          <td>FarlRotateY4x4M187</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-20">Multiplying Rotation Matrix Around Z-Axis
+                (1.8.7)</a></div>
+          </td>
+          <td>FarlRotateZ4x4M187</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-21">Multiplying Rotation Matrix Around X-Axis
+                (1.0.15)</a></div>
+          </td>
+          <td>FarlRotateXSC3x3M1015</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-22">Multiplying Rotation Matrix Around Y-Axis
+                (1.0.15)</a></div>
+          </td>
+          <td>FarlRotateYSC3x3M1015</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-23">Multiplying Rotation Matrix Around Z-Axis
+                (1.0.15)</a></div>
+          </td>
+          <td>FarlRotateZSC3x3M1015</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-24">Multiplying Rotation Matrix Around X-Axis
+                (1.8.7)</a></div>
+          </td>
+          <td>FarlRotateXSC4x4M187</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-25">Multiplying Rotation Matrix Around Y-Axis
+                (1.8.7)</a></div>
+          </td>
+          <td>FarlRotateYSC4x4M187</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-26">Multiplying Rotation Matrix Around Z-Axis
+                (1.8.7)</a></div>
+          </td>
+          <td>FarlRotateZSC4x4M187</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-27">Multiplying Translation Matrix (1.8.7)</a></div>
+          </td>
+          <td>FarlTranslate4x4M187</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-28">Multiplying Scale Matrix (1.8.7)</a></div>
+          </td>
+          <td>FarlScale4x4M187</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-29">Multiplying Perspective Matrix (1.8.7)</a></div>
+          </td>
+          <td>FarlPerseZ4x4M187</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-30">Swap Display Buffer</a></div>
+          </td>
+          <td>FarlSwapWindow</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-31">Swap Dummy</a></div>
+          </td>
+          <td>FarlDummySwap</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-32">Swap Validate</a></div>
+          </td>
+          <td>FarlValidateSwap</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-33">Swap H-Blank</a></div>
+          </td>
+          <td>FarlSwapWindowH</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-34">Write 8bit (Byte) data</a></div>
+          </td>
+          <td>FarlOutportB</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-35">Write 16bit (Halfword) data</a></div>
+          </td>
+          <td>FarlOutportH</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-36">Write 32bit (Word) data</a></div>
+          </td>
+          <td>FarlOutportW</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-37">Read 8bit (Byte) data</a></div>
+          </td>
+          <td>FarlInportB</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-38">Read 16bit (Halfword) data</a></div>
+          </td>
+          <td>FarlInportH</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-39">Read 32bit (Word) data</a></div>
+          </td>
+          <td>FarlInportW</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-40">Read Config Register</a></div>
+          </td>
+          <td>FarlGetConf</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-41">Convert Floating-Point to Fixed-Point (1.8.7)</a>
+            </div>
+          </td>
+          <td>FarlFix187</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-42">Convert Floating-Point to Fixed-Point (1.0.15)</a>
+            </div>
+          </td>
+          <td>FarlFix1015</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-43">Convert Fixed-Point (1.8.7) to Floating-Point</a>
+            </div>
+          </td>
+          <td>FarlFloat187</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-44">Convert Fixed-Point (1.0.15) to Floating-Point</a>
+            </div>
+          </td>
+          <td>FarlFloat1015</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-45">Normalize Fixed-Point Vector (1.0.15)</a></div>
+          </td>
+          <td>FarlNormalizeVector</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-46">Get sin (1.8.7)</a></div>
+          </td>
+          <td>FarlGetSin187</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-47">Get sin (1.0.15)</a></div>
+          </td>
+          <td>FarlGetSin1015</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-48">Get cos (1.8.7)</a></div>
+          </td>
+          <td>FarlGetCos187</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-49">Get cos (1.0.15)</a></div>
+          </td>
+          <td>FarlGetCos1015</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-50">Copy Matrix (DST-->Mem/4x4)</a></div>
+          </td>
+          <td>FarlCopyDstToMem4x4</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-51">Copy Matrix (DST-->Mem/3x3)</a></div>
+          </td>
+          <td>FarlCopyDstToMem3x3</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-52">Copy Matrix (DST-->Mem/3x1)</a></div>
+          </td>
+          <td>FarlCopyDstToMem3x3</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-53">Get Rotation Matrix Around X-Axis (1.0.15)</a></div>
+          </td>
+          <td>FarlGetRotateX3x3M1015</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-54">Get Rotation Matrix Around Y-Axis (1.0.15)</a></div>
+          </td>
+          <td>FarlGetRotateY3x3M1015</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-55">Get Rotation Matrix Around Z-Axis (1.0.15)</a></div>
+          </td>
+          <td>FarlGetRotateZ3x3M1015</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-56">Get Rotation Matrix Around X-Axis (1.0.15)</a></div>
+          </td>
+          <td>FarlGetRotateXSC3x3M1015</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-57">Get Rotation Matrix Around Y-Axis (1.0.15)</a></div>
+          </td>
+          <td>FarlGetRotateYSC3x3M1015</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-58">Get Rotation Matrix Around Z-Axis (1.0.15)</a></div>
+          </td>
+          <td>FarlGetRotateZSC3x3M1015</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-59">Get Rotation Matrix Around X-Axis (1.8.7)</a></div>
+          </td>
+          <td>FarlGetRotateX4x4M187</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-60">Get Rotation Matrix Around Y-Axis (1.8.7)</a></div>
+          </td>
+          <td>FarlGetRotateY4x4M187</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-61">Get Rotation Matrix Around Z-Axis (1.8.7)</a></div>
+          </td>
+          <td>FarlGetRotateZ4x4M187</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-62">Get Rotation Matrix Around X-Axis (1.8.7)</a></div>
+          </td>
+          <td>FarlGetRotateXSC4x4M187</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-63">Get Rotation Matrix Around Y-Axis (1.8.7)</a></div>
+          </td>
+          <td>FarlGetRotateYSC4x4M187</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-64">Get Rotation Matrix Around Z-Axis (1.8.7)</a></div>
+          </td>
+          <td>FarlGetRotateZSC4x4M187</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-65">Get Translation Matrix (1.8.7)</a></div>
+          </td>
+          <td>FarlGetTranslate4x4M187</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-66">Get Scale Matrix (1.8.7)</a></div>
+          </td>
+          <td>FarlGetScale4x4M187</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-67">Copy Matrix (Mem/4x4-->Mem/4x4)</a></div>
+          </td>
+          <td>FarlMatrixCopy4x4</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-3-68">Copy Matrix (Mem/3x3-->Mem/3x3)</a></div>
+          </td>
+          <td>FarlMatrixCopy3x3</td>
+        </tr>
+      </table>
+      <div class="contents-subsection"><a href="#ch2-4">2.4 Sprite Functions</a></div>
+      <table class="contents-table">
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-4-1">Set Sprite Control Table</a></div>
+          </td>
+          <td>FarlSetSpControlTbl</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-4-2">Set Sprite Parameter Table</a></div>
+          </td>
+          <td>FarlSetSpParamTbl</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-4-3">Set Sprite Window Clip Register</a></div>
+          </td>
+          <td>FarlSetSpWinClipReg</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-4-4">Start Sprite</a></div>
+          </td>
+          <td>FarlSpriteGo</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-4-5">Wait for Sprite to Finish</a></div>
+          </td>
+          <td>FarlSpbsySpin</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-4-6">Wait for Sprite to Finish</a></div>
+          </td>
+          <td>FarlWaitSpdone</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-4-7">Clear SPDONE Bit</a></div>
+          </td>
+          <td>FarlClearSpdone</td>
+        </tr>
+      </table>
+      <div class="contents-subsection"><a href="#ch2-5">CMT Functions</a></div>
+      <table class="contents-table">
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-5-1">Set Command Macro Table</a></div>
+          </td>
+          <td>FarlSetCmt</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-5-2">Start Command Macro</a></div>
+          </td>
+          <td>FarlCmtGo</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-5-3">Wait for Command Macro to Finish</a></div>
+          </td>
+          <td>FarlCmbsySpin</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-5-4">Wait for Command Macro Pending Opening</a></div>
+          </td>
+          <td>FarlCmpndSpin</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-5-5">Wait for Command Macro to Finish</a></div>
+          </td>
+          <td>FarlWaitCmdone</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="contents-subsubsection"><a href="#ch2-5-6">Clear CMDONE Bit</a></div>
+          </td>
+          <td>FarlClearCmdone</td>
+        </tr>
+      </table>
+    </div>
+    <div class="contents-chapter">
+      <div class="contents-head">
+        <a href="#ch3">Chapter 3: Initial Contents of Registers Due to FarlInit()</a>
+      </div>
+    </div>
+  </div>
+</body>
+
 </html>
