@@ -26,8 +26,8 @@
       <div class="contents-head">
         <a href="#ch1">Chapter 1: FARL Introduction</a>
       </div>
-      <div class="contents-subsection"><a href="#ch1-1">Functions and Macros</a></div>
-      <div class="contents-subsection"><a href="#ch1-2">Segments</a></div>
+      <div class="contents-subsection"><a href="#ch1-1">1.1 Functions and Macros</a></div>
+      <div class="contents-subsection"><a href="#ch1-2">1.2 Segments</a></div>
     </div>
     <div class="contents-chapter">
       <div class="contents-head"><a href="#ch2">Chapter 2: Farl Function Summary</a></div>
@@ -1027,15 +1027,262 @@
 
   <div class="chapter" id="ch1">
     <h2>Chapter 1: Introduction</h2>
+    <p>This library contains basic functions to directly control HuC6273.
+      Most functions are written with speed and simplicity in mind, so
+      there are no checks on passed in parameters. Please be careful that you don't
+      set out-of-bounds values.</p>
     <div class="section" id="ch1-1">
+      <h3>1.1 Functions and Macros</h3>
+      In general, function names are of the format FarlXxxxXxxx()
+      and macro names are of the format FARL_XXXXXX
+    </div>
+    <div class="section" id="ch1-2">
+      Segments are defined as follows. Please set them when linking.
+      <div class="codeblock">#pragma defseg (-C, farl_code)<br>#pragma defseg (-D, farl_data)<br>#pragmadefseg(-Z,farl_zero)<br>#pragma defseg (-B, farl_bss)</div>
     </div>
   </div>
 
   <div class="chapter" id="ch2">
-    <h2>Chapter 1: Farl Function Summary</h2>
+    <h2>Chapter 2: Farl Function Summary</h2>
     <div class="section" id="ch2-1">
-    </div>
-  </div>
+      <h3>2.1 Basic Functions</h3>
+      Basic functions used to access HuC6273
+      <div class="subsection" id="ch2-1-1">
+        <h4>2.1.1 Initialize HuC6273</h4>
+        <strong>Name</strong>: FarlInit<br>
+        <br>
+        <strong>Format</strong>: <div class="codeblock">#include &lt;farl.h&gt;<br>int FarlInit()</div><br>
+        <br>
+        <strong>Parameters</strong>: None<br>
+        <br>
+        <strong>Explanation</strong>:
+        <p>
+          Required when using FARL. Clears the display buffer, and Z buffer, and
+          initializes the registers. Please see <a href="#ch3">Chapter 3</a> for
+          information about Farl register initialization.
+        </p><br>
+        <strong>Note</strong>: FarlGetConf() can be used without calling FarlInit()<br>
+        <br>
+        <strong>Return Value</strong>:<br>
+        &nbsp;0: HuC6273 exists<br>
+        -1: HuC6273 does not exist.
+      </div>
+      <div class="subsection" id="ch2-1-2">
+        <h4>2.1.2 HuC6273 Reset</h4>
+        <strong>Name</strong>: FarlReset<br>
+        <br>
+        <strong>Format</strong>: <div class="codeblock">#include &lt;farl.h&gt;<br>void FarlReset(int sw)</div><br>
+        <br>
+        <strong>Parameters</strong><br>
+        <strong>sw</strong>:<br>
+        &nbsp;&nbsp;<strong>FARL_STATUS_CONTROL_HRST</strong>: Hard reset. All registers
+        are reset to the value at power on.<br>
+        &nbsp;&nbsp;<strong>FARL_STATUS_CONTROL_SRST:</strong>: Soft reset. The FIFO is cleared and the HuC6273 is restarted.
+        However, the contents of all registers are unchanged.<br>
+        <br>
+        <strong>Explanation</strong>:
+        <p>Resets or restarts the HuC6273</p><br>
+        <br>
+        <strong>Return Value</strong>: None.<br>
+      </div>
+      <div class="subsection" id="ch2-">
+        <h4>2. </h4>
+        <strong>Name</strong>: <br>
+        <br>
+        <strong>Format</strong>: <br>
+        <br>
+        <strong>Parameters</strong>: <br>
+        <br>
+        <strong>Explanation</strong>:
+        <p></p><br>
+        <strong>Notes</strong>: <br>
+        <br>
+        <strong>Return Value</strong>:<br>
+      </div>
+      <div class="subsection" id="ch2-">
+        <h4>2. </h4>
+        <strong>Name</strong>: <br>
+        <br>
+        <strong>Format</strong>: <br>
+        <br>
+        <strong>Parameters</strong>: <br>
+        <br>
+        <strong>Explanation</strong>:
+        <p></p><br>
+        <strong>Notes</strong>: <br>
+        <br>
+        <strong>Return Value</strong>:<br>
+      </div>
+      <div class="subsection" id="ch2-">
+        <h4>2. </h4>
+        <strong>Name</strong>: <br>
+        <br>
+        <strong>Format</strong>: <br>
+        <br>
+        <strong>Parameters</strong>: <br>
+        <br>
+        <strong>Explanation</strong>:
+        <p></p><br>
+        <strong>Notes</strong>: <br>
+        <br>
+        <strong>Return Value</strong>:<br>
+      </div>
+      <div class="subsection" id="ch2-">
+        <h4>2. </h4>
+        <strong>Name</strong>: <br>
+        <br>
+        <strong>Format</strong>: <br>
+        <br>
+        <strong>Parameters</strong>: <br>
+        <br>
+        <strong>Explanation</strong>:
+        <p></p><br>
+        <strong>Notes</strong>: <br>
+        <br>
+        <strong>Return Value</strong>:<br>
+      </div>
+      <div class="subsection" id="ch2-">
+        <h4>2. </h4>
+        <strong>Name</strong>: <br>
+        <br>
+        <strong>Format</strong>: <br>
+        <br>
+        <strong>Parameters</strong>: <br>
+        <br>
+        <strong>Explanation</strong>:
+        <p></p><br>
+        <strong>Notes</strong>: <br>
+        <br>
+        <strong>Return Value</strong>:<br>
+      </div>
+      <div class="subsection" id="ch2-">
+        <h4>2. </h4>
+        <strong>Name</strong>: <br>
+        <br>
+        <strong>Format</strong>: <br>
+        <br>
+        <strong>Parameters</strong>: <br>
+        <br>
+        <strong>Explanation</strong>:
+        <p></p><br>
+        <strong>Notes</strong>: <br>
+        <br>
+        <strong>Return Value</strong>:<br>
+      </div>
+      <div class="subsection" id="ch2-">
+        <h4>2. </h4>
+        <strong>Name</strong>: <br>
+        <br>
+        <strong>Format</strong>: <br>
+        <br>
+        <strong>Parameters</strong>: <br>
+        <br>
+        <strong>Explanation</strong>:
+        <p></p><br>
+        <strong>Notes</strong>: <br>
+        <br>
+        <strong>Return Value</strong>:<br>
+      </div>
+      <div class="subsection" id="ch2-">
+        <h4>2. </h4>
+        <strong>Name</strong>: <br>
+        <br>
+        <strong>Format</strong>: <br>
+        <br>
+        <strong>Parameters</strong>: <br>
+        <br>
+        <strong>Explanation</strong>:
+        <p></p><br>
+        <strong>Notes</strong>: <br>
+        <br>
+        <strong>Return Value</strong>:<br>
+      </div>
+      <div class="subsection" id="ch2-">
+        <h4>2. </h4>
+        <strong>Name</strong>: <br>
+        <br>
+        <strong>Format</strong>: <br>
+        <br>
+        <strong>Parameters</strong>: <br>
+        <br>
+        <strong>Explanation</strong>:
+        <p></p><br>
+        <strong>Notes</strong>: <br>
+        <br>
+        <strong>Return Value</strong>:<br>
+      </div>
+      <div class="subsection" id="ch2-">
+        <h4>2. </h4>
+        <strong>Name</strong>: <br>
+        <br>
+        <strong>Format</strong>: <br>
+        <br>
+        <strong>Parameters</strong>: <br>
+        <br>
+        <strong>Explanation</strong>:
+        <p></p><br>
+        <strong>Notes</strong>: <br>
+        <br>
+        <strong>Return Value</strong>:<br>
+      </div>
+      <div class="subsection" id="ch2-">
+        <h4>2. </h4>
+        <strong>Name</strong>: <br>
+        <br>
+        <strong>Format</strong>: <br>
+        <br>
+        <strong>Parameters</strong>: <br>
+        <br>
+        <strong>Explanation</strong>:
+        <p></p><br>
+        <strong>Notes</strong>: <br>
+        <br>
+        <strong>Return Value</strong>:<br>
+      </div>
+      <div class="subsection" id="ch2-">
+        <h4>2. </h4>
+        <strong>Name</strong>: <br>
+        <br>
+        <strong>Format</strong>: <br>
+        <br>
+        <strong>Parameters</strong>: <br>
+        <br>
+        <strong>Explanation</strong>:
+        <p></p><br>
+        <strong>Notes</strong>: <br>
+        <br>
+        <strong>Return Value</strong>:<br>
+      </div>
+      <div class="subsection" id="ch2-">
+        <h4>2. </h4>
+        <strong>Name</strong>: <br>
+        <br>
+        <strong>Format</strong>: <br>
+        <br>
+        <strong>Parameters</strong>: <br>
+        <br>
+        <strong>Explanation</strong>:
+        <p></p><br>
+        <strong>Notes</strong>: <br>
+        <br>
+        <strong>Return Value</strong>:<br>
+      </div>
+      <div class="subsection" id="ch2-">
+        <h4>2. </h4>
+        <strong>Name</strong>: <br>
+        <br>
+        <strong>Format</strong>: <br>
+        <br>
+        <strong>Parameters</strong>: <br>
+        <br>
+        <strong>Explanation</strong>:
+        <p></p><br>
+        <strong>Notes</strong>: <br>
+        <br>
+        <strong>Return Value</strong>:<br>
+      </div>
+    </div> <!-- ch2-1 -->
+  </div> <!-- ch2 -->
 
   <div class="chapter" id="ch3">
     <h2>Chapter 3: Initial Contents of Registers Due to FarlInit()</h2>
