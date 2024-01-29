@@ -1060,7 +1060,7 @@
           Required when using FARL. Clears the display buffer, and Z buffer, and
           initializes the registers. Please see <a href="#ch3">Chapter 3</a> for
           information about Farl register initialization.
-        </p><br>
+        </p>
         <strong>Note</strong>: FarlGetConf() can be used without calling FarlInit()<br>
         <br>
         <strong>Return Value</strong>:<br>
@@ -1081,20 +1081,125 @@
         However, the contents of all registers are unchanged.<br>
         <br>
         <strong>Explanation</strong>:
-        <p>Resets or restarts the HuC6273</p><br>
-        <br>
+        <p>Resets or restarts the HuC6273</p>
         <strong>Return Value</strong>: None.<br>
       </div>
+      <div class="subsection" id="ch2-1-3">
+        <h4>2.1.3 Setting Memory Mapped Registers</h4>
+        <strong>Name</strong>: FarlSetMemReg<br>
+        <br>
+        <strong>Format</strong>: <div class="codeblock">#include &lt;farl.h&gt;<br>void FarlSetMemReg(unsigned int addr, unsigned short data)</div><br>
+        <strong>Parameters</strong>:<br>
+        <strong>addr</strong>: register's address<br>
+        <strong>data</strong>: data to write<br>
+        <br>
+        <strong>Explanation</strong>:
+        <p>For information about the register's address (addr) and data to
+        write in (data), refer to the HuC6273's manual and farl.h. Note there
+        are values that can not be written to memory mapped registers.</p>
+        <strong>Return Value</strong>: None<br>
+      </div>
+      <div class="subsection" id="ch2-1-4">
+        <h4>2.1.4 Reading Memory Mapped Registers</h4>
+        <strong>Name</strong>: FarlGetMemReg<br>
+        <br>
+        <strong>Format</strong>: <div class="codeblock">#include &lt;farl.h&rt;<br>unsigned short FarlGetMemReg(int addr)</div>
+        <br>
+        <strong>Parameters</strong>:<br>
+        <strong>addr</strong>: register's address<br>
+        <br>
+        <strong>Explanation</strong>:
+        <p>For information about the register's address (addr), refer to the
+        HuC6273's manual and farl.h. Note that there are values that can not be
+        read from memory mapped registers.</p>
+        <strong>Return Value</strong>: The value read from the memory mapped
+        registers.<br>
+      </div>
+      <div class="subsection" id="ch2-1-5">
+        <h4>2.1.5 Setting TE Registers</h4>
+        <strong>Name</strong>: FarlSetTEReg<br>
+        <br>
+        <strong>Format</strong>: <div class="codeblock">#include &lt;farl.h&gt;<br>void FarlSetTEReg(int regid, unsigned short data)</div><br>
+        <strong>Parameters</strong>: <br>
+        <strong>regid</strong>: register's ID<br>
+        <strong>data</strong>: value to set<br>
+        <br>
+        <strong>Explanation</strong>:
+        <p>For information about the register's ID (regid) and data to write
+        (data), refer to the HuC6273's manual and farl.h. Note that the
+        functions for writing to each register can be processed faster.</p>
+        <strong>Return Value</strong>: None.<br>
+      </div>
+      <div class="subsection" id="ch2-1-6">
+        <h4>2.1.6 Reading TE Registers</h4>
+        <strong>Name</strong>: FarlGetTEReg<br>
+        <br>
+        <strong>Format</strong>: <div class="codeblock">#include &lt;farl.h&gt;<br>unsigned short FarlGetTEReg(int regid, int sw)</div><br>
+        <strong>Parameters</strong>: <br>
+        <strong>regid</strong>: register's ID<br>
+        <strong>sw</strong>:<br>
+        &nbsp;&nbsp;<strong>FARL_NOBLK</strong>: Sends the request, and
+        returns without waiting for read back.<br>
+        &nbsp;&nbsp;<strong>FARL_BLK:</strong>: Waits for a read back and
+        returns the value.<br>
+        <br>
+        <strong>Explanation</strong>:
+        <p>For information about the register's ID (regid), refer to the
+        HuC6273's manual and farl.h.</p>
+        <p>If the sw parameter is set to FARL_NONBLK, the request is sent
+        and does not wait for read back. Either poll the RBDONE bit of the
+        Interrupt status register or read it from the Read back register after
+        read back's completion is notified by an interrupt.</p>
+        <strong>Return Value</strong>: (IF sw==FARL_BLK) The value from TE
+        register<br>
+      </div>
+      <div class="subsection" id="ch2-1-7">
+        <h4>2.1.7 Setting PE Registers</h4>
+        <strong>Name</strong>: FarlSetPEReg<br>
+        <br>
+        <strong>Format</strong>: <div class="codeblock">#include &lt;farl.h&gt;<br> void FarlSetPEReg(int regid, unsigned short data)</div><br>
+        <strong>Parameters</strong>: <br>
+        <strong>regid</strong>: register's ID
+        <strong>data</strong>: value to set
+        <br>
+        <strong>Explanation</strong>:
+        <p>For information about the register's ID (regid) and the data to
+        write (data), refer to the HuC6273's manual and farl.h.</p>
+        <strong>Return Value</strong>: None.<br>
+      </div>
+      <div class="subsection" id="ch2-1-8">
+        <h4>2.1.8 Reading PE Registers</h4>
+        <strong>Name</strong>: FarlGetPEReg<br>
+        <br>
+        <strong>Format</strong>: <div class="codeblock">#include
+          &lt;farl.h&gt;<br>unsigned short FarlGetPEReg(int regid, int sw)<br>
+        <strong>Parameters</strong>: <br>
+        <strong>regid</strong>: register's ID
+        <strong>sw</strong>:<br>
+        &nbsp;&nbsp;<strong>FARL_NOBLK</strong>: Sends the request, and
+        returns without waiting for read back.<br>
+        &nbsp;&nbsp;<strong>FARL_BLK:</strong>: Waits for a read back and
+        returns the value.<br>
+        <br>
+        <strong>Explanation</strong>:
+        <p>For information about the register's ID (regid), refer to the
+        HuC6273's manual and farl.h.</p>
+        <p>If the sw parameter is set to FARL_NONBLK, the request is sent
+        and does not wait for read back. Either poll the RBDONE bit of the
+        Interrupt status register or read it from the Read back register after
+        read back's completion is notified by an interrupt.</p>
+        <strong>Return Value</strong>: (IF sw==FARL_BLK) The value from RE
+        register
+      </div>
       <div class="subsection" id="ch2-">
         <h4>2. </h4>
         <strong>Name</strong>: <br>
         <br>
         <strong>Format</strong>: <br>
-        <br>
         <strong>Parameters</strong>: <br>
         <br>
         <strong>Explanation</strong>:
-        <p></p><br>
+        <p></p>
         <strong>Notes</strong>: <br>
         <br>
         <strong>Return Value</strong>:<br>
@@ -1104,11 +1209,10 @@
         <strong>Name</strong>: <br>
         <br>
         <strong>Format</strong>: <br>
-        <br>
         <strong>Parameters</strong>: <br>
         <br>
         <strong>Explanation</strong>:
-        <p></p><br>
+        <p></p>
         <strong>Notes</strong>: <br>
         <br>
         <strong>Return Value</strong>:<br>
@@ -1118,11 +1222,10 @@
         <strong>Name</strong>: <br>
         <br>
         <strong>Format</strong>: <br>
-        <br>
         <strong>Parameters</strong>: <br>
         <br>
         <strong>Explanation</strong>:
-        <p></p><br>
+        <p></p>
         <strong>Notes</strong>: <br>
         <br>
         <strong>Return Value</strong>:<br>
@@ -1132,11 +1235,10 @@
         <strong>Name</strong>: <br>
         <br>
         <strong>Format</strong>: <br>
-        <br>
         <strong>Parameters</strong>: <br>
         <br>
         <strong>Explanation</strong>:
-        <p></p><br>
+        <p></p>
         <strong>Notes</strong>: <br>
         <br>
         <strong>Return Value</strong>:<br>
@@ -1146,11 +1248,10 @@
         <strong>Name</strong>: <br>
         <br>
         <strong>Format</strong>: <br>
-        <br>
         <strong>Parameters</strong>: <br>
         <br>
         <strong>Explanation</strong>:
-        <p></p><br>
+        <p></p>
         <strong>Notes</strong>: <br>
         <br>
         <strong>Return Value</strong>:<br>
@@ -1160,11 +1261,10 @@
         <strong>Name</strong>: <br>
         <br>
         <strong>Format</strong>: <br>
-        <br>
         <strong>Parameters</strong>: <br>
         <br>
         <strong>Explanation</strong>:
-        <p></p><br>
+        <p></p>
         <strong>Notes</strong>: <br>
         <br>
         <strong>Return Value</strong>:<br>
@@ -1174,11 +1274,10 @@
         <strong>Name</strong>: <br>
         <br>
         <strong>Format</strong>: <br>
-        <br>
         <strong>Parameters</strong>: <br>
         <br>
         <strong>Explanation</strong>:
-        <p></p><br>
+        <p></p>
         <strong>Notes</strong>: <br>
         <br>
         <strong>Return Value</strong>:<br>
@@ -1188,95 +1287,10 @@
         <strong>Name</strong>: <br>
         <br>
         <strong>Format</strong>: <br>
-        <br>
         <strong>Parameters</strong>: <br>
         <br>
         <strong>Explanation</strong>:
-        <p></p><br>
-        <strong>Notes</strong>: <br>
-        <br>
-        <strong>Return Value</strong>:<br>
-      </div>
-      <div class="subsection" id="ch2-">
-        <h4>2. </h4>
-        <strong>Name</strong>: <br>
-        <br>
-        <strong>Format</strong>: <br>
-        <br>
-        <strong>Parameters</strong>: <br>
-        <br>
-        <strong>Explanation</strong>:
-        <p></p><br>
-        <strong>Notes</strong>: <br>
-        <br>
-        <strong>Return Value</strong>:<br>
-      </div>
-      <div class="subsection" id="ch2-">
-        <h4>2. </h4>
-        <strong>Name</strong>: <br>
-        <br>
-        <strong>Format</strong>: <br>
-        <br>
-        <strong>Parameters</strong>: <br>
-        <br>
-        <strong>Explanation</strong>:
-        <p></p><br>
-        <strong>Notes</strong>: <br>
-        <br>
-        <strong>Return Value</strong>:<br>
-      </div>
-      <div class="subsection" id="ch2-">
-        <h4>2. </h4>
-        <strong>Name</strong>: <br>
-        <br>
-        <strong>Format</strong>: <br>
-        <br>
-        <strong>Parameters</strong>: <br>
-        <br>
-        <strong>Explanation</strong>:
-        <p></p><br>
-        <strong>Notes</strong>: <br>
-        <br>
-        <strong>Return Value</strong>:<br>
-      </div>
-      <div class="subsection" id="ch2-">
-        <h4>2. </h4>
-        <strong>Name</strong>: <br>
-        <br>
-        <strong>Format</strong>: <br>
-        <br>
-        <strong>Parameters</strong>: <br>
-        <br>
-        <strong>Explanation</strong>:
-        <p></p><br>
-        <strong>Notes</strong>: <br>
-        <br>
-        <strong>Return Value</strong>:<br>
-      </div>
-      <div class="subsection" id="ch2-">
-        <h4>2. </h4>
-        <strong>Name</strong>: <br>
-        <br>
-        <strong>Format</strong>: <br>
-        <br>
-        <strong>Parameters</strong>: <br>
-        <br>
-        <strong>Explanation</strong>:
-        <p></p><br>
-        <strong>Notes</strong>: <br>
-        <br>
-        <strong>Return Value</strong>:<br>
-      </div>
-      <div class="subsection" id="ch2-">
-        <h4>2. </h4>
-        <strong>Name</strong>: <br>
-        <br>
-        <strong>Format</strong>: <br>
-        <br>
-        <strong>Parameters</strong>: <br>
-        <br>
-        <strong>Explanation</strong>:
-        <p></p><br>
+        <p></p>
         <strong>Notes</strong>: <br>
         <br>
         <strong>Return Value</strong>:<br>
