@@ -1095,8 +1095,8 @@
         <br>
         <strong>Explanation</strong>:
         <p>For information about the register's address (addr) and data to
-        write in (data), refer to the HuC6273's manual and farl.h. Note there
-        are values that can not be written to memory mapped registers.</p>
+          write in (data), refer to the HuC6273's manual and farl.h. Note there
+          are values that can not be written to memory mapped registers.</p>
         <strong>Return Value</strong>: None<br>
       </div>
       <div class="subsection" id="ch2-1-4">
@@ -1110,8 +1110,8 @@
         <br>
         <strong>Explanation</strong>:
         <p>For information about the register's address (addr), refer to the
-        HuC6273's manual and farl.h. Note that there are values that can not be
-        read from memory mapped registers.</p>
+          HuC6273's manual and farl.h. Note that there are values that can not be
+          read from memory mapped registers.</p>
         <strong>Return Value</strong>: The value read from the memory mapped
         registers.<br>
       </div>
@@ -1126,8 +1126,8 @@
         <br>
         <strong>Explanation</strong>:
         <p>For information about the register's ID (regid) and data to write
-        (data), refer to the HuC6273's manual and farl.h. Note that the
-        functions for writing to each register can be processed faster.</p>
+          (data), refer to the HuC6273's manual and farl.h. Note that the
+          functions for writing to each register can be processed faster.</p>
         <strong>Return Value</strong>: None.<br>
       </div>
       <div class="subsection" id="ch2-1-6">
@@ -1145,11 +1145,11 @@
         <br>
         <strong>Explanation</strong>:
         <p>For information about the register's ID (regid), refer to the
-        HuC6273's manual and farl.h.</p>
+          HuC6273's manual and farl.h.</p>
         <p>If the sw parameter is set to FARL_NONBLK, the request is sent
-        and does not wait for read back. Either poll the RBDONE bit of the
-        Interrupt status register or read it from the Read back register after
-        read back's completion is notified by an interrupt.</p>
+          and does not wait for read back. Either poll the RBDONE bit of the
+          Interrupt status register or read it from the Read back register after
+          read back's completion is notified by an interrupt.</p>
         <strong>Return Value</strong>: (IF sw==FARL_BLK) The value from TE
         register<br>
       </div>
@@ -1159,22 +1159,21 @@
         <br>
         <strong>Format</strong>: <div class="codeblock">#include &lt;farl.h&gt;<br> void FarlSetPEReg(int regid, unsigned short data)</div><br>
         <strong>Parameters</strong>: <br>
-        <strong>regid</strong>: register's ID
+        <strong>regid</strong>: register's ID<br>
         <strong>data</strong>: value to set
         <br>
         <strong>Explanation</strong>:
         <p>For information about the register's ID (regid) and the data to
-        write (data), refer to the HuC6273's manual and farl.h.</p>
+          write (data), refer to the HuC6273's manual and farl.h.</p>
         <strong>Return Value</strong>: None.<br>
       </div>
       <div class="subsection" id="ch2-1-8">
         <h4>2.1.8 Reading PE Registers</h4>
         <strong>Name</strong>: FarlGetPEReg<br>
         <br>
-        <strong>Format</strong>: <div class="codeblock">#include
-          &lt;farl.h&gt;<br>unsigned short FarlGetPEReg(int regid, int sw)<br>
+        <strong>Format</strong>: <div class="codeblock">#include &lt;farl.h&gt;<br>unsigned short FarlGetPEReg(int regid, int sw)</div><br>
         <strong>Parameters</strong>: <br>
-        <strong>regid</strong>: register's ID
+        <strong>regid</strong>: register's ID<br>
         <strong>sw</strong>:<br>
         &nbsp;&nbsp;<strong>FARL_NOBLK</strong>: Sends the request, and
         returns without waiting for read back.<br>
@@ -1183,16 +1182,111 @@
         <br>
         <strong>Explanation</strong>:
         <p>For information about the register's ID (regid), refer to the
-        HuC6273's manual and farl.h.</p>
+          HuC6273's manual and farl.h.</p>
         <p>If the sw parameter is set to FARL_NONBLK, the request is sent
-        and does not wait for read back. Either poll the RBDONE bit of the
-        Interrupt status register or read it from the Read back register after
-        read back's completion is notified by an interrupt.</p>
+          and does not wait for read back. Either poll the RBDONE bit of the
+          Interrupt status register or read it from the Read back register after
+          read back's completion is notified by an interrupt.</p>
         <strong>Return Value</strong>: (IF sw==FARL_BLK) The value from RE
         register
       </div>
-      <div class="subsection" id="ch2-">
-        <h4>2. </h4>
+      <div class="subsection" id="ch2-1-9">
+        <h4>2.1.9 Writing to Texture Buffer (Pack Mode)</h4>
+        <strong>Name</strong>: FarlWriteTxt<br>
+        <br>
+        <strong>Format</strong>: <div class="codeblock">#include &lt;farl.h&gt;<br>void FarlWriteTxt(unsigned short addr, unsigned short data)</div><br>
+        <strong>Parameters</strong>: <br>
+        <strong>addr</strong>: address from the start of the bank (0x0000 - 0xfffe)
+        <strong>data</strong>: data to write in (16 bit)
+        <br>
+        <strong>Explanation</strong>:
+        <p>Write data as 16 bit data value to the texture buffer using Pack mode (16 bit access mode).
+          The address is specified using addr, which starts from the first address of the bank set in the
+          CMT bank select register. The address must be even (word boundary).
+          This function is primarily used to write 16 bit data like CMT and SCT.
+        </p>
+        <strong>Return Value</strong>: None.<br>
+      </div>
+      <div class="subsection" id="ch2-1-10">
+        <h4>2.1.10 Writing to Texture Buffer (Unpack Mode)</h4>
+        <strong>Name</strong>: FarlWriteTxtUnpk<br>
+        <br>
+        <strong>Format</strong>: <div class="codeblock">#include&lt;farl.h&gt;<br>void FarlWriteTxtUnpk(unsigned short addr, unsigned short data)</div><br>
+        <strong>Parameters</strong>: <br>
+        <strong>addr</strong>: address from the start of the bank (0x0000 - 0xfffe)
+        <strong>data</strong>: data to write in (9 bit)
+        <br>
+        <strong>Explanation</strong>:
+        <p>Write data as 9 bit data value to the texture buffer using Unpack mode (9 bit access mode).
+          The address is specified using addr, which starts from the first address of the bank set in the
+          CMT bank select register.
+        </p>
+        <strong>Return Value</strong>: None.<br>
+      </div>
+      <div class="subsection" id="ch2-1-11">
+        <h4>2.1.11 Writing to Texture Buffer (Pack Mode)</h4>
+        <strong>Name</strong>: FarlWriteTxtXY<br>
+        <br>
+        <strong>Format</strong>: <div class="codeblock">#include &lt;farl.h&gt;<br>void FarlWriteTxtXY(unsigned short x, unsigned short y, unsigned short data)</div><br>
+        <strong>Parameters</strong>: <br>
+        <strong>x</strong>: x coordinate starting from the start of the bank (0-255)<br>
+        <strong>y</strong>: y coordinate starting from the start of the bank (0-255)
+        <strong>data</strong>: data to write in (16 bit)
+        <br>
+        <strong>Explanation</strong>:
+        <p>Write data as 16 bit data value to the texture buffer using Pack mode (16 bit access mode).
+          The address is specified using the x and y coordinate, starting from the first address of the bank set in the
+          CMT bank select register.
+        </p>
+        <strong>Return Value</strong>: None.<br>
+      </div>
+      <div class="subsection" id="ch2-1-12">
+        <h4>2.1.12 Writing to Texture Buffer (Unpack Mode)</h4>
+        <strong>Name</strong>: FarlWriteTxtXYUnpk<br>
+        <br>
+        <strong>Format</strong>: <div class="codeblock">#include &lt;farl.h&gt;<br>void FarlWriteTxtXYUnpk(unsigned short x, unsigned short y, unsigned short data)</div><br>
+        <strong>Parameters</strong>: <br>
+        <strong>x</strong>: x coordinate starting from the start of the bank (0-255)<br>
+        <strong>y</strong>: y coordinate starting from the start of the bank (0-255)
+        <strong>data</strong>: data to write in (9 bit)
+        <br>
+        <strong>Explanation</strong>:
+        <p>Write data as 9 bit data value to the texture buffer using Unpack mode (9 bit access mode).
+          The address is specified using the x and y coordinate, starting from the first address of the bank set in the
+          CMT bank select register. This function is primarily used to write texel data.
+        </p>
+        <strong>Return Value</strong>: None.<br>
+      </div>
+      <div class="subsection" id="ch2-1-13">
+        <h4>2.1.13 Writing to FIFO (16bit)</h4>
+        <strong>Name</strong>: FarlWritefifoH<br>
+        <br>
+        <strong>Format</strong>: <div class="codeblock">#include &lt;farl.h&gt;<br>void FarlWriteFifoH(unsigned short data)</div><br>
+        <strong>Parameters</strong>: <br>
+        <strong>data</strong>: 16 bit data to write to FIFO
+        <br>
+        <strong>Explanation</strong>:
+        <p>Write data as a 16 bit data value to the FIFO.
+          It checks if FIFO has space remaining, so repeated calls will not overflow the FIFO.
+        </p>
+        <strong>Return Value</strong>: None.<br>
+      </div>
+      <div class="subsection" id="ch2-1-14">
+        <h4>2.1.14 Writing to FIFO (32bit)</h4>
+        <strong>Name</strong>: FarlWriteFifoW<br>
+        <br>
+        <strong>Format</strong>: <div class="codeblock">#include &lt;farl.h&gt;<br>void FarlWriteFifoW(unsigned int data)</div><br>
+        <strong>Parameters</strong>: <br>
+        <strong>data</strong>: 32 bit data to write to FIFO
+        <br>
+        <strong>Explanation</strong>:
+        <p>Write data as a 32 bit data value to the FIFO. The FIFO first writes the lower 16 bits,
+          then the upper 16 bits. It checks if FIFO has space remaining, so repeated calls will not overflow the FIFO.
+        </p>
+        <strong>Return Value</strong>: None.<br>
+      </div>
+      <div class="subsection" id="ch2-1-15">
+        <h4>2.1.15 Writing to FIFO (16bit)</h4>
         <strong>Name</strong>: <br>
         <br>
         <strong>Format</strong>: <br>
@@ -1204,8 +1298,8 @@
         <br>
         <strong>Return Value</strong>:<br>
       </div>
-      <div class="subsection" id="ch2-">
-        <h4>2. </h4>
+      <div class="subsection" id="ch2-1-16">
+        <h4>2.1.16 Writing to FIFO (32bit)</h4>
         <strong>Name</strong>: <br>
         <br>
         <strong>Format</strong>: <br>
@@ -1217,8 +1311,8 @@
         <br>
         <strong>Return Value</strong>:<br>
       </div>
-      <div class="subsection" id="ch2-">
-        <h4>2. </h4>
+      <div class="subsection" id="ch2-1-17">
+        <h4>2.1.17 Setting Overlay LUT</h4>
         <strong>Name</strong>: <br>
         <br>
         <strong>Format</strong>: <br>
@@ -1230,8 +1324,8 @@
         <br>
         <strong>Return Value</strong>:<br>
       </div>
-      <div class="subsection" id="ch2-">
-        <h4>2. </h4>
+      <div class="subsection" id="ch2-1-18">
+        <h4>2.1.18 Reading Overlay LUT Value</h4>
         <strong>Name</strong>: <br>
         <br>
         <strong>Format</strong>: <br>
@@ -1243,47 +1337,8 @@
         <br>
         <strong>Return Value</strong>:<br>
       </div>
-      <div class="subsection" id="ch2-">
-        <h4>2. </h4>
-        <strong>Name</strong>: <br>
-        <br>
-        <strong>Format</strong>: <br>
-        <strong>Parameters</strong>: <br>
-        <br>
-        <strong>Explanation</strong>:
-        <p></p>
-        <strong>Notes</strong>: <br>
-        <br>
-        <strong>Return Value</strong>:<br>
-      </div>
-      <div class="subsection" id="ch2-">
-        <h4>2. </h4>
-        <strong>Name</strong>: <br>
-        <br>
-        <strong>Format</strong>: <br>
-        <strong>Parameters</strong>: <br>
-        <br>
-        <strong>Explanation</strong>:
-        <p></p>
-        <strong>Notes</strong>: <br>
-        <br>
-        <strong>Return Value</strong>:<br>
-      </div>
-      <div class="subsection" id="ch2-">
-        <h4>2. </h4>
-        <strong>Name</strong>: <br>
-        <br>
-        <strong>Format</strong>: <br>
-        <strong>Parameters</strong>: <br>
-        <br>
-        <strong>Explanation</strong>:
-        <p></p>
-        <strong>Notes</strong>: <br>
-        <br>
-        <strong>Return Value</strong>:<br>
-      </div>
-      <div class="subsection" id="ch2-">
-        <h4>2. </h4>
+      <div class="subsection" id="ch2-1-19">
+        <h4>2.1.19 Setting Light Vector</h4>
         <strong>Name</strong>: <br>
         <br>
         <strong>Format</strong>: <br>
