@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../styles/styles.css">
+  <link rel="stylesheet" href="../styles/fxdb.css">
+  <title>FXCC</title>
+</head>
+
+<body>
+  <div class="heading">
+    <div>PC-FXGA Authoring Software</div>
+    <div>GMAKER Starter Kit (Ver.1.0)</div>
+    <div class="title">Explanation of FXDB.EXE (Ver.1.03)</div>
+    <div class="credits">NEC Home Electronics, Ltd.</div>
+    <div class="credits">Nov 10, 1995</div>
+    <div class="credits">Translated by Sean Aoki</div>
+  </div>
+
+  <a href="../">Return</a>
+  <div class="contents">
+    <h2>Contents</h2>
+    <div class="contents-chapter">
+      <div class="contents-head"><a href="#ch1">Chapter 1: Debugger Information</a></div>
+    </div>
+    <div class="contents-chapter">
+      <div class="contents-head"><a href="#ch2">Chapter 2: Debugger Usage</a></div>
+      <div class="contents-subsection"><a href="#ch2-1">2.1: Running</a></div>
+      <div class="contents-subsection"><a href="#ch2-2">2.2: Environment Variables</a></div>
+      <div class="contents-subsection"><a href="#ch2-3">2.3: Configuration File</a></div>
+      <div class="contents-subsection"><a href="#ch2-4">2.4: Command Line Option Keys</a></div>
+    </div>
+    <div class="contents-chapter">
+      <div class="contents-head"><a href="#ch3">Chapter 3: Commands</a></div>
+      <div class="contents-subsection"><a href="#ch3-1">3.1: Command Syntax</a></div>
+      <div class="contents-subsection"><a href="#ch3-2">3.2: C Language Expressions</a></div>
+      <div class="contents-subsection"><a href="#ch3-3">3.3: Operators Usable in Expressions</a></div>
+    </div>
+    <div class="contents-chapter">
+      <div class="contents-head"><a href="#ch4">Chapter 4: Debugger Commands</a></div>
+      <div class="contents-subsection"><a href="#ch4-1">4.1: Command Documentation</a></div>
+      <div class="contents-subsection"><a href="#ch4-2">4.2: Explanation of Each Command</a></div>
+    </div>
+    <div class="contents-chapter">
+      <div class="contents-head"><a href="#ch5">Chapter 5: Macro Functionality</a></div>
+      <div class="contents-subsection"><a href="#ch5-1">5.1: Executing Macro Commands</a></div>
+      <div class="contents-subsection"><a href="#ch5-2">5.2: Control Statements</a></div>
+      <div class="contents-subsection"><a href="#ch5-3">5.3: Macro Usage Examples</a></div>
+    </div>
+    <div class="contents-chapter">
+      <div class="contents-head"><a href="#ch6">Chapter 6: Debugger Messages</a></div>
+      <div class="contents-subsection"><a href="#ch6-1">6.1: Error Messages</a></div>
+      <div class="contents-subsection"><a href="#ch6-2">6.2: Other Messages</a></div>
+    </div>
+
+    <div class="chapter" id="ch1">
+      <h2>Chapter 1 Debugger Information</h2>
+      <p>
+        This debugger is a tool for debugging programs created
+        using the GMAKER Starter Kit's Programmer Tools
+        (C Compiler [FXCC.EXE], Assembler [FXAS.EXE], Linker [FXLK.EXE]).
+        This manual explains how to use FXDB.EXE.
+      </p>
+    </div>
+
+    <hr>
+
+    <div class="chapter" id="ch2">
+      <h2>Chapter 2 Debugger Usage</h2>
+      <div class="section" id="ch2-1">
+        <h3>2.1 Running</h3>
+        <p>To start the debugger, enter the following in the command line:</p>
+        <div class="codeblock">fxdb [switches] [@command file] [commands...]</div>
+        <ol>
+          <li>
+            Switches<br>
+            <strong>-g</strong>: Changes character input processing<br>
+            Uses DOS's input routine. Setting this option will allow
+            things like embedded history drivers function during debugging.<br>
+            <strong>-b</strong>: Turns off backup emulation
+          </li>
+          <li>
+            Command File<br>
+            <div>
+              If a string of characters beginning with "@" is given, that string will be interpreted as a file name.
+              Text within the file will be executed as debugger commands
+            </div>
+          </li>
+          <li>
+            Debugger Command Input from the Command Line<br>
+            Strings not beginning with "-" or "@" are considered debugger commands
+            and are executed on startup.
+          </li>
+        </ol>
+      </div>
+      <div class="section" id="ch2-2">
+        <h3>2.2 Environment Variables</h3>
+        <div class="codeblock">PCFXBACKUP=&lt;filename&gt;</div>
+        <p>
+          Specifies the file for SRAM backup emulation for programs using filelib.a.
+          If the environment variable is not set, 32KB will be allocated to the floppy disk
+          as PCFXBACK.RAM
+        </p>
+        <div>Example: Setting from the Command Line in MS-DOS</div>
+        <div class="codeblock">SET PCFXBACKUP=A:\FXGA\SRAM32K.RAM</div>
+        <br><br>
+        <div class="codeblock">PCFXCARD=&lt;filename&gt;[,"SIZE"]</div>
+        <p>
+          Specifies the file for expansion card backup emulation for programs using filelib.a.
+          If the set file doesn't exist, it is created.
+          "SIZE" is the space allocated when creating the file.
+          If the file specified already exists, the existing file's size is followed.
+          The size specified must be chosen from the following list. If there is no size specified
+          or it is not from the below list, it will default to 128KB.
+        </p>
+        <table>
+          <tr>
+            <td>Size</td>
+            <td>Meaning</td>
+          </tr>
+          <tr>
+            <td>32K</td>
+            <td>32 Kilobytes</td>
+          </tr>
+          <tr>
+            <td>64K</td>
+            <td>64 Kilobytes</td>
+          </tr>
+          <tr>
+            <td>128K</td>
+            <td>128 Kilobytes</td>
+          </tr>
+          <tr>
+            <td>256K</td>
+            <td>256 Kilobytes</td>
+          </tr>
+          <tr>
+            <td>512K</td>
+            <td>512 Kilobytes</td>
+          </tr>
+          <tr>
+            <td>1M</td>
+            <td>1 Megabyte</td>
+          </tr>
+          <tr>
+            <td>2M</td>
+            <td>2 Megabytes</td>
+          </tr>
+          <tr>
+            <td>4M</td>
+            <td>4 Megabytes</td>
+          </tr>
+          <tr>
+            <td>8M</td>
+            <td>8 Megabytes</td>
+          </tr>
+        </table>
+        <div>Example: Setting from the Command Line in MS-DOS</div>
+        <div class="codeblock">set pcfxcard=A:\FXGA\CARD64K.RAM,64K</div>
+        <p>If the environment variable is not set, 128KB will be allocated to the floppy disk as PCFXCARD.RAM</p>
+      </div>
+      <div class="section" id="ch2-3">
+        <h3>2.3 Configuration File</h3>
+        <p>
+          The debugger reads the "FXDBINIT" file in the directory it was executed.
+          The configuration file can be used for commands to automatically execute on startup,
+          history, and aliases.
+        </p>
+        <div>Program Example:</div>
+        <div class="codeblock"># FXDBINIT sample<br>autoexec<br>{<br>set hexout 1<br>set repeatmode 1<br>}<br>history<br>{<br>d &nbsp;&nbsp;&nbsp;0<br>s<br>}<br>alias<br>{<br>ls &nbsp;&nbsp;!ls<br>cat&nbsp;&nbsp;!cat<br>}</div>
+      </div>
+      <div class="section" id="ch2-4">
+        <h3>2.4 Command Line Option Keys</h3>
+        <p>The following are the key combinations that can be used at the command input line.
+          Note: if the -g option was set, this functionality cannot be used.
+        </p>
+        <table>
+          <tr>
+            <td style="text-align:center;">Key</td>
+            <td>Function</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;">↑<br>CTRL+P<br>CTRL+W</td>
+            <td>Scroll up in history</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;">↓<br>CTRL+N<br>CTRL+R</td>
+            <td>Scroll down in history</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;">←<br>CTRL+B</td>
+            <td>Move the cursor one character left</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;">→<br>CTRL+F</td>
+            <td>Move the cursor one character right</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;">CTRL+A</td>
+            <td>Move the cursor to the front</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;">CTRL+E</td>
+            <td>Move the cursor to the end</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;">CTRL+D</td>
+            <td>Delete the character at the cursor</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;">CTRL+H</td>
+            <td>Backspace</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;">CTRL+K</td>
+            <td>Delete everything after the cursor</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;">CTRL+I<br>TAB</td>
+            <td>Complete command/symbol<br>Move the cursor to the front</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="chapter" id="ch3">
+      <h2>Chapter 3 Commands</h2>
+      <div class="section" id="ch3-1">
+        <h3>3.1 Command Syntax</h3>
+        <p>
+          Expressions and addresses can represent expressions that specify addresses
+          at the assembler level<span title="Requires an assembler. Note GMAKER Starter Kit does not support an assembler." class="underline">*</span>
+        </p>
+        Usable Operators:
+        <ul>
+          <li>+ Addition</li>
+          <li>- Subtraction</li>
+          <li>* Multiplication</li>
+          <li>/ Division</li>
+          <li>% Modulo</li>
+          <li>& Logical Product (AND)</li>
+          <li>| Logical Sum (OR)</li>
+          <li>! Logical Negation (NOT)</li>
+          <li>^ Exclusive Logical Sum (XOR)</li>
+        </ul>
+        Usable Address Expressions:
+        <table>
+          <tr>
+            <td></td>
+            <td></td>
+            <td>Example</td>
+          </tr>
+          <tr>
+            <td>Binary</td>
+            <td>Starts with "%"</td>
+            <td>%1010</td>
+          </tr>
+          <tr>
+            <td>Octal</td>
+            <td>Starts with "\"</td>
+            <td>\72</td>
+          </tr>
+          <tr>
+            <td>Decimal</td>
+            <td>Starts with "@"</td>
+            <td>@5270</td>
+          </tr>
+          <tr>
+            <td>Hexadecimal</td>
+            <td>Nothing</td>
+            <td>6a</td>
+          </tr>
+          <tr>
+            <td>Symbol</td>
+            <td>Starts with . (period); use the label's name</td>
+            <td>.label</td>
+          </tr>
+          <tr>
+            <td>Internal Variable</td>
+            <td>Starts with "#"</td>
+            <td>#lines</td>
+          </tr>
+          <tr>
+            <td>Register</td>
+            <td>Use the register's name</td>
+            <td>gp</td>
+          </tr>
+          <tr>
+            <td>Current PC</td>
+            <td>Use only a period</td>
+            <td>.</td>
+          </tr>
+          <tr>
+            <td>Address of Source Line</td>
+            <td>Format as "filename:line"</td>
+            <td>foo.c:50</td>
+          </tr>
+        </table>
+      </div>
+      <div class="section" id="ch3-2">
+        <h3>3.2 C Language Expressions</h3>
+        <p>Expressed the same way as in the C Language</p>
+        <div>Examples:</div>
+        <ul>
+          <li>123 -> Decimal</li>
+          <li>0x123 -> Hexadecimal</li>
+          <li>i -> Variable</li>
+          <li>*p -> Memory contents pointed by p</li>
+        </ul>
+        <p>Variables' scope depend on the program counter being traced.<br>
+          In order of priority, searching goes:</p>
+        <ol>
+          <li>Variables declared in the current block</li>
+          <li>Variables declared in the current function</li>
+          <li>Static variables declared in the current modules</li>
+          <li>Variables declared globally</li>
+        </ol>
+        <p>Formats/operations expressable in C can be used for expressions.<br>
+          For cast expressions, simple forms like "(int*)i" may be used.
+          Using an operator (substitution, increment, decrement) in the expression will cause side effects.</p>
+      </div>
+      <div class="section" id="ch3-3">
+        <h3>3.3 Operators Usable in Expressions</h3>
+        Unary Operators:
+        <table>
+          <tr>
+            <td>!</td>
+            <td>NOT</td>
+          </tr>
+          <tr>
+            <td>~</td>
+            <td>1's Complement</td>
+          </tr>
+          <tr>
+            <td>+</td>
+            <td>Unary Plus</td>
+          </tr>
+          <tr>
+            <td>-</td>
+            <td>Unary Minus</td>
+          </tr>
+          <tr>
+            <td>++</td>
+            <td>Increment</td>
+          </tr>
+          <tr>
+            <td>--</td>
+            <td>Decrement</td>
+          </tr>
+          <tr>
+            <td>*</td>
+            <td>Indirect</td>
+          </tr>
+          <tr>
+            <td>&</td>
+            <td>Address</td>
+          </tr>
+          <tr>
+            <td>(type)</td>
+            <td>Cast</td>
+          </tr>
+          <tr>
+            <td>sizeof</td>
+            <td>Sizeof</td>
+          </tr>
+        </table><br>
+        Binary Operators:
+        <table>
+          <tr>
+            <td>* / \ % -</td>
+            <td>Mathematical Operators</td>
+          </tr>
+          <tr>
+            <td>
+              &lt;&lt; &nbsp; &gt;&gt;
+            </td>
+            <td>Shift Operators</td>
+          </tr>
+          <tr>
+            <td>
+              &lt;&gt; &nbsp; &lt;= &nbsp; &gt;= &nbsp; == &nbsp; !=
+            </td>
+            <td>Relational Operators</td>
+          </tr>
+          <tr>
+            <td>& |</td>
+            <td>Logical Operators</td>
+          </tr>
+          <tr>
+            <td>,</td>
+            <td>Comma Operator</td>
+          </tr>
+        </table>
+        <p>?: Ternary Operator</p>
+        Assignment Operators:
+        <table>
+          <tr>
+            <td>=</td>
+            <td>Simple Assignment</td>
+          </tr>
+          <tr>
+            <td>*=</td>
+            <td>Multiplication Assignment</td>
+          </tr>
+          <tr>
+            <td>/=</td>
+            <td>Division Assignment</td>
+          </tr>
+          <tr>
+            <td>%=</td>
+            <td>Modulo Assignment</td>
+          </tr>
+          <tr>
+            <td>+=</td>
+            <td>Addition Assignment</td>
+          </tr>
+          <tr>
+            <td>-=</td>
+            <td>Subtraction Assignment</td>
+          </tr>
+          <tr>
+            <td>&lt;&lt;=</td>
+            <td>Left Shift Assignment</td>
+          </tr>
+          <tr>
+            <td>&gt;&gt;=</td>
+            <td>Right Shift Assignment</td>
+          </tr>
+          <tr>
+            <td>&=</td>
+            <td>Bitwise Assignment</td>
+          </tr>
+          <tr>
+            <td>|=</td>
+            <td>Bitwise OR Assignment</td>
+          </tr>
+          <tr>
+            <td>^=</td>
+            <td>Bitwise XOR Assignment</td>
+          </tr>
+        </table>
+        <p>sizeof Operator:
+          <span class="codeblock">sizeof(name)</span><br><br>
+          The name can be a type (e.g. "int", "char"), a type from "typedef", or a variable name
+        </p>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="chapter" id="ch4">
+      <h2>Chapter 4 Debugger Commands</h2>
+      <div class="section" id="ch4-1">
+        <h3>4.1 Command Documentation</h3>
+        <div class="codeblock">&lt;Command Name&gt; [&lt;Parameters&gt;]</div>
+        <p>[Command Name]<br>
+          Specify a command name represented by either alphabetical characters or symbols.<br>
+          For commands that can take a size, b (byte), h (halfword), or w (word) can be added
+          immediately after the command.
+        </p>
+        <p>[Parameters]<br>
+          Specifies the parameters to pass to the command.<br>
+          The number and type of parameters depend on the command.<br>
+          Parameters with "[ ]" in the command explanation can be ommitted.<br>
+          &lt;range&gt; specifies an address range.
+        </p>
+        <div>Example:</div>
+        <div class="codeblock">d 1000 l200</div>
+        <div>Means to dump 200 bytes from address 1000</div>
+        <p>Multistatement<br>
+          By separating commands with ";" (semicolons),
+          multiple commands can be written in one line.
+        </p>
+        <div>Example:</div>
+        <div class="codeblock">d ; l<br>d ; /\</div>
+      </div>
+      <div class="section" id="ch4-2">
+        <h3>4.2 Explanation of Each Command</h3>
+        <table>
+          <tr>
+            <td>Symbol</td>
+            <td>Definition</td>
+          </tr>
+          <tr>
+            <td>[ ]</td>
+            <td>Can be omitted</td>
+          </tr>
+          <tr>
+            <td>&lt; &gt;</td>
+            <td>Represents data that should be entered</td>
+          </tr>
+          <tr>
+            <td>range</td>
+            <td>Defines ranges for addresses, etc.<br>
+              Syntax:<br>
+              &lt;start&gt; l&lt;length&gt; &nbsp; &nbsp; or &nbsp; &nbsp; &lt;start&gt; &lt;end&gt;</td>
+          </tr>
+          <tr>
+            <td>size</td>
+            <td>Character representing the size<br>
+              b: byte; h: halfword; w: word</td>
+          </tr>
+        </table><br>
+        <details>
+          <summary>1. One-Line Assembler<span title="Requires an assembler. Note GMAKER Starter Kit does not support an assembler." class="underline">*</span></summary>
+          <div class="codeblock">a [address]</div>
+          <p>
+            Take V810 mnemonics starting from [address] and stores it in memory.<br>
+            If [address] is omitted, starts from current address.<br>
+            Enter "." (period) to quit the assembler.
+          </p>
+        </details>
+        <details>
+          <summary>2. Display Break Point</summary>
+          <div class="codeblock">b</div>
+          <p>Displays current information for all breakpoints set with the b command.<br>
+            Contents displayed are as follows:
+          </p>
+          <ul>
+            <li>Enabled/Disabled flag (e/d)</li>
+            <li>Breakpoint Number</li>
+            <li>Breakpoint Address</li>
+            <li>Break Counter</li>
+            <li>Counter Set Value</li>
+          </ul>
+          <div>Example:</div>
+          <div class="codeblock">e 0 00008480 [0;1] &lt;main&gt; (main.c:5)<br>d 1 00009240 [1;1]</div>
+          <br>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+        <details>
+          <summary></summary>
+        </details>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="chapter" id="ch5">
+      <h2>Chapter 5 Macro Functionality</h2>
+      <div class="section" id="ch5-1">
+        <h3>5.1 Executing Macro Commands</h3>
+      </div>
+      <div class="section" id="ch5-2">
+        <h3>5.2 Control Statements</h3>
+      </div>
+      <div class="section" id="ch5-3">
+        <h3>5.3 Macro Usage Examples</h3>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="chapter" id="ch6">
+      <h2>Chapter 6 Debugger Messages</h2>
+      <div class="section" id="ch6-1">
+        <h3>6.1 Error Messages</h3>
+      </div>
+      <div class="section" id="ch6-2">
+        <h3>6.2 Other Messages</h3>
+      </div>
+    </div>
+
+</body>
+
+</html>
