@@ -533,7 +533,37 @@
           <br>
         </details>
         <details>
-          <summary></summary>
+          <summary>3. Break Points Settings</summary>
+          <div class="codeblock">b &lt;Function Name&gt;<br>b &lt;Source file name: line number&gt;<br>b .<br>b &lt;Address&gt;</div>
+          <p>If a break point is set with the 'b' command before executing the program
+            with the 'rg' or 'g' command, the program will pause when the program counter matches the break point.
+          </p>
+          <ol>
+            <li>
+              <div class="codeblock">b &lt;Function Name&gt;</div>
+              <p>Set a break point using a function's name</p>
+              <div>Example: Set a break point on 'game_main()' function</div>
+              <div class="codeblock">b game_main</div>
+            </li>
+            <li>
+              <div class="codeblock">b &lt;Source file name: line number</div>
+              <p>Set a break point using the line number of the C source file</p>
+              <div>Example: Set a break point on line 32 of 'main.c'</div>
+              <div class="codeblock">b main.c:32</div>
+            </li>
+            <li>
+              <div class="codeblock">b .</div>
+              <p>Set a break point at the current program counter value</p>
+            </li>
+            <li>
+              <div class="codeblock">b &lt;Address&gt;</div>
+              <p>Directly specify an address</p>
+            </li>
+          </ol>
+          <p>Up to 32 break points can be set. Furthermore, it can be configured to skip for a specified amount of times.</p>
+          <div class="codeblock">b &lt;Break point&gt;[@Times]</div>
+          <div>Example: Pause at the 10th call to the function 'game_main()'</div>
+          <div class="codeblock">b game_main @10<br>b<br>e 0 00008500 [0;10] &lt;game_main&gt; (main.c:32)</div>
         </details>
         <details>
           <summary></summary>
