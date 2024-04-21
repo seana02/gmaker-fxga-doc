@@ -1287,70 +1287,160 @@
       </div>
       <div class="subsection" id="ch2-1-15">
         <h4>2.1.15 Writing to FIFO (16bit)</h4>
-        <strong>Name</strong>: <br>
+        <strong>Name</strong>: FarlWriteFifoHA<br>
         <br>
-        <strong>Format</strong>: <br>
+        <strong>Format</strong>: <div class="codeblock">#include &lt;farl.h&gt;<br>void FarlWriteFifoHA(unsigned short *data, int num)</div><br>
         <strong>Parameters</strong>: <br>
+        <strong>data</strong>: Pointer to the start of the 16 bit data to write to FIFO
+        <strong>num</strong>: Number of data to write
         <br>
         <strong>Explanation</strong>:
-        <p></p>
-        <strong>Notes</strong>: <br>
-        <br>
-        <strong>Return Value</strong>:<br>
+        <p>Writes num, 16-bit data rows to FIFO.</p>
+        <strong>Return Value</strong>: None.<br>
       </div>
       <div class="subsection" id="ch2-1-16">
         <h4>2.1.16 Writing to FIFO (32bit)</h4>
-        <strong>Name</strong>: <br>
+        <strong>Name</strong>: FarlWriteFifoWA<br>
         <br>
-        <strong>Format</strong>: <br>
+        <strong>Format</strong>: <div class="codeblock">#include &lt;farl.h&gt;<br>void FarlWriteFifoWA(unsigned int *data, int num)</div><br>
         <strong>Parameters</strong>: <br>
+        <strong>data</strong>: Pointer to the start of the 32 bit data to write to FIFO<br>
+        <strong>num</strong>: Number of data to write
         <br>
         <strong>Explanation</strong>:
-        <p></p>
-        <strong>Notes</strong>: <br>
-        <br>
-        <strong>Return Value</strong>:<br>
+        <p>Writes num, 32-bit data rows to FIFO.</p>
+        <strong>Return Value</strong>: None.<br>
       </div>
       <div class="subsection" id="ch2-1-17">
         <h4>2.1.17 Setting Overlay LUT</h4>
-        <strong>Name</strong>: <br>
+        <strong>Name</strong>: FarlSetLut<br>
         <br>
-        <strong>Format</strong>: <br>
+        <strong>Format</strong>: <div class="codeblock">#include &lt;farl.h&gt;<br>void FarlSetLut(int num, unsigned short data)</div><br>
         <strong>Parameters</strong>: <br>
+        <strong>num</strong>: LUT Number (1-3)<br>
+        <strong>data</strong>: Data to write
         <br>
         <strong>Explanation</strong>:
-        <p></p>
-        <strong>Notes</strong>: <br>
-        <br>
-        <strong>Return Value</strong>:<br>
+        <p>Writes value to the LUT specified by the LUT number (num).</p>
+        <strong>Return Value</strong>: None.<br>
       </div>
       <div class="subsection" id="ch2-1-18">
         <h4>2.1.18 Reading Overlay LUT Value</h4>
-        <strong>Name</strong>: <br>
+        <strong>Name</strong>: FarlGetLut<br>
         <br>
-        <strong>Format</strong>: <br>
+        <strong>Format</strong>: <div class="codeblock">#include &lt;farl.h&gt;<br>unsigned short FarlGetLut(int num, int sw)</div><br>
         <strong>Parameters</strong>: <br>
+        <strong>num</strong>: LUT Number (1-3) <br>
+        <strong>sw</strong>: FARL_NOBLK: Send only the request, and returns without waiting for the readback to conclude.<br>
+        &nbsp; FARL_BLK: Waits for readback to conclude before returning
         <br>
         <strong>Explanation</strong>:
-        <p></p>
-        <strong>Notes</strong>: <br>
-        <br>
-        <strong>Return Value</strong>:<br>
+        <p>Reads the value from the LUT specified by the LUT number (num).<br>
+          If the sw parameter is set to FARL_NONBLK, only the request is sent, and it does not wait for readback to conclude.
+          In this case, there is no return value. Read it from the Read back register after
+          seeing the readback conclude either by polling the RBDONE bit of the Interrupt status register
+          or the interrupter.
+        </p>
+        <strong>Return Value</strong>: (If sw==FARL_BLK) The value read from the LUT.<br>
       </div>
       <div class="subsection" id="ch2-1-19">
         <h4>2.1.19 Setting Light Vector</h4>
-        <strong>Name</strong>: <br>
+        <strong>Name</strong>: FarlSetLight<br>
         <br>
-        <strong>Format</strong>: <br>
+        <strong>Format</strong>: <div class="codeblock">#include &lt;farl.h&gt;<br>void FarlSetLight(int num, unsigned short x, unsigned short y, unsigned short z)</div><br>
+        <strong>Parameters</strong>: <br>
+        <strong>num</strong>: Light number<br>
+        <strong>x, y, z</strong>: Light's vector &lt;1.0.15&gt;
+        <br>
+        <strong>Explanation</strong>:
+        <p>Sets the TE light vector specified by the light number (num) to the values x, y, z (&lt;1.0.15&gt; format).
+          The light vector must be normalized to length 1. The light number (num) should be set to either FARL_SET_LIGHT1 or FARL_SET_LIGHT2
+          (refer to FarlSetLight1, FarlSetLight2).
+        </p>
+        <strong>Return Value</strong>: None.<br>
+      </div>
+    </div> <!-- ch2-1 -->
+    <div class="section" id="ch2-2">
+      <h3>Basic Functions</h3>
+      <div class="subsection" id="ch2-2-1">
+        <h4>2.2.1 Read from Display/Z buffer</h4>
+        <strong>Name</strong>: FarlReadPixelDZ<br>
+        <br>
+        <strong>Format</strong>: <div class="codeblock">#include &lt;farl.h&gt;<br></div><br>
+        <br>
         <strong>Parameters</strong>: <br>
         <br>
         <strong>Explanation</strong>:
-        <p></p>
-        <strong>Notes</strong>: <br>
-        <br>
+        <p>
+        </p>
         <strong>Return Value</strong>:<br>
       </div>
-    </div> <!-- ch2-1 -->
+      <div class="subsection" id="ch2-2-2">
+        <h4>2.2.2 Read from Texture buffer</h4>
+        <strong>Name</strong>: FarlReadPixelTxt<br>
+        <br>
+        <strong>Format</strong>: <div class="codeblock">#include &lt;farl.h&gt;<br></div><br>
+        <br>
+        <strong>Parameters</strong>: <br>
+        <br>
+        <strong>Explanation</strong>:
+        <p>
+        </p>
+        <strong>Return Value</strong>:<br>
+      </div>
+      <div class="subsection" id="ch2-2-3">
+        <h4>2.2.3 Set TE object matrix</h4>
+        <strong>Name</strong>: FarlSetTEObjMatrix<br>
+        <br>
+        <strong>Format</strong>: <div class="codeblock">#include &lt;farl.h&gt;<br></div><br>
+        <br>
+        <strong>Parameters</strong>: <br>
+        <br>
+        <strong>Explanation</strong>:
+        <p>
+        </p>
+        <strong>Return Value</strong>:<br>
+      </div>
+      <div class="subsection" id="ch2-2-4">
+        <h4>2.2.4 Set TE normal matrix</h4>
+        <strong>Name</strong>: FarlSetTENrmMatrix<br>
+        <br>
+        <strong>Format</strong>: <div class="codeblock">#include &lt;farl.h&gt;<br></div><br>
+        <br>
+        <strong>Parameters</strong>: <br>
+        <br>
+        <strong>Explanation</strong>:
+        <p>
+        </p>
+        <strong>Return Value</strong>:<br>
+      </div>
+      <div class="subsection" id="ch2-2-5">
+        <h4>2.2.5 Set TE light1 vector</h4>
+        <strong>Name</strong>: FarlSetLight1<br>
+        <br>
+        <strong>Format</strong>: <div class="codeblock">#include &lt;farl.h&gt;<br></div><br>
+        <br>
+        <strong>Parameters</strong>: <br>
+        <br>
+        <strong>Explanation</strong>:
+        <p>
+        </p>
+        <strong>Return Value</strong>:<br>
+      </div>
+      <div class="subsection" id="ch2-2-6">
+        <h4>2.2.6 Set TE light2 vector</h4>
+        <strong>Name</strong>: FarlSetLight2<br>
+        <br>
+        <strong>Format</strong>: <div class="codeblock">#include &lt;farl.h&gt;<br></div><br>
+        <br>
+        <strong>Parameters</strong>: <br>
+        <br>
+        <strong>Explanation</strong>:
+        <p>
+        </p>
+        <strong>Return Value</strong>:<br>
+      </div>
+    </div> <!-- ch2-2 -->
   </div> <!-- ch2 -->
 
   <div class="chapter" id="ch3">
